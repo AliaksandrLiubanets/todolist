@@ -11,12 +11,6 @@ type TaskType = {
     isDone: boolean
 }
 
-// function Input(props: Array<TaskType>) {
-//     return (
-//         <li><input type="checkbox" checked={props.tasks[0].isDone}/> <span>{props.tasks[0].title}</span></li>
-//     )
-// }
-
 export function Todolist(props: propsType) {
     return (
         <div>
