@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"
+import s from './Style.module.css'
 
 type propsType = {
     title: string
@@ -13,17 +14,14 @@ type TaskType = {
 
 export function Todolist(props: propsType) {
     return (
-        <div>
-            <h3>{props.title}</h3>
+        <div className={s.border}>
+            <h3 className={ props.title==='Songs' ? s.h3blue : undefined}>{props.title}</h3>
             <div>
                 <input/>
                 <button>+</button>
             </div>
             <ul>
-                {props.tasks.map(el => <li><input key={el.id} type="checkbox" checked={el.isDone}/> <span>{el.title}</span></li>)}
-                {/*<li><input type="checkbox" checked={props.tasks[0].isDone}/> <span>{props.tasks[0].title}</span></li>*/}
-                {/*<li><input type="checkbox" checked={props.tasks[1].isDone}/> <span>{props.tasks[1].title}</span></li>*/}
-                {/*<li><input type="checkbox" checked={props.tasks[2].isDone}/> <span>{props.tasks[2].title}</span></li>*/}
+                {props.tasks.map(el => <li key={el.id}><input type="checkbox" checked={el.isDone}/><span>{el.title}</span></li>)}
             </ul>
             <div>
                 <button>All</button>

@@ -20,7 +20,6 @@ function App() {
         <div className="App">
             <Todolist title={'What to learn'} tasks={tasks1}/>
             <Todolist title={'Songs'} tasks={tasks2}/>
-            {/*<Todolist title={'Books'}/>*/}
         </div>
     );
 }

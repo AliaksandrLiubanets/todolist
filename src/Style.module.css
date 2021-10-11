@@ -1,0 +1,15 @@
+.border {
+    border: gray 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+h3 {
+    color: green;
+    text-align: center;
+}
+
+.h3blue {
+    color:rgb(2, 78, 78);
+    text-shadow: 2px 2px aqua;
+}
