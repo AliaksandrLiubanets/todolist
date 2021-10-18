@@ -18,7 +18,6 @@ function App() {
 
     const removeTask = (taskId: number) => {
         setTaskState(taskState.filter(el => el.id !== taskId))
-        console.log(taskState)
     }
 
     const [filter, setFilter] = useState<FilterTaskType>('all')
