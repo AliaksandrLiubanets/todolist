@@ -42,8 +42,6 @@ function App() {
         { id: 4, title: 'Yo', isDone: false },
     ]*/
 
-
-
     return (
         <div className="App">
             <Todolist title={'What to learn'}
