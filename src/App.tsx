@@ -21,7 +21,6 @@ function App() {
         console.log(taskState)
     }
 
-    const [activeTask, setActiveTask] = useState(tasks)
     const [filter, setFilter] = useState<FilterTaskType>('all')
 
     let tasksForRender = taskState
