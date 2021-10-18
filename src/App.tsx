@@ -23,14 +23,13 @@ function App() {
     const [filter, setFilter] = useState<FilterTaskType>('all')
 
     let tasksForRender = taskState
+
     if (filter === 'active') {
         tasksForRender = taskState.filter(el => el.isDone === false)
-    }
-    if (filter === 'completed') {
+    } else if (filter === 'completed') {
         tasksForRender = taskState.filter(el => el.isDone === true)
-    }
-    if (filter === 'all') {
-        tasksForRender = taskState.filter(el => el)
+    } else {
+        tasksForRender = taskState
     }
 
     const filterTask = (filter: FilterTaskType) => {
