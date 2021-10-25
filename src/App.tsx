@@ -23,14 +23,7 @@ function App() {
 
     const filterTaskFunc = (filter: FilterTaskType): Array<TaskType> => {
         return taskState.filter(el => {
-            if (filter === 'active') {
-                return !el.isDone
-            }
-            if (filter === 'completed') {
-                return el.isDone
-            } else {
-                return el
-            }
+            return filter === 'active' ? !el.isDone : filter === 'completed' ? el.isDone : el
         })
     }
 
