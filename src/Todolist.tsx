@@ -22,11 +22,17 @@ export function Todolist(props: propsType) {
         return <li key={el.id}>
             <input type="checkbox" checked={el.isDone}/>
             <span>{el.title}</span>
-            <button onClick={() => { props.removeTask(el.id) } }>x</button>
+            <button onClick={() => props.removeTask(el.id)}>x</button>
         </li>
     })
 
     const [title, setTitle] = useState<string>('')
+    const addTask = () => {
+        if (title) {
+            props.addTask(title)
+        }
+        setTitle('')
+    }
 
     return (
         <div className={s.border}>
@@ -35,7 +41,7 @@ export function Todolist(props: propsType) {
                 <input
                     value={title}
                     onChange={event => setTitle(event.currentTarget.value)}/>
-                <button onClick={() => props.addTask(title)}>+</button>
+                <button onClick={addTask}>+</button>
             </div>
             <ul>
                 {elementsTask}
