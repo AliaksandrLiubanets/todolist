@@ -1,16 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType} from './App'
 
 type propsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: number) => void
+    removeTask: (taskId: string) => void
     filterTask: (filter: FilterTaskType) => void
+    addTask: (title: string) => void
 }
 
 export type TaskType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -25,12 +26,16 @@ export function Todolist(props: propsType) {
         </li>
     })
 
+    const [title, setTitle] = useState<string>('')
+
     return (
         <div className={s.border}>
             <h3 className={props.title === 'Songs' ? s.h3blue : undefined}>{props.title}</h3>
             <div>
-                <input/>
-                <button>+</button>
+                <input
+                    value={title}
+                    onChange={event => setTitle(event.currentTarget.value)}/>
+                <button onClick={() => props.addTask(title)}>+</button>
             </div>
             <ul>
                 {elementsTask}
