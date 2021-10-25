@@ -22,9 +22,7 @@ function App() {
     }
 
     const filterTaskFunc = (filter: FilterTaskType): Array<TaskType> => {
-        return taskState.filter(el => {
-            return filter === 'active' ? !el.isDone : filter === 'completed' ? el.isDone : el
-        })
+        return taskState.filter(el => filter === 'active' ? !el.isDone : filter === 'completed' ? el.isDone : el)
     }
 
     const filteredTask = filterTaskFunc(filter)    // new filtered TaskType[]
