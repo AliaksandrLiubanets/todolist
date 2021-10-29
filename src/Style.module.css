@@ -4,6 +4,10 @@
     padding: 10px;
 }
 
+.border ul li {
+    list-style: none;
+}
+
 h3 {
     color: green;
     text-align: center;
