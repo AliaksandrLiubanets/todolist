@@ -47,7 +47,7 @@ export function Todolist(props: propsType) {
     return (
         <div className={s.border}>
             <h3 className={props.title === 'Songs' ? s.h3blue : undefined}>{props.title}</h3>
-            <div>
+            <div className={s.input_block}>
                 <input
                     value={title}
                     onChange={setInputValue}
@@ -55,10 +55,10 @@ export function Todolist(props: propsType) {
                 />
                 <button onClick={addTask}>+</button>
             </div>
-            <ul>
+            <ul className={s.list}>
                 {elementsTask}
             </ul>
-            <div>
+            <div className={s.filter}>
                 <button onClick={setAll}>All</button>
                 <button onClick={setActive}>Active</button>
                 <button onClick={setCompleted}>Completed</button>

@@ -1,7 +1,49 @@
 .border {
-    border: gray 1px solid;
+    border: #d9d8d8 1px solid;
     border-radius: 5px;
-    padding: 10px;
+    padding: 20px;
+    background-color: rgba(241, 241, 241, 0.61);
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.84);
+}
+
+.input_block input {
+    height: 18px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    border: 1px solid gray;
+}
+
+.input_block button {
+    height: 22px;
+    border: 1px solid #b0afaf;
+    border-radius: 2px;
+    background-color: rgba(182, 245, 186, 0.77);
+
+}
+
+.list {
+    margin-left: -35px;
+}
+
+.list li span {
+    margin-left: 10px;
+}
+
+.list li button {
+    display: flex;
+    float: right;
+    background-color: rgba(255, 214, 214, 0.49);
+    border: 1px solid #b0afaf;
+    border-radius: 2px;
+}
+
+.list li {
+    list-style: none;
+    line-height: 25px;
+}
+
+.border div button {
+    margin-left: 5px;
 }
 
 h3 {
@@ -13,3 +55,8 @@ h3 {
     color:rgb(2, 78, 78);
     text-shadow: 2px 2px aqua;
 }
+
+.filter {
+    text-align: center;
+}
+
