@@ -20,7 +20,7 @@ export type TaskType = {
 export function Todolist(props: propsType) {
 
     const elementsTask = props.tasks.map(el => {
-        return <li key={el.id}>
+        return <li key={el.id} className={el.isDone ? s.is_done : ''}>
             <input onChange={(e: ChangeEvent<HTMLInputElement>) => props.setTaskStatus(el.id, e.currentTarget.checked)} type="checkbox" checked={el.isDone}/>
             <span>{el.title}</span>
             <button onClick={() => props.removeTask(el.id)}>x</button>
