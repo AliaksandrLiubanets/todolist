@@ -19,6 +19,16 @@ function App() {
     const [taskState, setTaskState] = useState<Array<TaskType>>(tasks)
     const [filter, setFilter] = useState<FilterTaskType>('all')
 
+    const setTaskStatus = (idTask: string, isDone: boolean) => {
+        setTaskState(taskState.map((t:TaskType) => {
+            if(t.id === idTask) {
+                return {...t, isDone: isDone}
+            } else {
+                return t
+            }
+        }))
+    }
+
     const addTask = (title: string) => {
         const newTask: TaskType = {
             id: v1(),
@@ -52,6 +62,7 @@ function App() {
                       removeTask={removeTask}
                       filterTask={setFilter}
                       addTask={addTask}
+                      setTaskStatus={setTaskStatus}
             />
             {/*<Todolist title={'Songs'} tasks={tasks2} removeTask={removeTask}/>*/}
         </div>
