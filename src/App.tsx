@@ -20,13 +20,7 @@ function App() {
     const [filter, setFilter] = useState<FilterTaskType>('all')
 
     const setTaskStatus = (idTask: string, isDone: boolean) => {
-        setTaskState(taskState.map((t:TaskType) => {
-            if(t.id === idTask) {
-                return {...t, isDone: isDone}
-            } else {
-                return t
-            }
-        }))
+        setTaskState(taskState.map((t:TaskType) => t.id === idTask ? {...t, isDone} : t))
     }
 
     const addTask = (title: string) => {
