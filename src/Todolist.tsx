@@ -32,6 +32,7 @@ export function Todolist(props: propsType) {
     const setCompleted = () => props.filterTask('completed')
     const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
     const seInputValueOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+        setError('')
         if (e.key === "Enter") {
             addTask()
         }
