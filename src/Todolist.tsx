@@ -42,8 +42,8 @@ export function Todolist(props: propsType) {
     const [error, setError] = useState<string>('')
 
     const addTask = () => {
-        if (title) {
-            props.addTask(title)
+        if (title.trim()) {
+            props.addTask(title.trim())
         } else {
             setError('required')
         }
