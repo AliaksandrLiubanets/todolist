@@ -38,9 +38,13 @@ export function Todolist(props: propsType) {
     }
 
     const [title, setTitle] = useState<string>('')
+    const [error, setError] = useState<string>('')
+
     const addTask = () => {
         if (title) {
             props.addTask(title)
+        } else {
+            setError('required')
         }
         setTitle('')
     }
@@ -49,12 +53,13 @@ export function Todolist(props: propsType) {
         <div className={s.border}>
             <h3 className={props.title === 'Songs' ? s.h3blue : undefined}>{props.title}</h3>
             <div className={s.input_block}>
-                <input
+                <input className={error ? s.error : s.normal_input}
                     value={title}
                     onChange={setInputValue}
                     onKeyPress={seInputValueOnKeyPress}
                 />
                 <button onClick={addTask}>+</button>
+                {error && <div className={s.error_message}>{error}</div>}
             </div>
             <ul className={s.list}>
                 {elementsTask}
