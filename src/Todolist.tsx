@@ -9,6 +9,7 @@ type propsType = {
     filterTask: (filter: FilterTaskType) => void
     addTask: (title: string) => void
     setTaskStatus: (idTask: string, isDone: boolean) => void
+    filter: string
 }
 
 export type TaskType = {
@@ -66,9 +67,9 @@ export function Todolist(props: propsType) {
                 {elementsTask}
             </ul>
             <div className={s.filter}>
-                <button onClick={setAll}>All</button>
-                <button onClick={setActive}>Active</button>
-                <button onClick={setCompleted}>Completed</button>
+                <button className={props.filter === 'all' ? s.chosen_button : s.normal_button} onClick={setAll}>All</button>
+                <button className={props.filter === 'active' ? s.chosen_button : s.normal_button} onClick={setActive}>Active</button>
+                <button className={props.filter === 'completed' ? s.chosen_button : s.normal_button} onClick={setCompleted}>Completed</button>
             </div>
         </div>
     )
