@@ -7,7 +7,6 @@ import {v1} from 'uuid'
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
 function App() {
-    console.log(v1())
 
     let tasks: Array<TaskType> = [
         { id: v1(), title: 'HTML&CSS', isDone: true },
@@ -37,7 +36,7 @@ function App() {
     }
 
     const filterTaskFunc = (filter: FilterTaskType): Array<TaskType> => {
-        return taskState.filter(el => filter === 'active' ? !el.isDone : filter === 'completed' ? el.isDone : el)
+        return taskState.filter((el) => filter === 'active' ? !el.isDone : filter === 'completed' ? el.isDone : el)
     }
 
     const filteredTask = filterTaskFunc(filter)    // new filtered TaskType[]
@@ -57,6 +56,7 @@ function App() {
                       filterTask={setFilter}
                       addTask={addTask}
                       setTaskStatus={setTaskStatus}
+                      filter={filter}
             />
             {/*<Todolist title={'Songs'} tasks={tasks2} removeTask={removeTask}/>*/}
         </div>
