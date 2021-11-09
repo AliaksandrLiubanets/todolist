@@ -3,13 +3,15 @@ import s from './Style.module.css'
 import {FilterTaskType} from './App'
 
 type propsType = {
+    id: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
-    filterTask: (filter: FilterTaskType) => void
-    addTask: (title: string) => void
-    setTaskStatus: (idTask: string, isDone: boolean) => void
+    removeTask: (taskId: string, todoListID: string) => void
+    // filterTask: (filter: FilterTaskType, todoListID: string) => void
+    addTask: (title: string, todoListID: string) => void
+    setTaskStatus: (idTask: string, isDone: boolean, todoListID: string) => void
     filter: string
+    removeTodoList: (todoListID: string) => void
 }
 
 export type TaskType = {

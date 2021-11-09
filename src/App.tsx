@@ -62,25 +62,50 @@ function App() {
     }
 
     const setTaskStatus = (idTask: string, isDone: boolean, todoListID: string) => {
-        setTasks({...tasks, [todoListID]: tasks[todoListID].map((t) => t.id === idTask ? {...t, isDone} : t)
+        setTasks({...tasks,
+            [todoListID]: tasks[todoListID].map((t) => t.id === idTask ? {...t, isDone} : t)
         })
     }
 
-    const filterTaskFunc = (filter: FilterTaskType): Array<TaskType> => {
-        return taskState.filter((el) => filter === 'active' ? !el.isDone : filter === 'completed' ? el.isDone : el)
+    const changeFilter = (filter: FilterTaskType, todoListID: string) => {
+        setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, filter}: tl))
     }
 
-    const filteredTask = filterTaskFunc(filter)    // new filtered TaskType[]
+    const removeTodoList = (todoListID: string) => {
+        setTodolists(todoLists.filter(tl => tl.id !== todoListID))
+        delete tasks[todoListID] //или можно ч-з фильтрацию сделать.
+    }
+
+    const todolListComponents = todoLists.map(tl => {
+        let taskForRender = tasks[tl.id]
+        if(tl.filter === 'active') {
+            taskForRender = tasks[tl.id].filter(t => !t.isDone)
+        }
+        if(tl.filter === 'completed') {
+            taskForRender = tasks[tl.id].filter(t => t.isDone)
+        }
+
+        return <Todolist title={tl.title}
+                         key={tl.id}
+                         id={tl.id}
+                         filter={tl.filter}
+                         tasks={taskForRender}
+                         removeTask={removeTask}
+                         addTask={addTask}
+                         setTaskStatus={setTaskStatus}
+                         removeTodoList={removeTodoList}
+        />
+    })
+
+    // const filterTaskFunc = (filter: FilterTaskType): Array<TaskType> => {
+    //     return taskState.filter((el) => filter === 'active' ? !el.isDone : filter === 'completed' ? el.isDone : el)
+    // }
+    //
+    // const filteredTask = filterTaskFunc(filter)    // new filtered TaskType[]
 
     return (
         <div className="App">
-            <Todolist title={'What to learn'}
-                      tasks={filteredTask}
-                      removeTask={removeTask}
-                      filterTask={setFilter}
-                      addTask={addTask}
-                      setTaskStatus={setTaskStatus}
-                      filter={filter}
+            {todolListComponents}
             />
             {/*<Todolist title={'Songs'} tasks={tasks2} removeTask={removeTask}/>*/}
         </div>
