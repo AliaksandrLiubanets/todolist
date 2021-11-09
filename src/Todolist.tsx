@@ -55,7 +55,10 @@ export function Todolist(props: propsType) {
 
     return (
         <div className={s.border}>
-            <h3 className={props.title === 'Songs' ? s.h3blue : undefined}>{props.title}</h3>
+            <div className={s.title}>
+                <h3 className={props.title === 'Songs' ? s.h3blue : undefined}>{props.title}</h3>
+                <div className={s.title__button}><button onClick={() => {props.removeTodoList(props.id)}}>X</button></div>
+            </div>
             <div className={s.input_block}>
                 <input className={error ? s.error : s.normal_input}
                     value={title}
