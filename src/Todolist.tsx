@@ -7,10 +7,10 @@ type propsType = {
     title: string
     tasks: Array<TaskType>
     removeTask: (taskId: string, todoListID: string) => void
-    // filterTask: (filter: FilterTaskType, todoListID: string) => void
     addTask: (title: string, todoListID: string) => void
     setTaskStatus: (idTask: string, isDone: boolean, todoListID: string) => void
     filter: string
+    changeFilter: (filter: FilterTaskType, todoListID: string) => void
     removeTodoList: (todoListID: string) => void
 }
 
@@ -24,15 +24,15 @@ export function Todolist(props: propsType) {
 
     const elementsTask = props.tasks.map(el => {
         return <li key={el.id} className={el.isDone ? s.is_done : ''}>
-            <input onChange={(e: ChangeEvent<HTMLInputElement>) => props.setTaskStatus(el.id, e.currentTarget.checked)} type="checkbox" checked={el.isDone}/>
+            <input onChange={(e: ChangeEvent<HTMLInputElement>) => props.setTaskStatus(el.id, e.currentTarget.checked, props.id)} type="checkbox" checked={el.isDone}/>
             <span>{el.title}</span>
-            <button onClick={() => props.removeTask(el.id)}>x</button>
+            <button onClick={() => props.removeTask(el.id, props.id)}>x</button>
         </li>
     })
 
-    const setAll = () => props.filterTask('all')
-    const setActive = () => props.filterTask('active')
-    const setCompleted = () => props.filterTask('completed')
+    const setAll = () => props.changeFilter('all', props.id)
+    const setActive = () => props.changeFilter('active', props.id)
+    const setCompleted = () => props.changeFilter('completed', props.id)
     const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
     const seInputValueOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
         setError('')
@@ -46,7 +46,7 @@ export function Todolist(props: propsType) {
 
     const addTask = () => {
         if (title.trim()) {
-            props.addTask(title.trim())
+            props.addTask(title.trim(), props.id)
         } else {
             setError('required')
         }

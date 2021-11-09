@@ -41,10 +41,6 @@ function App() {
         ]
     })
 
-
-    // const [taskState, setTaskState] = useState<Array<TaskType>>(tasks)
-    // const [filter, setFilter] = useState<FilterTaskType>('all')
-
     const removeTask = (taskId: string, todoListID: string) => {
         // const copyState = {...tasks}
         // copyState[todoListID] = tasks[todoListID].filter(task => task.id !== taskId)
@@ -93,21 +89,15 @@ function App() {
                          removeTask={removeTask}
                          addTask={addTask}
                          setTaskStatus={setTaskStatus}
+                         changeFilter={changeFilter}
                          removeTodoList={removeTodoList}
         />
     })
 
-    // const filterTaskFunc = (filter: FilterTaskType): Array<TaskType> => {
-    //     return taskState.filter((el) => filter === 'active' ? !el.isDone : filter === 'completed' ? el.isDone : el)
-    // }
-    //
-    // const filteredTask = filterTaskFunc(filter)    // new filtered TaskType[]
-
     return (
         <div className="App">
             {todolListComponents}
-            />
-            {/*<Todolist title={'Songs'} tasks={tasks2} removeTask={removeTask}/>*/}
+
         </div>
     );
 }
