@@ -52,13 +52,13 @@ function App() {
         setTasks({...tasks, [todoListID]: tasks[todoListID].filter(task => task.id !== taskId)})
     }
 
-    const addTask = (title: string) => {
+    const addTask = (title: string, todoListID: string) => {
         const newTask: TaskType = {
             id: v1(),
             isDone: false,
             title: title
         }
-        setTaskState([newTask, ...taskState])
+        setTasks({...tasks, [todoListID]: [newTask, ...tasks[todoListID]]})
     }
 
     const setTaskStatus = (idTask: string, isDone: boolean) => {
