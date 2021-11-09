@@ -1,7 +1,11 @@
+body {
+  height: 600px;
+  background-color: rgba(247, 253, 251, 0.87);
+}
+
 .App {
   padding: 30px;
   display: flex;
-  background-color: rgba(247, 253, 251, 0.87);
 }
 
 .App > div {
