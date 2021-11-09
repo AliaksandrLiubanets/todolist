@@ -81,9 +81,9 @@ function App() {
             taskForRender = tasks[tl.id].filter(t => t.isDone)
         }
 
-        return <Todolist title={tl.title}
-                         key={tl.id}
+        return <Todolist key={tl.id}
                          id={tl.id}
+                         title={tl.title}
                          filter={tl.filter}
                          tasks={taskForRender}
                          removeTask={removeTask}

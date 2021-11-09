@@ -5,11 +5,11 @@ import {FilterTaskType} from './App'
 type propsType = {
     id: string
     title: string
+    filter: string
     tasks: Array<TaskType>
     removeTask: (taskId: string, todoListID: string) => void
     addTask: (title: string, todoListID: string) => void
     setTaskStatus: (idTask: string, isDone: boolean, todoListID: string) => void
-    filter: string
     changeFilter: (filter: FilterTaskType, todoListID: string) => void
     removeTodoList: (todoListID: string) => void
 }
