@@ -72,6 +72,10 @@ function App() {
         delete tasks[todoListID] //или можно ч-з фильтрацию сделать.
     }
 
+    const addTodoList = (title: string) => {
+
+    }
+
     const todolListComponents = todoLists.map(tl => {
         let taskForRender = tasks[tl.id]
         if(tl.filter === 'active') {
@@ -97,7 +101,6 @@ function App() {
     return (
         <div className="App">
             {todolListComponents}
-
         </div>
     );
 }
