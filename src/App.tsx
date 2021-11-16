@@ -3,6 +3,7 @@ import './App.css';
 import {Todolist} from "./Todolist";
 import { TaskType } from "./Todolist"
 import {v1} from 'uuid'
+import AddItemForm from './AddItemForm'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
@@ -41,10 +42,10 @@ function App() {
         ]
     })
 
+    console.log(tasks)
+
     const removeTask = (taskId: string, todoListID: string) => {
-        // const copyState = {...tasks}
-        // copyState[todoListID] = tasks[todoListID].filter(task => task.id !== taskId)
-        // setTasks(copyState)
+
         setTasks({...tasks, [todoListID]: tasks[todoListID].filter(task => task.id !== taskId)})
     }
 
@@ -64,12 +65,13 @@ function App() {
     }
 
     const changeFilter = (filter: FilterTaskType, todoListID: string) => {
+
         setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, filter}: tl))
     }
 
     const removeTodoList = (todoListID: string) => {
         setTodolists(todoLists.filter(tl => tl.id !== todoListID))
-        delete tasks[todoListID] //или можно ч-з фильтрацию сделать.
+        delete tasks[todoListID]
     }
 
     const addTodoList = (title: string) => {
@@ -100,6 +102,7 @@ function App() {
 
     return (
         <div className="App">
+            <AddItemForm addItem={addTodoList} />
             {todolListComponents}
         </div>
     );
