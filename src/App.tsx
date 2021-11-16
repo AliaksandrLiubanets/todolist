@@ -62,9 +62,20 @@ function App() {
         })
     }
 
+    const setTaskTitle = (idTask: string, title: string, todoListID: string) => {
+        setTasks({...tasks,
+            [todoListID]: tasks[todoListID].map((t) => t.id === idTask ? {...t, title} : t)
+        })
+    }
+
     const changeFilter = (filter: FilterTaskType, todoListID: string) => {
 
         setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, filter}: tl))
+    }
+
+    const changeFTodolistTitle = (title: string, todoListID: string) => {
+
+        setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, title}: tl))
     }
 
     const removeTodoList = (todoListID: string) => {
@@ -82,10 +93,6 @@ function App() {
         setTodolists([...todoLists, newTodoList])
         setTasks({...tasks, [todoListID]: []})
     }
-
-    // const addTodoList = (title: string) => {
-    //
-    // }
 
     const todolListComponents = todoLists.map(tl => {
         let taskForRender = tasks[tl.id]
