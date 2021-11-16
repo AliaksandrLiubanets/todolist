@@ -42,8 +42,6 @@ function App() {
         ]
     })
 
-    console.log(tasks)
-
     const removeTask = (taskId: string, todoListID: string) => {
 
         setTasks({...tasks, [todoListID]: tasks[todoListID].filter(task => task.id !== taskId)})
@@ -75,8 +73,19 @@ function App() {
     }
 
     const addTodoList = (title: string) => {
-
+        const todoListID = v1()
+        const newTodoList: TodolistType = {
+            id: todoListID,
+            title,
+            filter: "all"
+        }
+        setTodolists([...todoLists, newTodoList])
+        setTasks({...tasks, [todoListID]: []})
     }
+
+    // const addTodoList = (title: string) => {
+    //
+    // }
 
     const todolListComponents = todoLists.map(tl => {
         let taskForRender = tasks[tl.id]
