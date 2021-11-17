@@ -1,8 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 import s from './Style.module.css'
-import {FilterTaskType} from './App'
+import {FilterTaskType, TaskType} from './App'
 
 type propsType = {
+    todolistID: string
     title: string
     tasks: Array<TaskType>
     removeTask: (taskId: string) => void
@@ -10,13 +11,10 @@ type propsType = {
     addTask: (title: string) => void
     setTaskStatus: (idTask: string, isDone: boolean) => void
     filter: string
+    changeFilter: (value: string, todolistID: string) => void
 }
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+
 
 export function Todolist(props: propsType) {
 
@@ -28,9 +26,9 @@ export function Todolist(props: propsType) {
         </li>
     })
 
-    const setAll = () => props.filterTask('all')
-    const setActive = () => props.filterTask('active')
-    const setCompleted = () => props.filterTask('completed')
+    const setAll = () => props.changeFilter('all', props.todolistID)
+    const setActive = () => props.changeFilter('active', props.todolistID)
+    const setCompleted = () => props.changeFilter('completed', props.todolistID)
     const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
     const seInputValueOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
         setError('')
