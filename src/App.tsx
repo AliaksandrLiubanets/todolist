@@ -27,20 +27,20 @@ function App() {
     const todolistID_2 = v1()
 
     const removeTask = (taskId: string, todolistID: string) => {
-        setTasksObj(tasksObj[todolistID].filter(el => el.id !== taskId))
+        setTasksObj({...tasksObj, [todolistID]: tasksObj[todolistID].filter(el => el.id !== taskId)})
     }
 
-    const addTask = (title: string) => {
+    const addTask = (title: string, todolistID: string) => {
         const newTask: TaskType = {
             id: v1(),
             isDone: false,
             title: title
         }
-        setTasksObj([newTask, ...tasksObj])
+        setTasksObj({...tasksObj, [todolistID]: [newTask, ...tasksObj[todolistID] ] })
     }
 
-    const setTaskStatus = (idTask: string, isDone: boolean) => {
-        setTasksObj(tasksObj.map((t: TaskType) => t.id === idTask ? {...t, isDone} : t))
+    const changeStatus = (idTask: string, isDone: boolean, todolistID: string) => {
+        setTasksObj({...tasksObj, [todolistID]: tasksObj[todolistID].map((t: TaskType) => t.id === idTask ? {...t, isDone} : t)})
     }
 
     const changeFilter = (value: FilterTaskType, todolistID: string) => {
@@ -91,7 +91,7 @@ function App() {
                          removeTask={removeTask}
                          filterTask={setFilter}
                          addTask={addTask}
-                         setTaskStatus={setTaskStatus}
+                         setTaskStatus={changeStatus}
                          filter={tl.filter}
                          changeFilter={changeFilter}
         />
