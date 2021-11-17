@@ -43,7 +43,6 @@ function App() {
     })
 
     const removeTask = (taskId: string, todoListID: string) => {
-
         setTasks({...tasks, [todoListID]: tasks[todoListID].filter(task => task.id !== taskId)})
     }
 
@@ -62,20 +61,13 @@ function App() {
         })
     }
 
-    const setTaskTitle = (idTask: string, title: string, todoListID: string) => {
-        setTasks({...tasks,
-            [todoListID]: tasks[todoListID].map((t) => t.id === idTask ? {...t, title} : t)
-        })
-    }
-
     const changeFilter = (filter: FilterTaskType, todoListID: string) => {
-
         setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, filter}: tl))
     }
 
-    const changeFTodolistTitle = (title: string, todoListID: string) => {
-
-        setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, title}: tl))
+    const changeTodolistTitle = (title: string, todoListID: string) => {
+        setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, title} : tl))
+        // setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, title}: tl))
     }
 
     const removeTodoList = (todoListID: string) => {
@@ -85,16 +77,21 @@ function App() {
 
     const addTodoList = (title: string) => {
         const todoListID = v1()
-        const newTodoList: TodolistType = {
+        const newTodolist: TodolistType = {
             id: todoListID,
             title,
-            filter: "all"
+            filter: 'all'
         }
-        setTodolists([...todoLists, newTodoList])
+        setTodolists([...todoLists, newTodolist])
         setTasks({...tasks, [todoListID]: []})
     }
 
+    const onChangeTitle = (idTask: string, title: string, todoListID: string) => {
+        setTasks({...tasks, [todoListID]: tasks[todoListID].map(task => task.id === idTask ? {...task, title} : task)})
+    }
+
     const todolListComponents = todoLists.map(tl => {
+        debugger
         let taskForRender = tasks[tl.id]
         if(tl.filter === 'active') {
             taskForRender = tasks[tl.id].filter(t => !t.isDone)
@@ -113,6 +110,8 @@ function App() {
                          setTaskStatus={setTaskStatus}
                          changeFilter={changeFilter}
                          removeTodoList={removeTodoList}
+                         onChange={onChangeTitle}
+                         changeTodolistTitle={changeTodolistTitle}
                          // setTaskTitle={}
         />
     })

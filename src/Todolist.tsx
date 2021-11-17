@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
+import React, {ChangeEvent} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType} from './App'
 import AddItemForm from './AddItemForm'
@@ -14,6 +14,8 @@ type propsType = {
     setTaskStatus: (idTask: string, isDone: boolean, todoListID: string) => void
     changeFilter: (filter: FilterTaskType, todoListID: string) => void
     removeTodoList: (todoListID: string) => void
+    onChange: (idTask: string, title: string, todoListID: string) => void
+    changeTodolistTitle: (title: string, todoListID: string) => void
     // setTaskTitle: (idTask: string, title: string, todoListID: string) => void
 }
 
@@ -26,12 +28,14 @@ export type TaskType = {
 export function Todolist(props: propsType) {
 
     const elementsTask = props.tasks.map(el => {
-
         const onCheckboxCheckTask = (e: ChangeEvent<HTMLInputElement>) => props.setTaskStatus(el.id, e.currentTarget.checked, props.id)
+        const onChangeTitle = (title: string) => {
+            props.onChange(el.id, title, props.id)
+        }
 
         return <li key={el.id} className={el.isDone ? s.is_done : ''}>
             <input onChange={onCheckboxCheckTask} type="checkbox" checked={el.isDone}/>
-            <EditableSpan title={el.title} />
+            <EditableSpan title={el.title} onChange={onChangeTitle}/>
             <button onClick={() => props.removeTask(el.id, props.id)}>x</button>
         </li>
     })
@@ -45,10 +49,14 @@ export function Todolist(props: propsType) {
         props.addTask(title, props.id)
     }
 
+    const changeTodolistTitle = (title: string) => {
+        props.changeTodolistTitle(title, props.id)
+    }
+
     return (
         <div className={s.border}>
             <div className={s.title}>
-                <h3 className={props.title === 'Songs' ? s.h3blue : undefined}>{props.title}</h3>
+                <h3 className={props.title === 'Songs' ? s.h3blue : undefined}><EditableSpan title={props.title} onChange={changeTodolistTitle} /></h3>
                 <div className={s.title__button}>
                     <button onClick={() => {
                         props.removeTodoList(props.id)
