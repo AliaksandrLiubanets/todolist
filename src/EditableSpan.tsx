@@ -7,9 +7,12 @@ type EditableSpanPropsType = {
 
 const EditableSpan = (props: EditableSpanPropsType) => {
     const [editMode, setEditMode] = useState<boolean>(false)
-    const [title, setTitle] = useState<string>(props.title)
+    const [title, setTitle] = useState<string>('')
     const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
-    const onEditMode = () => setEditMode(true)
+    const onEditMode = () => {
+        setEditMode(true)
+        setTitle(props.title)
+    }
     const offEditMode = () => {
         setEditMode(false)
         props.onChange(title)
