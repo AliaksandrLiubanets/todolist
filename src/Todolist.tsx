@@ -6,7 +6,7 @@ type propsType = {
     todolistID: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
+    removeTask: (taskId: string, todolistID: string) => void
     filterTask: (filter: FilterTaskType) => void
     addTask: (title: string) => void
     setTaskStatus: (idTask: string, isDone: boolean) => void
