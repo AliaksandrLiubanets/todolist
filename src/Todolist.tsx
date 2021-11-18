@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType, TaskType} from './App'
 import InputField from './InputField'
+import EditableSpan from './EditableSpan'
 
 type propsType = {
     todolistID: string
@@ -17,12 +18,10 @@ type propsType = {
 
 export function Todolist(props: propsType) {
 
-
-
     const elementsTask = props.tasks.map(el => {
         return <li key={el.id} className={el.isDone ? s.is_done : ''}>
             <input onChange={(e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(el.id, e.currentTarget.checked, props.todolistID)} type="checkbox" checked={el.isDone}/>
-            <span>{el.title}</span>
+            <EditableSpan title={el.title} />
             <button onClick={() => props.removeTask(el.id, props.todolistID)}>x</button>
         </li>
     })
