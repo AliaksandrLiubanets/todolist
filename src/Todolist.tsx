@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType, TaskType} from './App'
+import InputField from './InputField'
 
 type propsType = {
     todolistID: string
@@ -27,39 +28,31 @@ export function Todolist(props: propsType) {
     const setAll = () => props.changeFilter('all', props.todolistID)
     const setActive = () => props.changeFilter('active', props.todolistID)
     const setCompleted = () => props.changeFilter('completed', props.todolistID)
-    const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
-    const seInputValueOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError('')
-        if (e.key === "Enter") {
-            addTask()
-        }
-    }
+    // const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
+    // const seInputValueOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    //     setError('')
+    //     if (e.key === "Enter") {
+    //         addTask()
+    //     }
+    // }
     const removeTodolist = () => {props.removeTodolist(props.todolistID)}
 
-    const [title, setTitle] = useState<string>('')
-    const [error, setError] = useState<string>('')
+    // const [title, setTitle] = useState<string>('')
+    // const [error, setError] = useState<string>('')
 
-    const addTask = () => {
-        if (title.trim() !== '') {
-            props.addTask(title.trim(), props.todolistID)
-            setTitle('')
-        } else {
-            setError('required')
-        }
-    }
+    // const addTask = () => {
+    //     if (title.trim() !== '') {
+    //         props.addTask(title.trim(), props.todolistID)
+    //         setTitle('')
+    //     } else {
+    //         setError('required')
+    //     }
+    // }
 
     return (
         <div className={s.border}>
             <h3 className={props.title === 'Songs' ? s.h3blue : undefined}>{props.title}<button onClick={removeTodolist}>x</button></h3>
-            <div className={s.input_block}>
-                <input className={error ? s.error : s.normal_input}
-                    value={title}
-                    onChange={setInputValue}
-                    onKeyPress={seInputValueOnKeyPress}
-                />
-                <button onClick={addTask}>+</button>
-                {error && <div className={s.error_message}>{error}</div>}
-            </div>
+            <InputField todolistID={props.todolistID} addTask={props.addTask}/>
             <ul className={s.list}>
                 {elementsTask}
             </ul>
