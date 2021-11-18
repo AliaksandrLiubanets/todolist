@@ -16,7 +16,7 @@ function EditableSpan(props: EditableSpanType) {
     return (<>
         {
             editMode
-            ? <input onBlur={offEdit}/>
+            ? <input onBlur={offEdit} autoFocus={true}/>
             : <span onDoubleClick={onEdit}>{props.title}</span>
         }
     </>)
