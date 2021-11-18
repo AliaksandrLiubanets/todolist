@@ -5,24 +5,22 @@ import {FilterTaskType, TaskType} from './App'
 type propsType = {
     todolistID: string
     title: string
+    filter: string
     tasks: Array<TaskType>
     removeTask: (taskId: string, todolistID: string) => void
-    filterTask: (filter: FilterTaskType) => void
-    addTask: (title: string) => void
-    setTaskStatus: (idTask: string, isDone: boolean) => void
-    filter: string
-    changeFilter: (value: string, todolistID: string) => void
+    addTask: (title: string, todolistID: string) => void
+    changeTaskStatus: (idTask: string, isDone: boolean, todolistID: string) => void
+    changeFilter: (value: FilterTaskType, todolistID: string) => void
+    removeTodolist: (todolistID: string) => void
 }
-
-
 
 export function Todolist(props: propsType) {
 
     const elementsTask = props.tasks.map(el => {
         return <li key={el.id} className={el.isDone ? s.is_done : ''}>
-            <input onChange={(e: ChangeEvent<HTMLInputElement>) => props.setTaskStatus(el.id, e.currentTarget.checked)} type="checkbox" checked={el.isDone}/>
+            <input onChange={(e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(el.id, e.currentTarget.checked, props.todolistID)} type="checkbox" checked={el.isDone}/>
             <span>{el.title}</span>
-            <button onClick={() => props.removeTask(el.id)}>x</button>
+            <button onClick={() => props.removeTask(el.id, props.todolistID)}>x</button>
         </li>
     })
 
@@ -36,22 +34,23 @@ export function Todolist(props: propsType) {
             addTask()
         }
     }
+    const removeTodolist = () => {props.removeTodolist(props.todolistID)}
 
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<string>('')
 
     const addTask = () => {
-        if (title.trim()) {
-            props.addTask(title.trim())
+        if (title.trim() !== '') {
+            props.addTask(title.trim(), props.todolistID)
+            setTitle('')
         } else {
             setError('required')
         }
-        setTitle('')
     }
 
     return (
         <div className={s.border}>
-            <h3 className={props.title === 'Songs' ? s.h3blue : undefined}>{props.title}</h3>
+            <h3 className={props.title === 'Songs' ? s.h3blue : undefined}>{props.title}<button onClick={removeTodolist}>x</button></h3>
             <div className={s.input_block}>
                 <input className={error ? s.error : s.normal_input}
                     value={title}
