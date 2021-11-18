@@ -6,18 +6,20 @@ type EditableSpanType = {
 
 function EditableSpan(props: EditableSpanType) {
     const [editMode, setEditMode] = useState<boolean>(false)
+    const [text, setText] = useState<string>(props.title)
     const onEdit = () => {
         setEditMode(true)
     }
     const offEdit = () => {
         setEditMode(false)
     }
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => setText(e.currentTarget.value)
 
     return (<>
         {
             editMode
-            ? <input onBlur={offEdit} autoFocus={true}/>
-            : <span onDoubleClick={onEdit}>{props.title}</span>
+            ? <input onChange={onChangeHandler} onBlur={offEdit} autoFocus={true} value={text}/>
+            : <span onDoubleClick={onEdit}>{text}</span>
         }
     </>)
 }
