@@ -17,6 +17,8 @@ type propsType = {
 
 export function Todolist(props: propsType) {
 
+
+
     const elementsTask = props.tasks.map(el => {
         return <li key={el.id} className={el.isDone ? s.is_done : ''}>
             <input onChange={(e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(el.id, e.currentTarget.checked, props.todolistID)} type="checkbox" checked={el.isDone}/>
