@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import './App.css'
 import {Todolist} from './Todolist'
 import {v1} from 'uuid'
+import InputField from './InputField'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
@@ -59,8 +60,8 @@ function App() {
     }
 
     const [todolists, setTodolist] = useState<Array<TodolistType>>([
-        {id: todolistID_1, title: 'What to learn', filter: 'active'},
-        {id: todolistID_2, title: 'What to buy', filter: 'completed'}
+        {id: todolistID_1, title: 'What to learn', filter: 'all'},
+        {id: todolistID_2, title: 'What to buy', filter: 'all'}
     ])
 
     const [tasksObj, setTasksObj] = useState<TaskStateType>({
@@ -77,7 +78,19 @@ function App() {
         ]
     })
 
+    const addTodolist = (title: string) => {
+        const todolistID = v1()
+        const todolist: TodolistType = {
+            id: todolistID,
+            title,
+            filter: 'all'
+        }
+        setTodolist([...todolists, todolist])
+        setTasksObj({...tasksObj, [todolistID]: []})
+    }
+
     const todolistsElements = todolists.map(tl => {
+        debugger
         let tasksForTodolist = tasksObj[tl.id]
 
         if (tl.filter === 'active') {
@@ -99,8 +112,11 @@ function App() {
         />
     })
 
+
+
     return (
         <div className="App">
+            <InputField addItem={addTodolist} />
             {todolistsElements}
         </div>
     )

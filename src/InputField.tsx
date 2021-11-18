@@ -2,8 +2,7 @@ import s from './Style.module.css'
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 
 type InputFieldPropsType = {
-    todolistID: string
-    addTask: (title: string, todolistID: string) => void
+    addItem: (title: string) => void
 }
 
 function InputField(props: InputFieldPropsType) {
@@ -18,8 +17,9 @@ function InputField(props: InputFieldPropsType) {
         }
     }
     const addTask = () => {
+        debugger
         if (title.trim() !== '') {
-            props.addTask(title.trim(), props.todolistID)
+            props.addItem(title.trim())
             setTitle('')
         } else {
             setError('required')
