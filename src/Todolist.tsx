@@ -1,10 +1,10 @@
 import React, {ChangeEvent} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType, TaskType} from './App'
-import Input from './Input'
 import EditableSpan from './EditableSpan'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {Button} from '@material-ui/core'
+import Input from './Input'
 
 type propsType = {
     todolistID: string

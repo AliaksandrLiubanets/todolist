@@ -13,7 +13,7 @@ function Input(props: InputPropsType) {
     const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
     const seInputValueOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
         setError('')
-        if (e.key === "Enter") {
+        if (e.key === 'Enter') {
             addTask()
         }
     }
@@ -30,10 +30,12 @@ function Input(props: InputPropsType) {
     return (
         <div className={s.input_block}>
 
-            <TextField variant="standard" className={error ? s.error : s.normal_input}
-                   value={title}
-                   onChange={setInputValue}
-                   onKeyPress={seInputValueOnKeyPress}
+            <TextField variant="outlined"
+                       label="type title"
+                       error={!!error}
+                       value={title}
+                       onChange={setInputValue}
+                       onKeyPress={seInputValueOnKeyPress}
             />
             <Button onClick={addTask}>+</Button>
             {error && <div className={s.error_message}>{error}</div>}

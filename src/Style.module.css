@@ -13,6 +13,10 @@
     border: 1px solid gray;
 }
 
+.input_block {
+    height: 50px;
+}
+
 .input_block button {
     height: 22px;
     border: 1px solid #b0afaf;
