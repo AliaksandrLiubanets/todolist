@@ -1,10 +1,10 @@
 import React, {ChangeEvent} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType, TaskType} from './App'
-import EditableSpan from './EditableSpan'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {Button} from '@material-ui/core'
+import {Button, Checkbox} from '@material-ui/core'
 import Input from './Input'
+import EditableSpan from './EditableSpan'
 
 type propsType = {
     todolistID: string
@@ -29,12 +29,14 @@ export function Todolist(props: propsType) {
         }
 
         return <li key={el.id} className={el.isDone ? s.is_done : ''}>
-            <input
+            <Checkbox
+                name="checkedB"
+                color="primary"
                 onChange={(e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(el.id, e.currentTarget.checked, props.todolistID)}
-                type="checkbox" checked={el.isDone}/>
+                checked={el.isDone}
+            />
             <EditableSpan title={el.title} setTitletoState={setTitleInSpan}/>
             <DeleteIcon onClick={() => props.removeTask(el.id, props.todolistID)}/>
-            {/*<button onClick={() => props.removeTask(el.id, props.todolistID)}>x</button>*/}
         </li>
     })
 
@@ -57,9 +59,7 @@ export function Todolist(props: propsType) {
         <div className={s.border}>
             <h3 className={props.title === 'Songs' ? s.h3blue : undefined}><EditableSpan title={props.title}
                                                                                          setTitletoState={setTodolistTitle}/>
-                {/*<DeleteOutlinedIcon onClick={removeTodolist} />*/}
                 <DeleteIcon onClick={removeTodolist}/>
-                {/*<button onClick={removeTodolist}>x</button>*/}
             </h3>
             <Input addItem={addTaskForInput}/>
             <ul className={s.list}>
