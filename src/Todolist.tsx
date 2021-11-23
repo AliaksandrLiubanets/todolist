@@ -16,7 +16,6 @@ type propsType = {
     removeTodoList: (todoListID: string) => void
     onChange: (idTask: string, title: string, todoListID: string) => void
     changeTodolistTitle: (title: string, todoListID: string) => void
-    // setTaskTitle: (idTask: string, title: string, todoListID: string) => void
 }
 
 export type TaskType = {
