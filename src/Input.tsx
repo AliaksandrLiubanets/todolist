@@ -1,6 +1,6 @@
 import s from './Style.module.css'
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
-import {Button, Icon, IconButton, TextField} from '@material-ui/core'
+import {TextField} from '@material-ui/core'
 import {AddCircleOutline} from '@material-ui/icons'
 
 type InputPropsType = {
@@ -39,7 +39,7 @@ function Input(props: InputPropsType) {
                        onKeyPress={seInputValueOnKeyPress}
                        helperText={error}
             />
-                <AddCircleOutline color="primary" onClick={addTask}/>
+            <div><AddCircleOutline color="primary" onClick={addTask}/></div>
         </div>
     )
 }

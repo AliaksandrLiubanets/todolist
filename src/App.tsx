@@ -3,6 +3,8 @@ import './App.css'
 import {Todolist} from './Todolist'
 import {v1} from 'uuid'
 import Input from './Input'
+import {AppBar, Button, IconButton, Toolbar, Typography} from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
@@ -37,11 +39,14 @@ function App() {
             isDone: false,
             title: title
         }
-        setTasksObj({...tasksObj, [todolistID]: [newTask, ...tasksObj[todolistID] ] })
+        setTasksObj({...tasksObj, [todolistID]: [newTask, ...tasksObj[todolistID]]})
     }
 
     const changeStatus = (idTask: string, isDone: boolean, todolistID: string) => {
-        setTasksObj({...tasksObj, [todolistID]: tasksObj[todolistID].map((t: TaskType) => t.id === idTask ? {...t, isDone} : t)})
+        setTasksObj({
+            ...tasksObj,
+            [todolistID]: tasksObj[todolistID].map((t: TaskType) => t.id === idTask ? {...t, isDone} : t)
+        })
     }
 
     const changeFilter = (value: FilterTaskType, todolistID: string) => {
@@ -66,20 +71,20 @@ function App() {
 
     const [tasksObj, setTasksObj] = useState<TaskStateType>({
         [todolistID_1]: [
-            { id: v1(), title: 'HTML&CSS', isDone: true },
-            { id: v1(), title: 'JS', isDone: true },
-            { id: v1(), title: 'ReactJS', isDone: false },
-            { id: v1(), title: 'Redux', isDone: true },
+            {id: v1(), title: 'HTML&CSS', isDone: true},
+            {id: v1(), title: 'JS', isDone: true},
+            {id: v1(), title: 'ReactJS', isDone: false},
+            {id: v1(), title: 'Redux', isDone: true}
         ],
         [todolistID_2]: [
-            { id: v1(), title: 'Milk', isDone: true },
-            { id: v1(), title: 'Book', isDone: true },
-            { id: v1(), title: 'Bread', isDone: false },
+            {id: v1(), title: 'Milk', isDone: true},
+            {id: v1(), title: 'Book', isDone: true},
+            {id: v1(), title: 'Bread', isDone: false}
         ]
     })
 
     const setTitleInTasksObj = (title: string, idTask: string, todolistID: string) => {
-        setTasksObj({...tasksObj, [todolistID]: tasksObj[todolistID].map(t => t.id === idTask ? {...t, title}: t)})
+        setTasksObj({...tasksObj, [todolistID]: tasksObj[todolistID].map(t => t.id === idTask ? {...t, title} : t)})
     }
     const setTitleInTodolist = (title: string, todolistID: string) => {
         setTodolist(todolists.map(tl => tl.id === todolistID ? {...tl, title} : tl))
@@ -122,11 +127,25 @@ function App() {
     })
 
 
-
     return (
         <div className="App">
-            <Input addItem={addTodolist} />
-            {todolistsElements}
+            <div className="app__bar">
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" color="inherit" aria-label="menu">
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h6">
+                            News
+                        </Typography>
+                        <Button color="inherit">Login</Button>
+                    </Toolbar>
+                </AppBar>
+            </div>
+            <div className="content">
+                <Input addItem={addTodolist}/>
+                {todolistsElements}
+            </div>
         </div>
     )
 }

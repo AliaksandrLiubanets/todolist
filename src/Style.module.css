@@ -1,4 +1,5 @@
 .border {
+    min-width: 287px;
     border: #d9d8d8 1px solid;
     border-radius: 5px;
     padding: 20px;
@@ -15,6 +16,9 @@
 
 .input_block {
     height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .input_block button {

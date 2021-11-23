@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from 'react'
 import EditIcon from '@material-ui/icons/Edit';
+import {TextField} from '@material-ui/core'
 
 type EditableSpanType = {
     title: string
@@ -20,7 +21,7 @@ function EditableSpan(props: EditableSpanType) {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setText(e.currentTarget.value)
 
     return editMode
-        ? <input onChange={onChangeHandler} onBlur={offEdit} value={text} autoFocus />
+        ? <TextField onChange={onChangeHandler} onBlur={offEdit} value={text} autoFocus />
         : <span onDoubleClick={onEdit}>{props.title}<EditIcon onClick={onEdit}>{props.title}></EditIcon></span>
 
 }
