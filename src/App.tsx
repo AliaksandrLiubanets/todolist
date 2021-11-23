@@ -3,7 +3,7 @@ import './App.css'
 import {Todolist} from './Todolist'
 import {v1} from 'uuid'
 import Input from './Input'
-import {AppBar, Button, IconButton, Toolbar, Typography} from '@material-ui/core'
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
@@ -102,7 +102,6 @@ function App() {
     }
 
     const todolistsElements = todolists.map(tl => {
-        debugger
         let tasksForTodolist = tasksObj[tl.id]
 
         if (tl.filter === 'active') {
@@ -111,19 +110,24 @@ function App() {
         if (tl.filter === 'completed') {
             tasksForTodolist = tasksForTodolist.filter(t => t.isDone)
         }
-        return <Todolist key={tl.id}
-                         todolistID={tl.id}
-                         title={tl.title}
-                         filter={tl.filter}
-                         tasks={tasksForTodolist}
-                         removeTask={removeTask}
-                         addTask={addTask}
-                         changeTaskStatus={changeStatus}
-                         changeFilter={changeFilter}
-                         removeTodolist={removeTodolist}
-                         setTitleInTasksObj={setTitleInTasksObj}
-                         setTitleInTodolist={setTitleInTodolist}
-        />
+        return <Grid  item>
+            <Paper elevation={3} style={{ padding: "20px" }}>
+                <Todolist key={tl.id}
+                          todolistID={tl.id}
+                          title={tl.title}
+                          filter={tl.filter}
+                          tasks={tasksForTodolist}
+                          removeTask={removeTask}
+                          addTask={addTask}
+                          changeTaskStatus={changeStatus}
+                          changeFilter={changeFilter}
+                          removeTodolist={removeTodolist}
+                          setTitleInTasksObj={setTitleInTasksObj}
+                          setTitleInTodolist={setTitleInTodolist}
+                />
+            </Paper>
+        </Grid>
+
     })
 
 
@@ -142,10 +146,16 @@ function App() {
                     </Toolbar>
                 </AppBar>
             </div>
-            <div className="content">
-                <Input addItem={addTodolist}/>
-                {todolistsElements}
-            </div>
+            <Container fixed>
+                {/*<div className="content">*/}
+                <Grid container style={ {margin: "20px 0"} }>
+                    <Input addItem={addTodolist}/>
+                </Grid>
+                <Grid container spacing={3}>
+                    {todolistsElements}
+                </Grid>
+                {/*</div>*/}
+            </Container>
         </div>
     )
 }
