@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType, TaskType} from './App'
-import InputField from './InputField'
+import Input from './Input'
 import EditableSpan from './EditableSpan'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {Button} from '@material-ui/core'
@@ -61,7 +61,7 @@ export function Todolist(props: propsType) {
                 <DeleteIcon onClick={removeTodolist}/>
                 {/*<button onClick={removeTodolist}>x</button>*/}
             </h3>
-            <InputField addItem={addTaskForInput}/>
+            <Input addItem={addTaskForInput}/>
             <ul className={s.list}>
                 {elementsTask}
             </ul>
@@ -69,14 +69,6 @@ export function Todolist(props: propsType) {
                 <Button onClick={setAll}  color={'primary'} variant={props.filter === 'all' ? 'contained' : 'text'}>All</Button>
                 <Button onClick={setActive}  color={'primary'} variant={props.filter === 'active' ? 'contained' : 'text'}>Active</Button>
                 <Button onClick={setCompleted}  color={'primary'} variant={props.filter === 'completed' ? 'contained' : 'text'}>Completed</Button>
-                {/*<button className={props.filter === 'all' ? s.chosen_button : s.normal_button} onClick={setAll}>All*/}
-                {/*</button>*/}
-                {/*<button className={props.filter === 'active' ? s.chosen_button : s.normal_button}*/}
-                {/*        onClick={setActive}>Active*/}
-                {/*</button>*/}
-                {/*<button className={props.filter === 'completed' ? s.chosen_button : s.normal_button}*/}
-                {/*        onClick={setCompleted}>Completed*/}
-                {/*</button>*/}
             </div>
         </div>
     )

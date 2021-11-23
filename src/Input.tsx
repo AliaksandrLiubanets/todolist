@@ -2,11 +2,11 @@ import s from './Style.module.css'
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 import {Button} from '@material-ui/core'
 
-type InputFieldPropsType = {
+type InputPropsType = {
     addItem: (title: string) => void
 }
 
-function InputField(props: InputFieldPropsType) {
+function Input(props: InputPropsType) {
 
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<string>('')
@@ -34,6 +34,11 @@ function InputField(props: InputFieldPropsType) {
                    onChange={setInputValue}
                    onKeyPress={seInputValueOnKeyPress}
             />
+            {/*<InputField className={error ? s.error : s.normal_input}*/}
+            {/*       value={title}*/}
+            {/*       onChange={setInputValue}*/}
+            {/*       onKeyPress={seInputValueOnKeyPress}*/}
+            {/*/>*/}
             <Button onClick={addTask}>+</Button>
             {/*<button onClick={addTask}>+</button>*/}
             {error && <div className={s.error_message}>{error}</div>}
@@ -41,4 +46,4 @@ function InputField(props: InputFieldPropsType) {
     )
 }
 
-export default InputField
+export default Input

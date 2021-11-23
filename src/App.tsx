@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import './App.css'
 import {Todolist} from './Todolist'
 import {v1} from 'uuid'
-import InputField from './InputField'
+import Input from './Input'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
@@ -125,7 +125,7 @@ function App() {
 
     return (
         <div className="App">
-            <InputField addItem={addTodolist} />
+            <Input addItem={addTodolist} />
             {todolistsElements}
         </div>
     )
