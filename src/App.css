@@ -3,13 +3,9 @@ body {
   background-color: rgba(247, 253, 251, 0.87);
 }
 
-.App {
-  padding: 30px;
-  display: flex;
-}
+/*.App {*/
+/*  display: flex;*/
+/*}*/
 
-.App > div {
-  margin-right: 50px;
-}
 
 
