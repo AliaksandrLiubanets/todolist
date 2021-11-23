@@ -36,9 +36,10 @@ function Input(props: InputPropsType) {
                        value={title}
                        onChange={setInputValue}
                        onKeyPress={seInputValueOnKeyPress}
+                       helperText={error}
             />
             <Button onClick={addTask}>+</Button>
-            {error && <div className={s.error_message}>{error}</div>}
+            {/*{error && <div className={s.error_message}>{error}</div>}*/}
         </div>
     )
 }
