@@ -1,5 +1,6 @@
 import s from './Style.module.css'
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
+import {Button} from '@material-ui/core'
 
 type InputFieldPropsType = {
     addItem: (title: string) => void
@@ -33,7 +34,8 @@ function InputField(props: InputFieldPropsType) {
                    onChange={setInputValue}
                    onKeyPress={seInputValueOnKeyPress}
             />
-            <button onClick={addTask}>+</button>
+            <Button onClick={addTask}>+</Button>
+            {/*<button onClick={addTask}>+</button>*/}
             {error && <div className={s.error_message}>{error}</div>}
         </div>
     )
