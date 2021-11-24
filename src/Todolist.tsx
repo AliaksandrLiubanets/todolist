@@ -31,11 +31,12 @@ export function Todolist(props: propsType) {
         const onChangeTitle = (title: string) => {
             props.onChange(el.id, title, props.id)
         }
+        const removeTask = () => props.removeTask(el.id, props.id)
 
         return <li key={el.id} className={el.isDone ? s.is_done : ''}>
             <input onChange={onCheckboxCheckTask} type="checkbox" checked={el.isDone}/>
             <EditableSpan title={el.title} onChange={onChangeTitle}/>
-            <button onClick={() => props.removeTask(el.id, props.id)}>x</button>
+            <button onClick={removeTask}>x</button>
         </li>
     })
 
