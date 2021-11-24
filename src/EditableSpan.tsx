@@ -23,9 +23,8 @@ const EditableSpan = (props: EditableSpanPropsType) => {
             ? <TextField style={{width: '100px'}} autoFocus={true} onBlur={offEditMode} onChange={setInputValue}
                          value={title}/>
             // : <span onDoubleClick={onEditMode}>{props.title}</span>
-            : <div>
-                <span onDoubleClick={onEditMode}>{props.title}</span>
-            </div>
+            : <span style={{display: "block"}} onDoubleClick={onEditMode}>{props.title}</span>
+
     )
 }
 

@@ -3,6 +3,8 @@ import s from './Style.module.css'
 import {FilterTaskType} from './App'
 import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
+import {IconButton} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 type propsType = {
     id: string
@@ -33,10 +35,15 @@ export function Todolist(props: propsType) {
         }
         const removeTask = () => props.removeTask(el.id, props.id)
 
-        return <li key={el.id} className={el.isDone ? s.is_done : ''}>
-            <input onChange={onCheckboxCheckTask} type="checkbox" checked={el.isDone}/>
+        return <li style={{display: "flex", justifyContent: "space-between"}} key={el.id} className={el.isDone ? s.is_done : ''}>
+            <input style={{display: 'block'}} onChange={onCheckboxCheckTask} type="checkbox" checked={el.isDone}/>
             <EditableSpan title={el.title} onChange={onChangeTitle}/>
-            <button onClick={removeTask}>x</button>
+            <button style={{display: "block"}} onClick={removeTask}>x</button>
+            <IconButton style={{display: "block"}}
+                        onClick={removeTask}
+                        disabled color="primary">
+                <DeleteIcon />
+            </IconButton>
         </li>
     })
 
