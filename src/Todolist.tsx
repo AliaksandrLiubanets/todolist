@@ -39,7 +39,7 @@ export function Todolist(props: propsType) {
                          divider
                          disableGutters
                          dense
-                         style={{display: 'flex', justifyContent: 'space-between'}}
+                         style={{display: 'flex', justifyContent: 'space-between', width: "300px"}}
                          className={el.isDone ? s.is_done : ''}>
             <ListItemIcon style={{display: 'block'}}>
                 <Checkbox onChange={onCheckboxCheckTask}
@@ -63,10 +63,10 @@ export function Todolist(props: propsType) {
     const addTaskToTodolist = (title: string) => props.addTask(title, props.id)
     const changeTodolistTitle = (title: string) => props.changeTodolistTitle(title, props.id)
     const removeTodolist = () => props.removeTodoList(props.id)
-
+//style={{display: 'flex', justifyContent: "space-around", justifyItems: "center", padding: "15px 20px"}}
     return (
         <div className={s.border}>
-            <Container  style={{display: 'flex', justifyContent: "space-around", justifyItems: "center", padding: "15px 20px"}}>
+            <Container style={{display: 'flex'}}>
                 <Typography variant={'h6'} style={{fontWeight: 'bold'}} color={'primary'}>
                     <EditableSpan title={props.title}
                                   onChange={changeTodolistTitle}/>
@@ -81,7 +81,7 @@ export function Todolist(props: propsType) {
             <List>
                 {elementsTask}
             </List>
-            <div className={s.filter}>
+            <Container style={{display: "flex"}}>
                 <Button variant={"contained"} color={props.filter === 'all' ? 'secondary': 'primary'} onClick={setAll}>All
                 </Button>
                 <Button variant={"contained"} color={props.filter === 'active' ? 'secondary': 'primary'}
@@ -90,7 +90,7 @@ export function Todolist(props: propsType) {
                 <Button variant={"contained"} color={props.filter === 'completed' ? 'secondary': 'primary'}
                         onClick={setCompleted}>Completed
                 </Button>
-            </div>
+            </Container>
         </div>
     )
 }

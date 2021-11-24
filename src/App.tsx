@@ -93,7 +93,6 @@ function App() {
     }
 
     const todolListComponents = todoLists.map(tl => {
-        debugger
         let taskForRender = tasks[tl.id]
         if (tl.filter === 'active') {
             taskForRender = tasks[tl.id].filter(t => !t.isDone)
@@ -115,6 +114,7 @@ function App() {
                           removeTodoList={removeTodoList}
                           onChange={onChangeTitle}
                           changeTodolistTitle={changeTodolistTitle}
+
                 />
             </Paper>
         </Grid>
