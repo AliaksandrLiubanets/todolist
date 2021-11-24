@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 import s from './Style.module.css'
-import {TextField} from '@material-ui/core'
+import {IconButton, TextField} from '@material-ui/core'
+import {Add} from '@material-ui/icons'
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -34,7 +35,9 @@ const AddItemForm = (props: AddItemFormPropsType) => {
                    onChange={setInputValue}
                    onKeyPress={seInputValueOnKeyPress}
         />
-        <button onClick={addItem}>+</button>
+        <IconButton size={"small"} onClick={addItem}>
+            <Add />
+        </IconButton>
         {error && <div className={s.error_message}>{error}</div>}
     </div>
 }
