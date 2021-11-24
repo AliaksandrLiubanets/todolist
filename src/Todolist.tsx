@@ -57,13 +57,9 @@ export function Todolist(props: propsType) {
     const setCompleted = () => props.changeFilter('completed', props.id)
 
 
-    const addTaskToTodolist = (title: string) => {
-        props.addTask(title, props.id)
-    }
-
-    const changeTodolistTitle = (title: string) => {
-        props.changeTodolistTitle(title, props.id)
-    }
+    const addTaskToTodolist = (title: string) => props.addTask(title, props.id)
+    const changeTodolistTitle = (title: string) => props.changeTodolistTitle(title, props.id)
+    const removeTodolist = () => props.removeTodoList(props.id)
 
     return (
         <div className={s.border}>
@@ -73,10 +69,10 @@ export function Todolist(props: propsType) {
                                   onChange={changeTodolistTitle}/>
                 </Typography>
                 <div className={s.title__button}>
-                    <button onClick={() => {
-                        props.removeTodoList(props.id)
-                    }}>X
-                    </button>
+                    <IconButton>
+                        <button onClick={removeTodolist}>X
+                        </button>
+                    </IconButton>
                 </div>
             </div>
             <AddItemForm addItem={addTaskToTodolist}/>
