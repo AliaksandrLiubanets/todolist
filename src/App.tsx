@@ -102,10 +102,9 @@ function App() {
             taskForRender = tasks[tl.id].filter(t => t.isDone)
         }
 
-        return <Grid item sm={3}>
+        return <Grid key={tl.id} item>
             <Paper elevation={4}>
-                <Todolist key={tl.id}
-                          id={tl.id}
+                <Todolist id={tl.id}
                           title={tl.title}
                           filter={tl.filter}
                           tasks={taskForRender}
@@ -136,7 +135,7 @@ function App() {
 
 
             <Container fixed>
-                <Grid container>
+                <Grid container style={ {padding: "20px 0"} }>
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
                 <Grid container
