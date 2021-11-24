@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 import s from './Style.module.css'
-import {IconButton, TextField} from '@material-ui/core'
+import {Container, IconButton, TextField} from '@material-ui/core'
 import {Add} from '@material-ui/icons'
 
 type AddItemFormPropsType = {
@@ -27,10 +27,11 @@ const AddItemForm = (props: AddItemFormPropsType) => {
         setTitle('')
     }
 
-    return <div className={s.input_block}>
+    return <Container style={{display: 'flex', justifyItems: "center", justifyContent: "space-between"}} className={s.input_block}>
         <TextField variant={'outlined'}
                    size={'small'}
                    label="Add title"
+                   style={{width: "150px"}}
                    value={title}
                    onChange={setInputValue}
                    onKeyPress={seInputValueOnKeyPress}
@@ -42,7 +43,7 @@ const AddItemForm = (props: AddItemFormPropsType) => {
             <Add />
         </IconButton>
         {/*{error && <div className={s.error_message}>{error}</div>}*/}
-    </div>
+    </Container>
 }
 
 export default AddItemForm
