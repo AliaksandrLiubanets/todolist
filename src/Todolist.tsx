@@ -3,7 +3,7 @@ import s from './Style.module.css'
 import {FilterTaskType} from './App'
 import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
-import {Button, Checkbox, IconButton, ListItem, ListItemIcon, Typography} from '@material-ui/core'
+import {Button, Checkbox, Container, IconButton, ListItem, ListItemIcon, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 type propsType = {
@@ -63,18 +63,17 @@ export function Todolist(props: propsType) {
 
     return (
         <div className={s.border}>
-            <div className={s.title}>
-                <Typography variant={"h6"} style={{fontWeight: "bold"}} color={"primary"}>
+            <Container  style={{display: 'flex', padding: "15px 20px"}}>
+                <Typography variant={'h6'} style={{fontWeight: 'bold'}} color={'primary'}>
                     <EditableSpan title={props.title}
                                   onChange={changeTodolistTitle}/>
                 </Typography>
-                <div className={s.title__button}>
-                    <IconButton>
-                        <button onClick={removeTodolist}>X
-                        </button>
-                    </IconButton>
-                </div>
-            </div>
+                <IconButton size={'small'}
+                            onClick={removeTodolist}>
+                    <DeleteIcon/>
+                </IconButton>
+
+            </Container>
             <AddItemForm addItem={addTaskToTodolist}/>
             <ul className={s.list}>
                 {elementsTask}
