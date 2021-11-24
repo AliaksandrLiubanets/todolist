@@ -26,7 +26,7 @@ const AddItemForm = (props: AddItemFormPropsType) => {
         setTitle('')
     }
 
-    return <Container style={{display: 'flex', justifyContent: "space-between", justifyItems: "center", width: "250px"}} >
+    return <Container style={{display: 'flex', alignItems: "flex-start"}} >
         <TextField variant={'outlined'}
                    size={'small'}
                    label="Add title"
@@ -38,7 +38,8 @@ const AddItemForm = (props: AddItemFormPropsType) => {
                    margin={"none"}
         />
         <IconButton size={"small"}
-                    onClick={addItem}>
+                    onClick={addItem}
+        style={{margin: "5px 0 5px 10px"}}>
             <Add />
         </IconButton>
     </Container>

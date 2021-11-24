@@ -135,7 +135,7 @@ function App() {
 
 
             <Container fixed>
-                <Grid container style={ {padding: "20px 0"} }>
+                <Grid container style={ {padding: "20px"} }>
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
                 <Grid container

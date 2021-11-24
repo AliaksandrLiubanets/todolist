@@ -66,7 +66,7 @@ export function Todolist(props: propsType) {
 //style={{display: 'flex', justifyContent: "space-around", justifyItems: "center", padding: "15px 20px"}}
     return (
         <div className={s.border}>
-            <Container style={{display: 'flex'}}>
+            <Container style={{display: 'flex', justifyContent: "space-between", padding: "20px"}}>
                 <Typography variant={'h6'} style={{fontWeight: 'bold'}} color={'primary'}>
                     <EditableSpan title={props.title}
                                   onChange={changeTodolistTitle}/>
