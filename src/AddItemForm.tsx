@@ -27,22 +27,21 @@ const AddItemForm = (props: AddItemFormPropsType) => {
         setTitle('')
     }
 
-    return <Container style={{display: 'flex', justifyItems: "center", justifyContent: "space-between"}} className={s.input_block}>
+    return <Container style={{display: 'flex', width: "250px"}} >
         <TextField variant={'outlined'}
                    size={'small'}
                    label="Add title"
-                   style={{width: "150px"}}
                    value={title}
                    onChange={setInputValue}
                    onKeyPress={seInputValueOnKeyPress}
                    error={!!error}
                    helperText={error}
+                   margin={"none"}
         />
         <IconButton size={"small"}
                     onClick={addItem}>
             <Add />
         </IconButton>
-        {/*{error && <div className={s.error_message}>{error}</div>}*/}
     </Container>
 }
 

@@ -103,7 +103,7 @@ function App() {
         }
 
         return <Grid key={tl.id} item>
-            <Paper elevation={4}>
+            <Paper elevation={5} style={{padding: "20px"}}>
                 <Todolist id={tl.id}
                           title={tl.title}
                           filter={tl.filter}
@@ -140,7 +140,6 @@ function App() {
                 </Grid>
                 <Grid container
                       spacing={3}
-                      justifyContent={'flex-start'}
                 >
                     {todolListComponents}
                 </Grid>

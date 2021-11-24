@@ -36,6 +36,9 @@ export function Todolist(props: propsType) {
         const removeTask = () => props.removeTask(el.id, props.id)
 
         return <ListItem key={el.id}
+                         divider
+                         disableGutters
+                         dense
                          style={{display: 'flex', justifyContent: 'space-between'}}
                          className={el.isDone ? s.is_done : ''}>
             <ListItemIcon style={{display: 'block'}}>
@@ -63,7 +66,7 @@ export function Todolist(props: propsType) {
 
     return (
         <div className={s.border}>
-            <Container  style={{display: 'flex', padding: "15px 20px"}}>
+            <Container  style={{display: 'flex', justifyContent: "space-around", justifyItems: "center", padding: "15px 20px"}}>
                 <Typography variant={'h6'} style={{fontWeight: 'bold'}} color={'primary'}>
                     <EditableSpan title={props.title}
                                   onChange={changeTodolistTitle}/>
@@ -75,7 +78,7 @@ export function Todolist(props: propsType) {
 
             </Container>
             <AddItemForm addItem={addTaskToTodolist}/>
-            <List >
+            <List>
                 {elementsTask}
             </List>
             <div className={s.filter}>
