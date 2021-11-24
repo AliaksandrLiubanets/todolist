@@ -22,7 +22,7 @@ const AddItemForm = (props: AddItemFormPropsType) => {
         if (title.trim()) {
             props.addItem(title.trim())
         } else {
-            setError('required')
+            setError('Title is required')
         }
         setTitle('')
     }
@@ -34,11 +34,14 @@ const AddItemForm = (props: AddItemFormPropsType) => {
                    value={title}
                    onChange={setInputValue}
                    onKeyPress={seInputValueOnKeyPress}
+                   error={!!error}
+                   helperText={error}
         />
-        <IconButton size={"small"} onClick={addItem}>
+        <IconButton size={"small"}
+                    onClick={addItem}>
             <Add />
         </IconButton>
-        {error && <div className={s.error_message}>{error}</div>}
+        {/*{error && <div className={s.error_message}>{error}</div>}*/}
     </div>
 }
 
