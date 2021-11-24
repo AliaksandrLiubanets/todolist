@@ -1,5 +1,4 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
-import s from './Style.module.css'
 import {Container, IconButton, TextField} from '@material-ui/core'
 import {Add} from '@material-ui/icons'
 
@@ -27,7 +26,7 @@ const AddItemForm = (props: AddItemFormPropsType) => {
         setTitle('')
     }
 
-    return <Container style={{display: 'flex', width: "250px"}} >
+    return <Container style={{display: 'flex', justifyContent: "space-between", justifyItems: "center", width: "250px"}} >
         <TextField variant={'outlined'}
                    size={'small'}
                    label="Add title"
