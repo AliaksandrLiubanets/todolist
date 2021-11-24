@@ -3,7 +3,7 @@ import s from './Style.module.css'
 import {FilterTaskType} from './App'
 import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
-import {Button, Checkbox, Container, IconButton, ListItem, ListItemIcon, Typography} from '@material-ui/core'
+import {Button, Checkbox, Container, IconButton, List, ListItem, ListItemIcon, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 type propsType = {
@@ -75,9 +75,9 @@ export function Todolist(props: propsType) {
 
             </Container>
             <AddItemForm addItem={addTaskToTodolist}/>
-            <ul className={s.list}>
+            <List >
                 {elementsTask}
-            </ul>
+            </List>
             <div className={s.filter}>
                 <button className={props.filter === 'all' ? s.chosen_button : s.normal_button} onClick={setAll}>All
                 </button>
