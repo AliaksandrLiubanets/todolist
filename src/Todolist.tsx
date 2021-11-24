@@ -1,10 +1,11 @@
-import React, {ChangeEvent} from 'react'
+import React, {ChangeEvent, useState} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType} from './App'
 import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
 import {Button, Checkbox, Container, IconButton, List, ListItem, ListItemIcon, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import {Edit} from '@material-ui/icons'
 
 type propsType = {
     id: string
@@ -28,66 +29,77 @@ export type TaskType = {
 
 export function Todolist(props: propsType) {
 
-    const elementsTask = props.tasks.map(el => {
+      const elementsTask = props.tasks.map(el => {
+
         const onCheckboxCheckTask = (e: ChangeEvent<HTMLInputElement>) => props.setTaskStatus(el.id, e.currentTarget.checked, props.id)
-        const onChangeTitle = (title: string) => {
-            props.onChange(el.id, title, props.id)
-        }
+        const onChangeTitle = (title: string) => props.onChange(el.id, title, props.id)
         const removeTask = () => props.removeTask(el.id, props.id)
 
         return <ListItem key={el.id}
                          divider
                          disableGutters
                          dense
-                         style={{display: 'flex', justifyContent: 'space-between', width: "300px"}}
+                         style={{display: 'flex', justifyContent: 'space-between'}}
                          className={el.isDone ? s.is_done : ''}>
-            <ListItemIcon style={{display: 'block'}}>
-                <Checkbox onChange={onCheckboxCheckTask}
-                          color={'primary'}
-                          checked={el.isDone}
-                />
-
-            </ListItemIcon>
-            <EditableSpan title={el.title} onChange={onChangeTitle}/>
-            <IconButton size={'small'} style={{display: 'block'}}>
-                <DeleteIcon onClick={removeTask}/>
-            </IconButton>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+                <ListItemIcon style={{display: 'block'}}>
+                    <Checkbox onChange={onCheckboxCheckTask}
+                              color={'primary'}
+                              checked={el.isDone}
+                    />
+                </ListItemIcon>
+                <EditableSpan
+                              title={el.title}
+                              onChange={onChangeTitle}/>
+            </div>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+                <IconButton size={'small'} style={{display: 'block'}}>
+                    <Edit
+                          style={{margin: '0 5px 0 0'}}/>
+                </IconButton>
+                <IconButton size={'small'} style={{display: 'block'}}>
+                    <DeleteIcon onClick={removeTask}/>
+                </IconButton>
+            </div>
         </ListItem>
     })
 
     const setAll = () => props.changeFilter('all', props.id)
     const setActive = () => props.changeFilter('active', props.id)
     const setCompleted = () => props.changeFilter('completed', props.id)
-
-
     const addTaskToTodolist = (title: string) => props.addTask(title, props.id)
     const changeTodolistTitle = (title: string) => props.changeTodolistTitle(title, props.id)
     const removeTodolist = () => props.removeTodoList(props.id)
-//style={{display: 'flex', justifyContent: "space-around", justifyItems: "center", padding: "15px 20px"}}
+
     return (
         <div className={s.border}>
-            <Container style={{display: 'flex', justifyContent: "space-between", padding: "20px"}}>
+            <Container style={{display: 'flex', justifyContent: 'space-between', padding: '20px'}}>
                 <Typography variant={'h6'} style={{fontWeight: 'bold'}} color={'primary'}>
                     <EditableSpan title={props.title}
                                   onChange={changeTodolistTitle}/>
                 </Typography>
-                <IconButton size={'small'}
-                            onClick={removeTodolist}>
-                    <DeleteIcon/>
-                </IconButton>
-
+                <div style={{display: 'flex', alignItems: 'center'}}>
+                    <IconButton size={'small'} >
+                        <Edit
+                              style={{margin: '0 5px 0 0'}}/>
+                    </IconButton>
+                    <IconButton size={'small'}
+                                onClick={removeTodolist}>
+                        <DeleteIcon/>
+                    </IconButton>
+                </div>
             </Container>
             <AddItemForm addItem={addTaskToTodolist}/>
             <List>
                 {elementsTask}
             </List>
-            <Container style={{display: "flex"}}>
-                <Button variant={"contained"} color={props.filter === 'all' ? 'secondary': 'primary'} onClick={setAll}>All
+            <Container style={{display: 'flex'}}>
+                <Button variant={'contained'} color={props.filter === 'all' ? 'secondary' : 'primary'} onClick={setAll}>All
                 </Button>
-                <Button variant={"contained"} color={props.filter === 'active' ? 'secondary': 'primary'}
+                <Button variant={'contained'} color={props.filter === 'active' ? 'secondary' : 'primary'}
                         onClick={setActive}>Active
                 </Button>
-                <Button variant={"contained"} color={props.filter === 'completed' ? 'secondary': 'primary'}
+                <Button variant={'contained'} color={props.filter === 'completed' ? 'secondary' : 'primary'}
                         onClick={setCompleted}>Completed
                 </Button>
             </Container>

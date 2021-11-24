@@ -20,11 +20,10 @@ const EditableSpan = (props: EditableSpanPropsType) => {
     }
     return (
         editMode
-            ? <TextField size={'small'} style={{width: '100px'}} autoFocus={true} onBlur={offEditMode} onChange={setInputValue}
+            ? <TextField size={'small'} style={{width: '150px', padding: "0 0 0 10px "}} autoFocus={true} onBlur={offEditMode} onChange={setInputValue}
                          value={title}/>
             // : <span onDoubleClick={onEditMode}>{props.title}</span>
-            : <span style={{display: "block"}} onDoubleClick={onEditMode}>{props.title}</span>
-
+            : <span style={{display: "block", margin: "0 10px"}} onDoubleClick={onEditMode}>{props.title}</span>
     )
 }
 
