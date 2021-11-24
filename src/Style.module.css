@@ -81,9 +81,9 @@
 /*    text-align: center;*/
 /*}*/
 
-/*.is_done {*/
-/*    opacity: 0.5;*/
-/*}*/
+.is_done {
+    opacity: 0.5;
+}
 
 /*.error {*/
 /*    border: 1px solid red;*/

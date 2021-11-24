@@ -3,7 +3,7 @@ import s from './Style.module.css'
 import {FilterTaskType} from './App'
 import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
-import {IconButton} from '@material-ui/core'
+import {Button, Checkbox, IconButton, ListItem, ListItemIcon, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 type propsType = {
@@ -35,16 +35,21 @@ export function Todolist(props: propsType) {
         }
         const removeTask = () => props.removeTask(el.id, props.id)
 
-        return <li style={{display: "flex", justifyContent: "space-between"}} key={el.id} className={el.isDone ? s.is_done : ''}>
-            <input style={{display: 'block'}} onChange={onCheckboxCheckTask} type="checkbox" checked={el.isDone}/>
+        return <ListItem key={el.id}
+                         style={{display: 'flex', justifyContent: 'space-between'}}
+                         className={el.isDone ? s.is_done : ''}>
+            <ListItemIcon style={{display: 'block'}}>
+                <Checkbox onChange={onCheckboxCheckTask}
+                          color={'primary'}
+                          checked={el.isDone}
+                />
+
+            </ListItemIcon>
             <EditableSpan title={el.title} onChange={onChangeTitle}/>
-            <button style={{display: "block"}} onClick={removeTask}>x</button>
-            <IconButton style={{display: "block"}}
-                        onClick={removeTask}
-                        disabled color="primary">
-                <DeleteIcon />
+            <IconButton size={'small'} style={{display: 'block'}}>
+                <DeleteIcon onClick={removeTask}/>
             </IconButton>
-        </li>
+        </ListItem>
     })
 
     const setAll = () => props.changeFilter('all', props.id)
@@ -63,7 +68,10 @@ export function Todolist(props: propsType) {
     return (
         <div className={s.border}>
             <div className={s.title}>
-                <h3 className={props.title === 'Songs' ? s.h3blue : undefined}><EditableSpan title={props.title} onChange={changeTodolistTitle} /></h3>
+                <Typography variant={"h6"} style={{fontWeight: "bold"}} color={"primary"}>
+                    <EditableSpan title={props.title}
+                                  onChange={changeTodolistTitle}/>
+                </Typography>
                 <div className={s.title__button}>
                     <button onClick={() => {
                         props.removeTodoList(props.id)
