@@ -28,3 +28,13 @@ test("Mult of calculator", () => {
 
     expect(result).toBe(100)
 })
+
+test("Subtraction of calculator", () => {
+    const a = 10
+    const b = 10
+
+    const action: ActionType = {type: "SUB", number: b}
+    let result = calculator(a, action)
+
+    expect(result).toBe(0)
+})
