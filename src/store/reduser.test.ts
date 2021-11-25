@@ -48,3 +48,13 @@ test("Division of calculator", () => {
 
     expect(result).toBe(1)
 })
+
+test("Exponent of calculator", () => {
+    const a = 10
+    const b = 3
+
+    const action: ActionType = {type: "EXP", number: b}
+    let result = calculator(a, action)
+
+    expect(result).toBe(1000)
+})
