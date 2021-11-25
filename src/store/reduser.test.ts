@@ -38,3 +38,13 @@ test("Subtraction of calculator", () => {
 
     expect(result).toBe(0)
 })
+
+test("Division of calculator", () => {
+    const a = 10
+    const b = 10
+
+    const action: ActionType = {type: "DIV", number: b}
+    let result = calculator(a, action)
+
+    expect(result).toBe(1)
+})
