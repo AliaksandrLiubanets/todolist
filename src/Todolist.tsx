@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType, TaskType} from './App'
 import AddItemForm from './AddItemForm'
@@ -47,7 +47,7 @@ export function Todolist(props: propsType) {
                     />
                 </ListItemIcon>
                 <EditableSpan isEdit={el.isEdit}
-                              changeTaskEdit={changeTaskEdit}
+                              changeEdit={changeTaskEdit}
                               title={el.title}
                               onChange={onChangeTitle}/>
             </div>
@@ -76,7 +76,7 @@ export function Todolist(props: propsType) {
             <Container style={{display: 'flex', justifyContent: 'space-between', padding: '20px'}}>
                 <Typography variant={'h6'} style={{fontWeight: 'bold'}} color={'primary'}>
                     <EditableSpan isEdit={props.isEdit}
-                                  changeTaskEdit={changeTodolistEdit}
+                                  changeEdit={changeTodolistEdit}
                                   title={props.title}
                                   onChange={changeTodolistTitle}/>
                 </Typography>

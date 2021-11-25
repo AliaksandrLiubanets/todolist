@@ -1,11 +1,11 @@
-import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react'
+import React, {ChangeEvent, useState} from 'react'
 import {TextField} from '@material-ui/core'
 
 type EditableSpanPropsType = {
     title: string
     onChange: (title: string) => void
     isEdit: boolean
-    changeTaskEdit: (isEdit: boolean) => void
+    changeEdit: (isEdit: boolean) => void
 }
 
 const EditableSpan = (props: EditableSpanPropsType) => {
@@ -19,7 +19,7 @@ const EditableSpan = (props: EditableSpanPropsType) => {
     }
     const offEditMode = () => {
         setEditMode(false)
-        props.changeTaskEdit(false)
+        props.changeEdit(false)
         props.onChange(title)
     }
     return (
