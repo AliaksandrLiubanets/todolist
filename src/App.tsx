@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import './App.css'
 import {Todolist} from './Todolist'
-import {TaskType} from './Todolist'
 import {v1} from 'uuid'
 import AddItemForm from './AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
@@ -13,6 +12,14 @@ type TodolistType = {
     id: string
     title: string
     filter: FilterTaskType
+    isEdit: boolean
+}
+
+export type TaskType = {
+    id: string
+    title: string
+    isDone: boolean
+    isEdit: boolean
 }
 
 type TaskStateType = {
@@ -25,25 +32,25 @@ function App() {
     const todoListID_2 = v1()
 
     const [todoLists, setTodolists] = useState<Array<TodolistType>>([
-        {id: todoListID_1, title: 'What to learn', filter: 'all'},
-        {id: todoListID_2, title: 'What to buy', filter: 'all'}
+        {id: todoListID_1, title: 'What to learn', filter: 'all', isEdit: false},
+        {id: todoListID_2, title: 'What to buy', filter: 'all', isEdit: false}
     ])
 
     const [tasks, setTasks] = useState<TaskStateType>({
         [todoListID_1]: [
-            {id: v1(), title: 'HTML&CSS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'ReactJS', isDone: false},
-            {id: v1(), title: 'Redux', isDone: true}
+            {id: v1(), title: 'HTML&CSS', isDone: true, isEdit: false},
+            {id: v1(), title: 'JS', isDone: true, isEdit: false},
+            {id: v1(), title: 'ReactJS', isDone: false, isEdit: false},
+            {id: v1(), title: 'Redux', isDone: true, isEdit: false}
         ],
         [todoListID_2]: [
-            {id: v1(), title: 'Meat', isDone: true},
-            {id: v1(), title: 'Beer', isDone: true},
-            {id: v1(), title: 'Milk', isDone: false},
-            {id: v1(), title: 'Bread', isDone: true}
+            {id: v1(), title: 'Meat', isDone: true, isEdit: false},
+            {id: v1(), title: 'Beer', isDone: true, isEdit: false},
+            {id: v1(), title: 'Milk', isDone: false, isEdit: false},
+            {id: v1(), title: 'Bread', isDone: true, isEdit: false}
         ]
     })
-
+//todo function map change edit true when id is equel
     const removeTask = (taskId: string, todoListID: string) => {
         setTasks({...tasks, [todoListID]: tasks[todoListID].filter(task => task.id !== taskId)})
     }
@@ -52,7 +59,8 @@ function App() {
         const newTask: TaskType = {
             id: v1(),
             isDone: false,
-            title: title
+            title: title,
+            isEdit: false
         }
         setTasks({...tasks, [todoListID]: [newTask, ...tasks[todoListID]]})
     }
@@ -82,7 +90,8 @@ function App() {
         const newTodolist: TodolistType = {
             id: todoListID,
             title,
-            filter: 'all'
+            filter: 'all',
+            isEdit: false
         }
         setTodolists([...todoLists, newTodolist])
         setTasks({...tasks, [todoListID]: []})
@@ -90,6 +99,14 @@ function App() {
 
     const onChangeTitle = (idTask: string, title: string, todoListID: string) => {
         setTasks({...tasks, [todoListID]: tasks[todoListID].map(task => task.id === idTask ? {...task, title} : task)})
+    }
+
+    const changeTaskEdit = (idTask: string, isEdit: boolean, todoListID: string) => {
+        setTasks({...tasks, [todoListID]: tasks[todoListID].map(t => idTask === t.id ? {...t, isEdit: isEdit} : t)})
+    }
+
+    const changeTodolistEdit = (isEdit: boolean, todoListID: string) => {
+        setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, isEdit: isEdit} : tl))
     }
 
     const todolListComponents = todoLists.map(tl => {
@@ -114,6 +131,10 @@ function App() {
                           removeTodoList={removeTodoList}
                           onChange={onChangeTitle}
                           changeTodolistTitle={changeTodolistTitle}
+                          isEdit={tl.isEdit}
+                          changeTaskEdit={changeTaskEdit}
+                          changeTodolistEdit={changeTodolistEdit}
+
 
                 />
             </Paper>
