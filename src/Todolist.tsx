@@ -1,11 +1,10 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent} from 'react'
 import s from './Style.module.css'
 import {FilterTaskType} from './App'
 import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
 import {Button, Checkbox, Container, IconButton, List, ListItem, ListItemIcon, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {Edit} from '@material-ui/icons'
 
 type propsType = {
     id: string
@@ -48,18 +47,13 @@ export function Todolist(props: propsType) {
                               checked={el.isDone}
                     />
                 </ListItemIcon>
-                <EditableSpan
-                              title={el.title}
+                <EditableSpan title={el.title}
                               onChange={onChangeTitle}/>
             </div>
             <div style={{display: 'flex', alignItems: 'center'}}>
-                <IconButton size={'small'} style={{display: 'block'}}>
-                    <Edit
-                          style={{margin: '0 5px 0 0'}}/>
-                </IconButton>
-                <IconButton size={'small'} style={{display: 'block'}}>
-                    <DeleteIcon onClick={removeTask}/>
-                </IconButton>
+                    <IconButton size={'small'} style={{display: 'block'}}>
+                        <DeleteIcon onClick={removeTask}/>
+                    </IconButton>
             </div>
         </ListItem>
     })
@@ -79,10 +73,7 @@ export function Todolist(props: propsType) {
                                   onChange={changeTodolistTitle}/>
                 </Typography>
                 <div style={{display: 'flex', alignItems: 'center'}}>
-                    <IconButton size={'small'} >
-                        <Edit
-                              style={{margin: '0 5px 0 0'}}/>
-                    </IconButton>
+
                     <IconButton size={'small'}
                                 onClick={removeTodolist}>
                         <DeleteIcon/>
@@ -94,12 +85,16 @@ export function Todolist(props: propsType) {
                 {elementsTask}
             </List>
             <Container style={{display: 'flex'}}>
-                <Button variant={'contained'} color={props.filter === 'all' ? 'secondary' : 'primary'} onClick={setAll}>All
+                <Button variant={'contained'}
+                        color={props.filter === 'all' ? 'secondary' : 'primary'}
+                        onClick={setAll}>All
                 </Button>
-                <Button variant={'contained'} color={props.filter === 'active' ? 'secondary' : 'primary'}
+                <Button variant={'contained'}
+                        color={props.filter === 'active' ? 'secondary' : 'primary'}
                         onClick={setActive}>Active
                 </Button>
-                <Button variant={'contained'} color={props.filter === 'completed' ? 'secondary' : 'primary'}
+                <Button variant={'contained'}
+                        color={props.filter === 'completed' ? 'secondary' : 'primary'}
                         onClick={setCompleted}>Completed
                 </Button>
             </Container>

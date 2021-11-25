@@ -102,7 +102,7 @@ function App() {
         }
 
         return <Grid key={tl.id} item>
-            <Paper elevation={5} style={{padding: "20px"}}>
+            <Paper elevation={5} style={{padding: '20px'}}>
                 <Todolist id={tl.id}
                           title={tl.title}
                           filter={tl.filter}
@@ -114,7 +114,6 @@ function App() {
                           removeTodoList={removeTodoList}
                           onChange={onChangeTitle}
                           changeTodolistTitle={changeTodolistTitle}
-
                 />
             </Paper>
         </Grid>
@@ -135,7 +134,7 @@ function App() {
 
 
             <Container fixed>
-                <Grid container style={ {padding: "20px"} }>
+                <Grid container style={{padding: '20px'}}>
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
                 <Grid container
