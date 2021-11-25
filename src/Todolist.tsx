@@ -67,8 +67,8 @@ export function Todolist(props: propsType) {
 
     return (
         <div className={s.border}>
-            <Container style={{display: 'flex', justifyContent: 'space-between', padding: '20px'}}>
-                <Typography variant={'h6'} style={{fontWeight: 'bold'}} color={'primary'}>
+            <Container style={{display: 'flex', justifyContent: 'space-between', alignItems: "center", padding: '20px'}}>
+                <Typography variant={'h6'} style={{fontWeight: 'bold', height: "30px"}} color={'primary'}>
                     <EditableSpan title={props.title}
                                   onChange={changeTodolistTitle}/>
                 </Typography>
@@ -86,10 +86,13 @@ export function Todolist(props: propsType) {
             </List>
             <Container style={{display: 'flex'}}>
                 <Button variant={'contained'}
+                        style={{margin: "0 5px 0 0"}}
                         color={props.filter === 'all' ? 'secondary' : 'primary'}
-                        onClick={setAll}>All
+                        onClick={setAll} >
+                    All
                 </Button>
                 <Button variant={'contained'}
+                        style={{margin: "0 5px 0 0"}}
                         color={props.filter === 'active' ? 'secondary' : 'primary'}
                         onClick={setActive}>Active
                 </Button>

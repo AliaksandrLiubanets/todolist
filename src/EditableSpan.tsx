@@ -18,15 +18,15 @@ const EditableSpan = (props: EditableSpanPropsType) => {
         setEditMode(true)
         setTitle(props.title)
     }
-    
+
     const offEditMode = () => {
         setEditMode(false)
         props.onChange(title)
     }
 
     const SpanWithEdit = () => {
-        return <div style={{display: 'flex', alignItems: 'center'}}>
-            <span style={{display: 'block', margin: '0 10px'}}
+        return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '230px'}}>
+            <span style={{display: 'block', margin: '0 0px'}}
                   onDoubleClick={onEditMode}>{props.title}
             </span>
             <div><IconButton size={'small'}>
