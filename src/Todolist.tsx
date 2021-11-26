@@ -40,7 +40,7 @@ export function Todolist(props: propsType) {
                          dense
                          style={{display: 'flex', justifyContent: 'space-between'}}
                          className={el.isDone ? s.is_done : ''}>
-            <div style={{display: 'flex', alignItems: 'center'}}>
+            <div style={{display: 'flex', alignItems: 'center', flex: 1}}>
                 <ListItemIcon style={{display: 'block'}}>
                     <Checkbox onChange={onCheckboxCheckTask}
                               color={'primary'}
@@ -48,6 +48,7 @@ export function Todolist(props: propsType) {
                     />
                 </ListItemIcon>
                 <EditableSpan title={el.title}
+                              // style={{}}
                               onChange={onChangeTitle}/>
             </div>
             <div style={{display: 'flex', alignItems: 'center'}}>
@@ -67,13 +68,12 @@ export function Todolist(props: propsType) {
 
     return (
         <div className={s.border}>
-            <Container style={{display: 'flex', justifyContent: 'space-between', alignItems: "center", padding: '20px'}}>
-                <Typography variant={'h6'} style={{fontWeight: 'bold', height: "30px"}} color={'primary'}>
+            <Container style={{display: 'flex', justifyContent: 'space-between', alignItems: "center", padding: '20px 10px 25px 20px'}}>
+                <Typography variant={'h6'} style={{fontWeight: 'bold', height: "30px", flex: "1"}} color={'primary'}>
                     <EditableSpan title={props.title}
                                   onChange={changeTodolistTitle}/>
                 </Typography>
                 <div style={{display: 'flex', alignItems: 'center'}}>
-
                     <IconButton size={'small'}
                                 onClick={removeTodolist}>
                         <DeleteIcon/>
@@ -81,7 +81,7 @@ export function Todolist(props: propsType) {
                 </div>
             </Container>
             <AddItemForm addItem={addTaskToTodolist}/>
-            <List>
+            <List style={{padding: "20px 10px" }}>
                 {elementsTask}
             </List>
             <Container style={{display: 'flex'}}>

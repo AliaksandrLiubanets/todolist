@@ -25,20 +25,20 @@ const EditableSpan = (props: EditableSpanPropsType) => {
     }
 
     const SpanWithEdit = () => {
-        return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '230px'}}>
+        return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1}}>
             <span style={{display: 'block', margin: '0 0px'}}
                   onDoubleClick={onEditMode}>{props.title}
             </span>
-            <div><IconButton size={'small'}>
+            <IconButton size={'small'}>
                 <Edit onClick={onEditMode}
                       style={{margin: '0 5px 0 0'}}/>
-            </IconButton></div>
+            </IconButton>
         </div>
     }
 
     return editMode
             ? <TextField size={'small'}
-                         style={{width: '150px', padding: '5px 0 0 10px'}}
+                         style={{width: '160px', padding: '5px 0 0 10px'}}
                          autoFocus={true}
                          onBlur={offEditMode}
                          onChange={setInputValue}

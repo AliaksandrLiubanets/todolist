@@ -26,7 +26,7 @@ const AddItemForm = (props: AddItemFormPropsType) => {
         setTitle('')
     }
 
-    return <Container style={{display: 'flex', alignItems: "flex-start"}} >
+    return <Container style={{display: 'flex', alignItems: "flex-start", height: "40px"}} >
         <TextField variant={'outlined'}
                    size={'small'}
                    label="Add title"
