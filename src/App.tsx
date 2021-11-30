@@ -94,7 +94,6 @@ function App() {
     }
 
 
-
     const todolListComponents = todoLists.map(tl => {
         let taskForRender = tasks[tl.id]
         if (tl.filter === 'active') {
