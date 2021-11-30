@@ -1,26 +1,18 @@
-export const sum = (a: number, b: number) => a + b
-export const sub = (a: number, b: number) => a - b
-export const mul = (a: number, b: number) => a * b
-export const div = (a: number, b: number) => a / b
+import {v1} from 'uuid';
+import {TodolistType} from '../App';
+import {todolistsReducer} from './todolist-reduser'
 
-export type ActionType = {
-    type: "SUM" | "MUL" | "SUB" | "DIV" | "EXP"
-    number: number
-}
+test('correct todolist should be removed', () => {
+    let todolistId1 = v1();
+    let todolistId2 = v1();
 
-export const calculator = (state: number, action: ActionType) => {
-    switch (action.type) {
-        case "SUM":
-            return state + action.number
-        case "MUL":
-            return state * action.number
-        case "SUB":
-            return state - action.number
-        case "DIV":
-            return state / action.number
-        case "EXP":
-            return state ** action.number // возведедние в степень
-        default:
-            return state
-    }
-}
+    const startState: Array<TodolistType> = [
+        {id: todolistId1, title: "What to learn", filter: "all"},
+        {id: todolistId2, title: "What to buy", filter: "all"}
+    ]
+
+    const endState = todolistsReducer(startState, { type: 'REMOVE-TODOLIST', id: todolistId1})
+
+    expect(endState.length).toBe(1);
+    expect(endState[0].id).toBe(todolistId2);
+});

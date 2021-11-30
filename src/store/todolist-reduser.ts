@@ -1,26 +1,30 @@
-export const sum = (a: number, b: number) => a + b
-export const sub = (a: number, b: number) => a - b
-export const mul = (a: number, b: number) => a * b
-export const div = (a: number, b: number) => a / b
+import {FilterTaskType, TodolistType} from '../App'
 
-export type ActionType = {
-    type: "SUM" | "MUL" | "SUB" | "DIV" | "EXP"
-    number: number
+type RemoveTodoListAT = {
+    type: "REMOVE-TODOLIST"
+    id: string
 }
 
-export const calculator = (state: number, action: ActionType) => {
-    switch (action.type) {
-        case "SUM":
-            return state + action.number
-        case "MUL":
-            return state * action.number
-        case "SUB":
-            return state - action.number
-        case "DIV":
-            return state / action.number
-        case "EXP":
-            return state ** action.number // возведедние в степень
+type ChangeTodolistFilterAT = {
+    type: "CHANGE-FILTER-TODOLIST"
+    filter: FilterTaskType
+    id: string
+}
+
+// const changeFilter = (filter: FilterTaskType, todoListID: string) => {
+//     setTodolists(todoLists.map(tl => tl.id === todoListID ? {...tl, filter} : tl))
+// }
+
+export type ActionsType = RemoveTodoListAT | ChangeTodolistFilterAT
+
+export const todolistsReducer = (todoLists: Array<TodolistType>, action: ActionsType): Array<TodolistType> => {
+    switch (action.type){
+        case "REMOVE-TODOLIST":
+            return todoLists.filter(tl => tl.id !== action.id)
+        // case "CHANGE-FILTER-TODOLIST":
+        //     return todoLists.map(tl => tl.id === action.id ? {...tl, action.filter} : tl)
         default:
-            return state
+            return todoLists
     }
+
 }
