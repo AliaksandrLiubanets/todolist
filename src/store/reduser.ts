@@ -24,3 +24,10 @@ export const calculator = (state: number, action: ActionType) => {
             return state
     }
 }
+
+export function summmm(...nums: Array<number>): number {
+    // console.log(nums)
+    //...здесь пишем код.
+    // В return стоит "заглушка", чтоб typescript не ругался
+    return nums.reduce((acc, el) => acc + el)
+}

@@ -1,4 +1,4 @@
-import {ActionType, calculator, sum} from './reduser'
+import {ActionType, calculator, sum, summmm} from './reduser'
 
 test("sum", () => {
     const a = 10
@@ -6,7 +6,7 @@ test("sum", () => {
 
     let result = sum(a, b)
 
-    expect(result).toBe(23)
+    expect(result).toBe(22)
 })
 
 test("sum of calculator", () => {
@@ -57,4 +57,12 @@ test("Exponent of calculator", () => {
     let result = calculator(a, action)
 
     expect(result).toBe(1000)
+})
+
+test("summm", () => {
+    
+    let result = summmm(1,2,3)
+
+    expect(result).toBe(6)
+    expect(summmm(1,1,1,1)).toBe(4)
 })
