@@ -28,7 +28,12 @@ type ChangeTaskTitleAT = {
     title: string
 };
 
-export type ActionsType = RemoveTaskAT | AddTaskAT | changeTaskStatusAT | ChangeTaskTitleAT
+type AddTodolistAT = {
+    type: 'ADD-TODOLIST'
+    title: string
+};
+
+export type ActionsType = RemoveTaskAT | AddTaskAT | changeTaskStatusAT | ChangeTaskTitleAT | AddTodolistAT
 
     export const tasksReducer = (tasks: TaskStateType, action: ActionsType): TaskStateType => {
     switch (action.type){
@@ -50,8 +55,16 @@ export type ActionsType = RemoveTaskAT | AddTaskAT | changeTaskStatusAT | Change
         case 'CHANGE-TASK-TITLE':
             return {...tasks, [action.todoListID]: tasks[action.todoListID].map(task => task.id === action.idTask ? {...task, title: action.title} : task)}
 
+        case "ADD-TODOLIST":
+            const todolistID = v1()
+            // const newTodolist: TodolistType = {
+            //     id: todolistID,
+            //     filter: 'all',
+            //     title: action.title
+            // }
+            return {...tasks, [todolistID]: []}
         default:
-            return tasks
+            throw new Error("I don't understand this type")
     }
 }
 
@@ -62,3 +75,5 @@ export const addTaskAC = (title: string, todoListID: string): AddTaskAT => ({typ
 export const changeTaskStatusAC = (id: string, isDone: boolean, todoListID: string): changeTaskStatusAT => ({type: 'CHANGE-TASK-STATUS', todoListID, isDone, id})
 
 export const changeTaskTitleAC = (idTask: string, title: string, todoListID: string): ChangeTaskTitleAT => ({type: 'CHANGE-TASK-TITLE', idTask, title, todoListID})
+
+export const AddTodolistAC = (title: string): AddTodolistAT => ({type: 'ADD-TODOLIST', title})
