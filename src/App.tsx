@@ -64,6 +64,8 @@ function App() {
         })
     }
 
+
+
     const onChangeTitle = (idTask: string, title: string, todoListID: string) => {
         setTasks({...tasks, [todoListID]: tasks[todoListID].map(task => task.id === idTask ? {...task, title} : task)})
     }
