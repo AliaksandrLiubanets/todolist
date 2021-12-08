@@ -14,10 +14,11 @@ type AddTaskAT = {
     todoListID: string
 }
 
-type ChangeTaskTitleAT = {
-    type: 'CHANGE-TASK-TITLE'
+type changeTaskStatusAT = {
+    type: 'CHANGE-TASK-STATUS'
     id: string
-    title: string
+    isDone: boolean
+    todoListID: string
 }
 
 type ChangeTastFilterAT = {
@@ -26,12 +27,13 @@ type ChangeTastFilterAT = {
     filter: FilterTaskType
 };
 
-export type ActionsType = RemoveTaskAT | AddTaskAT | ChangeTaskTitleAT | ChangeTastFilterAT
+export type ActionsType = RemoveTaskAT | AddTaskAT | changeTaskStatusAT | ChangeTastFilterAT
 
-export const tasksReducer = (tasks: TaskStateType, action: ActionsType): TaskStateType => {
+    export const tasksReducer = (tasks: TaskStateType, action: ActionsType): TaskStateType => {
     switch (action.type){
         case "REMOVE-TASK":
             return {...tasks, [action.todoListID]: tasks[action.todoListID].filter(task => task.id !== action.taskId)}
+
         case 'ADD-TASK':
             let newTask: TaskType
             newTask = {
@@ -41,6 +43,9 @@ export const tasksReducer = (tasks: TaskStateType, action: ActionsType): TaskSta
             }
             return {...tasks, [action.todoListID]: [newTask, ...tasks[action.todoListID]] }
 
+        case 'CHANGE-TASK-STATUS':
+            return {...tasks, [action.todoListID]: tasks[action.todoListID].map(task => task.id === action.id ? {...task, isDone: action.isDone} : task)}
+
         default:
             return tasks
     }
@@ -49,7 +54,7 @@ export const tasksReducer = (tasks: TaskStateType, action: ActionsType): TaskSta
 export const removeTaskAC = (taskId: string, todoListID: string): RemoveTaskAT => ({type: "REMOVE-TASK", taskId, todoListID})
 
 export const addTaskAC = (title: string, todoListID: string): AddTaskAT => ({type: "ADD-TASK", title, todoListID})
-//
-// export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleAT => ({type: "CHANGE-TODOLIST-TITLE", id, title})
-//
+
+export const changeTaskStatusAC = (id: string, isDone: boolean, todoListID: string): changeTaskStatusAT => ({type: 'CHANGE-TASK-STATUS', todoListID, isDone, id})
+
 // export const changeTodolistFilterAC = (id: string, filter: FilterTaskType): ChangeTodolistFilterAT => ({type: "CHANGE-TODOLIST-FILTER", id, filter})
