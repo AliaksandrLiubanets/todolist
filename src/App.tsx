@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import {Todolist} from './Todolist'
 import {TaskType} from './Todolist'
@@ -6,8 +6,6 @@ import {v1} from 'uuid'
 import AddItemForm from './AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {todolistsReducer} from './store/todolist-reduser'
-import {removeTaskAC, tasksReducer} from './store/tasks-reduser'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
@@ -26,12 +24,12 @@ function App() {
     const todoListID_1 = v1()
     const todoListID_2 = v1()
 
-    const [todoLists, dispatchToTodolists] = useReducer(todolistsReducer, [
+    const [todoLists, setTodolists] = useState<Array<TodolistType>>([
         {id: todoListID_1, title: 'What to learn', filter: 'all'},
         {id: todoListID_2, title: 'What to buy', filter: 'all'}
     ])
 
-    const [tasks, dispatchToTasks] = useReducer(tasksReducer, {
+    const [tasks, setTasks] = useState<TaskStateType>({
         [todoListID_1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
@@ -47,7 +45,7 @@ function App() {
     })
 
     const removeTask = (taskId: string, todoListID: string) => {
-        dispatchToTodolists(removeTaskAC(taskId))
+        setTasks({...tasks, [todoListID]: tasks[todoListID].filter(task => task.id !== taskId)})
     }
 
     const addTask = (title: string, todoListID: string) => {
