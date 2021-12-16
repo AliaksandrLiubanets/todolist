@@ -1,11 +1,10 @@
 import React from 'react'
 import './App.css'
-import {TaskType, Todolist} from './Todolist'
+import {TaskType} from './Todolist'
 import AddItemForm from './AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from './store/todolist-reduser'
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './store/tasks-reduser'
+import {addTodolistAC, changeTodolistTitleAC, removeTodolistAC} from './store/todolist-reduser'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {TodolistWithRedux} from './TodolistWithRedux'
@@ -28,28 +27,6 @@ function AppWithRedux() {
 
     const dispatch = useDispatch()
 
-    // const removeTask = (taskId: string, todoListID: string) => {
-    //     dispatch(removeTaskAC(taskId, todoListID))
-    // }
-
-    // const addTask = (title: string, todoListID: string) => {
-    //     dispatch(addTaskAC(title, todoListID))
-    // }
-
-    // const setTaskStatus = (idTask: string, isDone: boolean, todoListID: string) => {
-    //     dispatch(changeTaskStatusAC(idTask, isDone, todoListID))
-    // }
-
-    // const onChangeTitle = (idTask: string, title: string, todoListID: string) => {
-    //     dispatch(changeTaskTitleAC(idTask, title, todoListID))
-    // }
-
-
-
-    // const changeFilter = (filter: FilterTaskType, todoListID: string) => {
-    //     dispatch(changeTodolistFilterAC(todoListID, filter))
-    // }
-
     const changeTodolistTitle = (title: string, todoListID: string) => {
         dispatch(changeTodolistTitleAC(todoListID, title))
     }
@@ -64,7 +41,6 @@ function AppWithRedux() {
         dispatch(action)
     }
 
-
     const todolListComponents = todoLists.map(tl => {
 
         return <Grid key={tl.id} item>
@@ -72,13 +48,7 @@ function AppWithRedux() {
                 <TodolistWithRedux id={tl.id}
                           title={tl.title}
                           filter={tl.filter}
-                          // tasks={taskForRender}
-                          // removeTask={removeTask}
-                          // addTask={addTask}
-                          // setTaskStatus={setTaskStatus}
-                          // changeFilter={changeFilter}
                           removeTodoList={removeTodoList}
-                          // onChange={onChangeTitle}
                           changeTodolistTitle={changeTodolistTitle}
                 />
             </Paper>
