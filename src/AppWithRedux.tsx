@@ -1,17 +1,11 @@
-import React, {useReducer} from 'react'
+import React from 'react'
 import './App.css'
 import {TaskType, Todolist} from './Todolist'
-import {v1} from 'uuid'
 import AddItemForm from './AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {
-    addTodolistAC,
-    changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    removeTodolistAC
-} from './store/todolist-reduser'
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, } from './store/tasks-reduser'
+import {addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from './store/todolist-reduser'
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './store/tasks-reduser'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 
@@ -29,15 +23,10 @@ export type TaskStateType = {
 
 function AppWithRedux() {
 
-    const todoListID_1 = v1()
-    const todoListID_2 = v1()
-
     const todoLists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
 
     const dispatch = useDispatch()
-
-
 
     const removeTask = (taskId: string, todoListID: string) => {
         dispatch(removeTaskAC(taskId, todoListID))
@@ -71,10 +60,8 @@ function AppWithRedux() {
     }
 
     const addTodoList = (title: string) => {
-        // Create action, because of common todolistID that generated in addTodolistAC
         const action = addTodolistAC(title)
         dispatch(action)
-
     }
 
 
