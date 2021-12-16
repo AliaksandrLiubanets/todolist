@@ -8,6 +8,7 @@ import {addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodo
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './store/tasks-reduser'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
+import {TodolistWithRedux} from './TodolistWithRedux'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
@@ -68,7 +69,7 @@ function AppWithRedux() {
 
         return <Grid key={tl.id} item>
             <Paper elevation={5} style={{padding: '20px'}}>
-                <Todolist id={tl.id}
+                <TodolistWithRedux id={tl.id}
                           title={tl.title}
                           filter={tl.filter}
                           // tasks={taskForRender}

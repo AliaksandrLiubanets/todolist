@@ -31,7 +31,7 @@ export type TaskType = {
     isDone: boolean
 }
 
-export function Todolist(props: propsType) {
+export function TodolistWithRedux(props: propsType) {
 
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
     const dispatch = useDispatch()
