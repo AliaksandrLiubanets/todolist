@@ -23,7 +23,8 @@ export type TaskType = {
     isDone: boolean
 }
 
-export function TodolistWithRedux(props: propsType) {
+export const TodolistWithRedux = React.memo((props: propsType) => {
+    console.log('Todolist is called')
 
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
     const dispatch = useDispatch()
@@ -115,4 +116,4 @@ export function TodolistWithRedux(props: propsType) {
             </Container>
         </div>
     )
-}
+})

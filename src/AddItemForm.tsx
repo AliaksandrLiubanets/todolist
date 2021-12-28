@@ -12,7 +12,9 @@ const AddItemForm = (props: AddItemFormPropsType) => {
     const [error, setError] = useState<string>('')
     const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
     const seInputValueOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError('')
+        if (error) {
+            setError('')
+        }
         if (e.key === 'Enter') {
             addItem()
         }
