@@ -40,11 +40,11 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
 
     const elementsTask = taskForRender.map(el => <Task key={el.id} el={el} todolistId={props.id}/> )
 
-    const setAll = () => dispatch(changeTodolistFilterAC(props.id, 'all'))
-    const setActive = () => dispatch(changeTodolistFilterAC(props.id, 'active'))
-    const setCompleted = () => dispatch(changeTodolistFilterAC(props.id, 'completed'))
-    const addTaskToTodolist = (title: string) => dispatch(addTaskAC(title, props.id))
-    const changeTodolistTitle = useCallback((title: string) => dispatch(changeTodolistTitleAC(props.id, title)),[dispatch, props.id])
+    const setAll = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'all')), [props.id, dispatch])
+    const setActive = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'active')), [props.id, dispatch])
+    const setCompleted = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'completed')), [props.id, dispatch])
+    const addTaskToTodolist = useCallback((title: string) => dispatch(addTaskAC(title, props.id)), [props.id, dispatch])
+    const changeTodolistTitle = useCallback((title: string) => dispatch(changeTodolistTitleAC(props.id, title)),[props.id, dispatch])
     const removeTodolist = () => dispatch(removeTodolistAC(props.id))
 
     return (
