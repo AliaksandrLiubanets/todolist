@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react'
+import React, {ChangeEvent, useCallback, useContext} from 'react'
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './store/tasks-reduser'
 import {Checkbox, IconButton, ListItem, ListItemIcon} from '@material-ui/core'
 import s from './Style.module.css'
@@ -12,13 +12,13 @@ type PropsType = {
     todolistId: string
 }
 
-export const TaskElement = React.memo(({el, todolistId}: PropsType) => {
+export const Task = React.memo(({el, todolistId}: PropsType) => {
 
     const dispatch = useDispatch()
 
-    const onCheckboxCheckTask = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(el.id, e.currentTarget.checked, todolistId))
-    const onChangeTitle = (title: string) => dispatch(changeTaskTitleAC(el.id, title, todolistId))
-    const removeTask = () => dispatch(removeTaskAC(el.id, todolistId))
+    const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(el.id, e.currentTarget.checked, todolistId)), [el.id, todolistId, dispatch])
+    const onChangeTitle = useCallback((title: string) => dispatch(changeTaskTitleAC(el.id, title, todolistId)), [el.id, todolistId, dispatch])
+    const removeTask = useCallback(() => dispatch(removeTaskAC(el.id, todolistId)), [el.id, todolistId, dispatch])
 
     return <ListItem key={el.id}
                      divider

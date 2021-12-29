@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {addTaskAC} from './store/tasks-reduser'
 import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from './store/todolist-reduser'
-import {TaskElement} from './TaskElement'
+import {Task} from './Task'
 
 type propsType = {
     id: string
@@ -38,7 +38,7 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
         taskForRender = tasks.filter(t => t.isDone)
     }
 
-    const elementsTask = taskForRender.map(el => <TaskElement key={el.id} el={el} todolistId={props.id}/> )
+    const elementsTask = taskForRender.map(el => <Task key={el.id} el={el} todolistId={props.id}/> )
 
     const setAll = () => dispatch(changeTodolistFilterAC(props.id, 'all'))
     const setActive = () => dispatch(changeTodolistFilterAC(props.id, 'active'))
