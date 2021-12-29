@@ -29,9 +29,8 @@ const EditableSpan = (props: EditableSpanPropsType) => {
             <span style={{display: 'block', margin: '0 0px'}}
                   onDoubleClick={onEditMode}>{props.title}
             </span>
-            <IconButton size={'small'}>
-                <Edit onClick={onEditMode}
-                      style={{margin: '0 5px 0 0'}}/>
+            <IconButton size={'small'} onClick={onEditMode}>
+                <Edit style={{margin: '0 5px 0 0'}}/>
             </IconButton>
         </div>
     }

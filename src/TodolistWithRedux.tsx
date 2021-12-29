@@ -60,8 +60,8 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
                               onChange={onChangeTitle}/>
             </div>
             <div style={{display: 'flex', alignItems: 'center'}}>
-                <IconButton size={'small'} style={{display: 'block'}}>
-                    <DeleteIcon onClick={removeTask}/>
+                <IconButton size={'small'} style={{display: 'block'}} onClick={removeTask}>
+                    <DeleteIcon />
                 </IconButton>
             </div>
         </ListItem>
