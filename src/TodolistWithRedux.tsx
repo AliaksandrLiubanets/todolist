@@ -45,7 +45,7 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
     const setCompleted = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'completed')), [props.id, dispatch])
     const addTaskToTodolist = useCallback((title: string) => dispatch(addTaskAC(title, props.id)), [props.id, dispatch])
     const changeTodolistTitle = useCallback((title: string) => dispatch(changeTodolistTitleAC(props.id, title)),[props.id, dispatch])
-    const removeTodolist = () => dispatch(removeTodolistAC(props.id))
+    const removeTodolist = useCallback(() => dispatch(removeTodolistAC(props.id)), [props.id, dispatch])
 
     return (
         <div className={s.border}>
