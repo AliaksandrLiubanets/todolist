@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, useCallback, useState} from 'react'
 import {IconButton, TextField} from '@material-ui/core'
 import {Edit} from '@material-ui/icons'
 
@@ -15,15 +15,15 @@ const EditableSpan = React.memo((props: EditableSpanPropsType) => {
 
     const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
 
-    const onEditMode = () => {
+    const onEditMode = useCallback(() => {
         setEditMode(true)
         setTitle(props.title)
-    }
+    }, [props.title])
 
-    const offEditMode = () => {
+    const offEditMode = useCallback(() => {
         setEditMode(false)
         props.onChange(title)
-    }
+    }, [props.onChange])
 
     const SpanWithEdit = () => {
         return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1}}>
