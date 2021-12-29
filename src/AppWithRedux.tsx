@@ -21,7 +21,7 @@ export type TaskStateType = {
     [key: string]: Array<TaskType>
 }
 
-const AppWithRedux = React.memo(() => {
+const AppWithRedux = () => {
     console.log('App is called')
 
     const todoLists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
@@ -81,6 +81,6 @@ const AppWithRedux = React.memo(() => {
             </Container>
         </div>
     )
-})
+}
 
 export default AppWithRedux
