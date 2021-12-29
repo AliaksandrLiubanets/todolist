@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useContext} from 'react'
+import React, {ChangeEvent, useCallback} from 'react'
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './store/tasks-reduser'
 import {Checkbox, IconButton, ListItem, ListItemIcon} from '@material-ui/core'
 import s from './Style.module.css'
