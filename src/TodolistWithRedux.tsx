@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react'
+import React, {ChangeEvent, useCallback} from 'react'
 import s from './Style.module.css'
 import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
@@ -67,10 +67,10 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
         </ListItem>
     })
 
-    const setAll = () => dispatch(changeTodolistFilterAC(props.id, 'all'))
+    const setAll = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'all')), [props.id, dispatch])
     const setActive = () => dispatch(changeTodolistFilterAC(props.id, 'active'))
     const setCompleted = () => dispatch(changeTodolistFilterAC(props.id, 'completed'))
-    const addTaskToTodolist = (title: string) => dispatch(addTaskAC(title, props.id))
+    const addTaskToTodolist = useCallback((title: string) => dispatch(addTaskAC(title, props.id)),[props.id, dispatch])
     const changeTodolistTitle = (title: string) => dispatch(changeTodolistTitleAC(props.id, title))
     const removeTodolist = () => dispatch(removeTodolistAC(props.id))
 
