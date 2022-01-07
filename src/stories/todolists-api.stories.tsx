@@ -1,16 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios'
 import {todolistAPI} from '../api/todolist-api'
 
 export default {
     title: 'API'
-}
-
-const settings = {
-    withCredentials: true,
-    headers: {
-        'API-KEY': 'ec259ea8-b888-43af-83e9-f75c638bfe8f'
-    }
 }
 
 export const GetTodolists = () => {
@@ -19,24 +11,14 @@ export const GetTodolists = () => {
         todolistAPI.getTodolists().then(res => setState(res.data))
     }, [])
 
-    // useEffect(() => {
-    //     axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists', settings)
-    //         .then((res) => {
-    //             setState(res.data)
-    //         })
-    //
-    // }, [])
     return <div> {JSON.stringify(state)}</div>
 }
 export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
+
     useEffect(() => {
-        const title = 'new Todolist'
-        const promise = axios.post('https://social-network.samuraijs.com/api/1.1/todo-lists',
-            {title},
-            settings
-        )
-        promise.then((res) => setState(res.data))
+        const title = `111`
+        todolistAPI.createTodolist(title).then(res => setState(res.data))
     }, [])
 
     return <div> {JSON.stringify(state)}</div>
@@ -63,8 +45,6 @@ export const UpdateTodolistTitle = () => {
             setState(res.data)
         })
 
-        // axios.put(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`, {title}, settings   )
-        //     .then(res => setState(res.data))
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
