@@ -23,6 +23,13 @@ export const todolistAPI = {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
     },
 
+    getTasks(todolistId: string) {
+        return instance.get<GetResponseType>(`todo-lists/${todolistId}/tasks`)
+    },
+
+    postTask(todolistId: string, title: string) {
+        return instance.post<PostResponseType>(`todo-lists/${todolistId}/tasks`, {title})
+    }
 }
 
 type TodolistType = {
@@ -34,6 +41,35 @@ type TodolistType = {
 
 type ResponseType<D = {}> = {
     data: D
+    fieldsErrors: Array<string>
+    messages: Array<string>
+    resultCode: number
+}
+
+type TaskType = {
+    description: string
+    title: string
+    isDone: boolean
+    status: number
+    priority: number
+    startDate: string
+    deadline: string
+    id: string
+    todoListId: string
+    order: number
+    addedDate: string
+}
+
+type GetResponseType = {
+    items: Array<TaskType>
+    totalCount: string
+    error: string
+}
+
+type PostResponseType = {
+    data: {
+        item: TaskType
+    }
     fieldsErrors: Array<string>
     messages: Array<string>
     resultCode: number
