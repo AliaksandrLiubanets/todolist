@@ -69,12 +69,12 @@ export const GetTasks = () => {
     return <div>{JSON.stringify(state)}</div>
 }
 
-export const PostTask = () => {
+export const CreateTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
         const todolistId = '774b5bb3-5608-4376-b429-35604c48bc60'
         const title = 'GitHub'
-        todolistAPI.postTask(todolistId, title).then(res => {
+        todolistAPI.createTask(todolistId, title).then(res => {
             setState(res.data)
         })
     }, [])
@@ -92,12 +92,11 @@ export const UpdateTask = () => {
             isDone: false,
             status: 0,
             priority: 1,
-            startDate: null,
-            deadline: null,
-            addedDate: ''
+            startDate: '2021-12-17T03:24:00',
+            deadline: '2022-01-17T03:24:00',
+            addedDate: '2022-01-10T03:24:00'
         }
         todolistAPI.updateTask(todolistId, taskId, task).then(res => {
-            debugger
             setState(res.data)
         })
     }, [])
@@ -108,7 +107,7 @@ export const DeleteTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
         const todolistId = '774b5bb3-5608-4376-b429-35604c48bc60'
-        const taskId = '80f4cbc9-780c-441f-b932-61ea84f98ed6'
+        const taskId = '26f9d8ad-f5fe-4145-813e-db27b3c49c9f'
         todolistAPI.deleteTask(todolistId, taskId).then(res => {
             setState(res.data)
         })
