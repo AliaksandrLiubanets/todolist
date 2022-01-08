@@ -81,4 +81,37 @@ export const PostTask = () => {
     return <div>{JSON.stringify(state)}</div>
 }
 
+export const UpdateTask = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const todolistId = '774b5bb3-5608-4376-b429-35604c48bc60'
+        const taskId = 'c5b326b6-02ad-4471-8753-879194f097e3'
+        const task = {
+            title: 'JS',
+            description: 'Samurai-JS forever',
+            isDone: false,
+            status: 0,
+            priority: 1,
+            startDate: null,
+            deadline: null,
+            addedDate: ''
+        }
+        todolistAPI.updateTask(todolistId, taskId, task).then(res => {
+            debugger
+            setState(res.data)
+        })
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
 
+export const DeleteTask = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const todolistId = '774b5bb3-5608-4376-b429-35604c48bc60'
+        const taskId = '80f4cbc9-780c-441f-b932-61ea84f98ed6'
+        todolistAPI.deleteTask(todolistId, taskId).then(res => {
+            setState(res.data)
+        })
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
