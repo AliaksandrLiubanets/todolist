@@ -58,15 +58,22 @@ export const UpdateTodolistTitle = () => {
 
 export const GetTasks = () => {
     const [state, setState] = useState<any>(null)
-    useEffect(() => {
-        const todolistId = '774b5bb3-5608-4376-b429-35604c48bc60'
+    const [todolistId, setTodolistId] = useState<any>('')
+
+    const getTasks = () => {
         todolistAPI.getTasks(todolistId)
             .then(res => {
                 setState(res.data)
             })
-    }, [])
+    }
 
-    return <div>{JSON.stringify(state)}</div>
+    return <div>
+        <div>{JSON.stringify(state)}</div>
+        <div>
+            <input type="text" placeholder={'todolistId'} onChange={(e) => setTodolistId(e.currentTarget.value)} value={todolistId}/>
+            <button onClick={getTasks} >Get tasks</button>
+        </div>
+    </div>
 }
 
 export const CreateTask = () => {
