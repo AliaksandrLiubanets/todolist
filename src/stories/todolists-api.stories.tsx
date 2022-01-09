@@ -103,24 +103,56 @@ export const CreateTask = () => {
 
 export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
-    useEffect(() => {
-        const todolistId = '774b5bb3-5608-4376-b429-35604c48bc60'
-        const taskId = 'c5b326b6-02ad-4471-8753-879194f097e3'
-        const task = {
-            title: 'JS',
-            description: 'Samurai-JS forever',
-            isDone: false,
-            status: 0,
-            priority: 1,
-            startDate: '2021-12-17T03:24:00',
-            deadline: '2022-01-17T03:24:00',
-            addedDate: '2022-01-10T03:24:00'
-        }
+    const [todolistId, setTodolistId] = useState<any>('')
+    const [taskId, setTaskId] = useState<any>('')
+    const [title, setTitle] = useState<any>('')
+    const [description, setDescription] = useState<any>('')
+    const [isDone, setIsDone] = useState<any>(false)
+    const [status, setStatus] = useState<any>(0)
+    const [priority, setPriority] = useState<any>(1)
+    const [startDate, setStartDate] = useState<any>('')
+    const [deadline, setDeadline] = useState<any>('')
+
+    const task = {
+                title: title,
+                description: description,
+                isDone: isDone,
+                status: status,
+                priority: priority,
+                startDate: startDate,
+                deadline: deadline,
+            }
+
+    const updateTask = () => {
         todolistAPI.updateTask(todolistId, taskId, task).then(res => {
-            setState(res.data)
-        })
-    }, [])
-    return <div>{JSON.stringify(state)}</div>
+                    setState(res.data)
+                })
+    }
+
+    return <div>
+        <div>{JSON.stringify(state)}</div>
+        <div>
+            <input type="text" placeholder={'todolistId'} onChange={(e) => setTodolistId(e.currentTarget.value)}
+                   value={todolistId}/>
+            <input type="text" placeholder={'taskId'} onChange={(e) => setTaskId(e.currentTarget.value)}
+                   value={taskId}/>
+            <input type="text" placeholder={'title'} onChange={(e) => setTitle(e.currentTarget.value)}
+                   value={title}/>
+            <input type="text" placeholder={'description'} onChange={(e) => setDescription(e.currentTarget.value)}
+                   value={description}/>
+            <input type="text" placeholder={'isDone'} onChange={(e) => setIsDone(e.currentTarget.value)}
+                   value={isDone}/>
+            <input type="text" placeholder={'status'} onChange={(e) => setStatus(e.currentTarget.value)}
+                   value={status}/>
+            <input type="text" placeholder={'priority'} onChange={(e) => setPriority(e.currentTarget.value)}
+                   value={priority}/>
+            <input type="text" placeholder={'startDate'} onChange={(e) => setStartDate(e.currentTarget.value)}
+                   value={startDate}/>
+            <input type="text" placeholder={'deadline'} onChange={(e) => setDeadline(e.currentTarget.value)}
+                   value={deadline}/>
+            <button onClick={updateTask}>Update task</button>
+        </div>
+    </div>
 }
 
 export const DeleteTask = () => {

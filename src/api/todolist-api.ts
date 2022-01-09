@@ -31,8 +31,8 @@ export const todolistAPI = {
         return instance.post<PostPutResponseTaskType>(`todo-lists/${todolistId}/tasks`, {title})
     },
 
-    updateTask(todolistId: string, taskId: string, task: PutRequestTaskType) {
-        return instance.put<PostPutResponseTaskType>(`todo-lists/${todolistId}/tasks/${taskId}`, task)
+    updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
+        return instance.put<PostPutResponseTaskType>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
     },
 
     deleteTask(todolistId: string, taskId: string) {
@@ -90,14 +90,13 @@ type DeleteResponseTaskType = {
     resultCode: number
 }
 
-type PutRequestTaskType = {
+type UpdateTaskModelType = {
     title: string
     description: string
     isDone: boolean
     status: number
     priority: number
-    startDate?: string
-    deadline?: string
-    addedDate?: string
+    startDate: string
+    deadline: string
 }
 
