@@ -55,8 +55,8 @@ type UpdateTaskModelType = {
     isDone: boolean
     status: number
     priority: number
-    startDate: string
-    deadline: string
+    startDate: Date
+    deadline: Date
 }
 
 const instance = axios.create({
