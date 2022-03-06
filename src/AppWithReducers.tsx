@@ -13,7 +13,7 @@ import {
     todolistsReducer
 } from './store/todolist-reduser'
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './store/tasks-reduser'
-import {TaskStatuses, TaskType} from './api/todolist-api'
+import {TaskStatuses, TaskType, TodoTaskPriorities} from './api/todolist-api'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
