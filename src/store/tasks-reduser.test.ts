@@ -1,12 +1,7 @@
-import {
-    addTaskAC,
-    changeTaskStatusAC,
-    changeTaskTitleAC,
-    removeTaskAC,
-    tasksReducer
-} from './tasks-reduser'
-import {TaskStateType, TodolistType} from '../App'
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './tasks-reduser'
+import {TaskStateType} from '../App'
 import {addTodolistAC, removeTodolistAC, todolistsReducer} from './todolist-reduser'
+import {TodolistDomainType} from '../AppWithRedux'
 
 let startState: TaskStateType
 
@@ -97,7 +92,7 @@ test('new array should be added when new todolist is added', () => {
 
 test('ids should be equals', () => {
     const startTasksState: TaskStateType = {};
-    const startTodolistsState: Array<TodolistType> = [];
+    const startTodolistsState: Array<TodolistDomainType> = [];
 
     const action = addTodolistAC("new todolist");
 

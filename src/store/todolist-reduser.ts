@@ -1,4 +1,4 @@
-import {FilterTaskType, TodolistType} from '../App'
+import {FilterTaskType} from '../App'
 import {v1} from 'uuid'
 import {todoListID_1, todoListID_2} from './tasks-reduser'
 import {TodolistDomainType} from '../AppWithRedux'
@@ -33,7 +33,7 @@ const initialState: Array<TodolistDomainType> = [
     {id: todoListID_2, title: 'What to buy', filter: 'all', addedDate: '', order: 0}
 ]
 
-export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistType> => {
+export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
     switch (action.type){
         case "REMOVE-TODOLIST":
             return state.filter(tl => tl.id !== action.todolistId)
