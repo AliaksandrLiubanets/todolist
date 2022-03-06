@@ -8,12 +8,11 @@ import {addTodolistAC, changeTodolistTitleAC, removeTodolistAC} from './store/to
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {TodolistWithRedux} from './TodolistWithRedux'
+import {TodolistType} from './api/todolist-api'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
-export type TodolistType = {
-    id: string
-    title: string
+export type TodolistDomainType = TodolistType & {
     filter: FilterTaskType
 }
 
