@@ -1,6 +1,6 @@
 import React, {useReducer} from 'react'
 import './App.css'
-import {TaskType, Todolist} from './Todolist'
+import {Todolist} from './Todolist'
 import {v1} from 'uuid'
 import AddItemForm from './AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
@@ -13,6 +13,7 @@ import {
     todolistsReducer
 } from './store/todolist-reduser'
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './store/tasks-reduser'
+import {TaskStatuses, TaskType, TodoTaskPriorities} from './api/todolist-api'
 
 export type FilterTaskType = 'all' | 'active' | 'completed'
 
@@ -38,16 +39,40 @@ function App() {
 
     const [tasks, dispatchToTasks] = useReducer(tasksReducer, {
         [todoListID_1]: [
-            {id: v1(), title: 'HTML&CSS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'ReactJS', isDone: false},
-            {id: v1(), title: 'Redux', isDone: true}
+            {id: v1(), title: 'HTML&CSS', description: '',
+                status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+                startDate: '',  deadline: '', todoListId: todoListID_1,
+                order: 0, addedDate: ''},
+            {id: v1(), title: 'JS', description: '',
+                status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+                startDate: '',  deadline: '', todoListId: todoListID_1,
+                order: 0, addedDate: ''},
+            {id: v1(), title: 'ReactJS', description: '',
+                status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
+                startDate: '',  deadline: '', todoListId: todoListID_1,
+                order: 0, addedDate: ''},
+            {id: v1(), title: 'Redux', description: '',
+                status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+                startDate: '',  deadline: '', todoListId: todoListID_1,
+                order: 0, addedDate: ''}
         ],
         [todoListID_2]: [
-            {id: v1(), title: 'Meat', isDone: true},
-            {id: v1(), title: 'Beer', isDone: true},
-            {id: v1(), title: 'Milk', isDone: false},
-            {id: v1(), title: 'Bread', isDone: true}
+            {id: v1(), title: 'Meat', description: '',
+                status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+                startDate: '',  deadline: '', todoListId: todoListID_2,
+                order: 0, addedDate: ''},
+            {id: v1(), title: 'Beer', description: '',
+                status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+                startDate: '',  deadline: '', todoListId: todoListID_2,
+                order: 0, addedDate: ''},
+            {id: v1(), title: 'Milk', description: '',
+                status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
+                startDate: '',  deadline: '', todoListId: todoListID_2,
+                order: 0, addedDate: ''},
+            {id: v1(), title: 'Bread', description: '',
+                status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+                startDate: '',  deadline: '', todoListId: todoListID_2,
+                order: 0, addedDate: ''}
         ]
     })
 
@@ -91,10 +116,10 @@ function App() {
     const todolListComponents = todoLists.map(tl => {
         let taskForRender = tasks[tl.id]
         if (tl.filter === 'active') {
-            taskForRender = tasks[tl.id].filter(t => !t.isDone)
+            taskForRender = tasks[tl.id].filter(t => t.status !== 2)
         }
         if (tl.filter === 'completed') {
-            taskForRender = tasks[tl.id].filter(t => t.isDone)
+            taskForRender = tasks[tl.id].filter(t => t.status === 2)
         }
 
         return <Grid key={tl.id} item>

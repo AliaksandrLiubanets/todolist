@@ -9,6 +9,7 @@ import {AppRootStateType} from './store/store'
 import {addTaskAC} from './store/tasks-reduser'
 import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from './store/todolist-reduser'
 import {Task} from './Task'
+import {TaskType} from './api/todolist-api'
 
 type propsType = {
     id: string
@@ -16,12 +17,6 @@ type propsType = {
     filter: string
     removeTodoList: (todoListID: string) => void
     changeTodolistTitle: (title: string, todoListID: string) => void
-}
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
 }
 
 export const TodolistWithRedux = React.memo((props: propsType) => {
@@ -32,10 +27,10 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
 
     let taskForRender = tasks
     if (props.filter === 'active') {
-        taskForRender = tasks.filter(t => !t.isDone)
+        taskForRender = tasks.filter(t => t.status !== 2)
     }
     if (props.filter === 'completed') {
-        taskForRender = tasks.filter(t => t.isDone)
+        taskForRender = tasks.filter(t => t.status === 2)
     }
 
     const elementsTask = taskForRender.map(el => <Task key={el.id} el={el} todolistId={props.id}/> )

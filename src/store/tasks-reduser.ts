@@ -34,16 +34,40 @@ export const todoListID_2 = v1()
 
 const initialState: TaskStateType = {
     [todoListID_1]: [
-        {id: v1(), title: 'HTML&CSS', isDone: true},
-        {id: v1(), title: 'JS', isDone: true},
-        {id: v1(), title: 'ReactJS', isDone: false},
-        {id: v1(), title: 'Redux', isDone: true}
+        {id: v1(), title: 'HTML&CSS', description: '',
+            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: todoListID_1,
+            order: 0, addedDate: ''},
+        {id: v1(), title: 'JS', description: '',
+            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: todoListID_1,
+            order: 0, addedDate: ''},
+        {id: v1(), title: 'ReactJS', description: '',
+            status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: todoListID_1,
+            order: 0, addedDate: ''},
+        {id: v1(), title: 'Redux', description: '',
+            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: todoListID_1,
+            order: 0, addedDate: ''}
     ],
     [todoListID_2]: [
-        {id: v1(), title: 'Meat', isDone: true},
-        {id: v1(), title: 'Beer', isDone: true},
-        {id: v1(), title: 'Milk', isDone: false},
-        {id: v1(), title: 'Bread', isDone: true}
+        {id: v1(), title: 'Meat', description: '',
+            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: todoListID_2,
+            order: 0, addedDate: ''},
+        {id: v1(), title: 'Beer', description: '',
+            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: todoListID_2,
+            order: 0, addedDate: ''},
+        {id: v1(), title: 'Milk', description: '',
+            status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: todoListID_2,
+            order: 0, addedDate: ''},
+        {id: v1(), title: 'Bread', description: '',
+            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: todoListID_2,
+            order: 0, addedDate: ''}
     ]
 }
 
