@@ -14,12 +14,27 @@ type ResponseType<D = {}> = {
     resultCode: number
 }
 
-type TaskType = {
+export enum TaskStatuses {
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3,
+}
+
+export enum TodoTaskPriorities {
+    Low = 0,
+    Middle = 1,
+    Hi = 2,
+    Urgently = 3,
+    Later = 4,
+}
+
+export type TaskType = {
     description: string
     title: string
-    isDone: boolean
-    status: number
-    priority: number
+    // isDone: boolean
+    status: TaskStatuses
+    priority: TodoTaskPriorities
     startDate: string
     deadline: string
     id: string

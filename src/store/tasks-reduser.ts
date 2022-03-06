@@ -1,8 +1,7 @@
-
-import {TaskType} from '../Todolist'
 import {v1} from 'uuid'
 import {AddTodolistAT, RemoveTodoListAT} from './todolist-reduser'
-import {TaskStateType} from '../AppWithRedux'
+import {TaskStateType} from '../AppWithReducers'
+import {TaskStatuses, TaskType, TodoTaskPriorities} from '../api/todolist-api'
 
 type RemoveTaskAT = {
     type: "REMOVE-TASK"
@@ -60,7 +59,14 @@ export type ActionsType = RemoveTaskAT | AddTaskAT | changeTaskStatusAT | Change
             newTask = {
                 id: v1(),
                 title: action.title,
-                isDone: false
+                status: TaskStatuses.New,
+                addedDate: '',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TodoTaskPriorities.Low,
+                startDate: '',
+                todoListId: ''
             }
             return {...state, [action.todoListID]: [newTask, ...state[action.todoListID]] }
 

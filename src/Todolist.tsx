@@ -5,6 +5,7 @@ import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
 import {Button, Checkbox, Container, IconButton, List, ListItem, ListItemIcon, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import {TaskType} from './api/todolist-api'
 
 type propsType = {
     id: string
@@ -18,12 +19,6 @@ type propsType = {
     removeTodoList: (todoListID: string) => void
     onChange: (idTask: string, title: string, todoListID: string) => void
     changeTodolistTitle: (title: string, todoListID: string) => void
-}
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
 }
 
 export function Todolist(props: propsType) {
