@@ -18,7 +18,7 @@ type AddTaskAT = {
 type changeTaskStatusAT = {
     type: 'CHANGE-TASK-STATUS'
     id: string
-    isDone: boolean
+    status: TaskStatuses
     todoListID: string
 }
 
@@ -95,7 +95,8 @@ export type ActionsType = RemoveTaskAT | AddTaskAT | changeTaskStatusAT | Change
             return {...state, [action.todoListID]: [newTask, ...state[action.todoListID]] }
 
         case 'CHANGE-TASK-STATUS':
-            return {...state, [action.todoListID]: state[action.todoListID].map(task => task.id === action.id ? {...task, isDone: action.isDone} : task)}
+            debugger
+            return {...state, [action.todoListID]: state[action.todoListID].map(task => task.id === action.id ? {...task, status: action.status} : task)}
 
         case 'CHANGE-TASK-TITLE':
             return {...state, [action.todoListID]: state[action.todoListID].map(task => task.id === action.idTask ? {...task, title: action.title} : task)}
@@ -118,6 +119,6 @@ export const removeTaskAC = (taskId: string, todoListID: string): RemoveTaskAT =
 
 export const addTaskAC = (title: string, todoListID: string): AddTaskAT => ({type: "ADD-TASK", title, todoListID})
 
-export const changeTaskStatusAC = (id: string, isDone: boolean, todoListID: string): changeTaskStatusAT => ({type: 'CHANGE-TASK-STATUS', todoListID, isDone, id})
+export const changeTaskStatusAC = (id: string, status: TaskStatuses, todoListID: string): changeTaskStatusAT => ({type: 'CHANGE-TASK-STATUS', todoListID, status, id})
 
 export const changeTaskTitleAC = (idTask: string, title: string, todoListID: string): ChangeTaskTitleAT => ({type: 'CHANGE-TASK-TITLE', idTask, title, todoListID})

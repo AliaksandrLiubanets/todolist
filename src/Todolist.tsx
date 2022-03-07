@@ -5,7 +5,7 @@ import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
 import {Button, Checkbox, Container, IconButton, List, ListItem, ListItemIcon, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {TaskType} from './api/todolist-api'
+import {TaskStatuses, TaskType} from './api/todolist-api'
 
 type propsType = {
     id: string
@@ -14,7 +14,7 @@ type propsType = {
     tasks: Array<TaskType>
     removeTask: (taskId: string, todoListID: string) => void
     addTask: (title: string, todoListID: string) => void
-    setTaskStatus: (idTask: string, isDone: boolean, todoListID: string) => void
+    setTaskStatus: (idTask: string, status: TaskStatuses, todoListID: string) => void
     changeFilter: (filter: FilterTaskType, todoListID: string) => void
     removeTodoList: (todoListID: string) => void
     onChange: (idTask: string, title: string, todoListID: string) => void
@@ -25,7 +25,7 @@ export function Todolist(props: propsType) {
 
     const elementsTask = props.tasks.map(el => {
 
-        const onCheckboxCheckTask = (e: ChangeEvent<HTMLInputElement>) => props.setTaskStatus(el.id, e.currentTarget.checked, props.id)
+        const onCheckboxCheckTask = (e: ChangeEvent<HTMLInputElement>) => props.setTaskStatus(el.id, e.currentTarget.checked ? el.status = TaskStatuses.Completed : el.status = TaskStatuses.New, props.id)
         const onChangeTitle = (title: string) => props.onChange(el.id, title, props.id)
         const removeTask = () => props.removeTask(el.id, props.id)
 
