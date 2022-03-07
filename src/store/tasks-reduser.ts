@@ -90,12 +90,11 @@ export type ActionsType = RemoveTaskAT | AddTaskAT | changeTaskStatusAT | Change
                 order: 0,
                 priority: TodoTaskPriorities.Low,
                 startDate: '',
-                todoListId: ''
+                todoListId: action.todoListID
             }
             return {...state, [action.todoListID]: [newTask, ...state[action.todoListID]] }
 
         case 'CHANGE-TASK-STATUS':
-            debugger
             return {...state, [action.todoListID]: state[action.todoListID].map(task => task.id === action.id ? {...task, status: action.status} : task)}
 
         case 'CHANGE-TASK-TITLE':

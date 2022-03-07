@@ -5,7 +5,7 @@ import s from './Style.module.css'
 import EditableSpan from './EditableSpan'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {useDispatch} from 'react-redux'
-import {TaskType} from './api/todolist-api'
+import {TaskStatuses, TaskType} from './api/todolist-api'
 
 type PropsType = {
     el: TaskType
@@ -16,7 +16,7 @@ export const Task = React.memo(({el, todolistId}: PropsType) => {
 
     const dispatch = useDispatch()
 
-    const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(el.id, e.currentTarget.checked, todolistId)), [el.id, todolistId, dispatch])
+    const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(el.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New, todolistId)), [el.id, todolistId, dispatch])
     const onChangeTitle = useCallback((title: string) => dispatch(changeTaskTitleAC(el.id, title, todolistId)), [el.id, todolistId, dispatch])
     const removeTask = useCallback(() => dispatch(removeTaskAC(el.id, todolistId)), [el.id, todolistId, dispatch])
 

@@ -116,10 +116,10 @@ function App() {
     const todolListComponents = todoLists.map(tl => {
         let taskForRender = tasks[tl.id]
         if (tl.filter === 'active') {
-            taskForRender = tasks[tl.id].filter(t => t.status !== 2)
+            taskForRender = tasks[tl.id].filter(t => t.status === TaskStatuses.New)
         }
         if (tl.filter === 'completed') {
-            taskForRender = tasks[tl.id].filter(t => t.status === 2)
+            taskForRender = tasks[tl.id].filter(t => t.status === TaskStatuses.Completed)
         }
 
         return <Grid key={tl.id} item>
