@@ -3,11 +3,11 @@ import './App.css'
 import AddItemForm from './AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {addTodolistAC, changeTodolistTitleAC, removeTodolistAC} from './store/todolist-reduser'
+import {addTodolistAC, changeTodolistTitleAC, removeTodolistAC, TodolistDomainType} from './store/todolist-reduser'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {TodolistWithRedux} from './TodolistWithRedux'
-import {TaskType, TodolistType} from './api/todolist-api'
+import {TaskType} from './api/todolist-api'
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
