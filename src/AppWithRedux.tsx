@@ -9,12 +9,6 @@ import {AppRootStateType} from './store/store'
 import {TodolistWithRedux} from './TodolistWithRedux'
 import {TaskType, TodolistType} from './api/todolist-api'
 
-export type FilterTaskType = 'all' | 'active' | 'completed'
-
-export type TodolistDomainType = TodolistType & {
-    filter: FilterTaskType
-}
-
 export type TaskStateType = {
     [key: string]: Array<TaskType>
 }

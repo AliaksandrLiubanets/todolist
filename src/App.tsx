@@ -8,20 +8,12 @@ import {Menu} from '@material-ui/icons'
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleAC, FilterTaskType,
     removeTodolistAC,
     todolistsReducer
 } from './store/todolist-reduser'
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './store/tasks-reduser'
 import {TaskStatuses, TaskType, TodoTaskPriorities} from './api/todolist-api'
-
-export type FilterTaskType = 'all' | 'active' | 'completed'
-
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterTaskType
-}
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>

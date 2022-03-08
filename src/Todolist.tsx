@@ -1,11 +1,11 @@
 import React, {ChangeEvent} from 'react'
 import s from './Style.module.css'
-import {FilterTaskType} from './App'
 import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
 import {Button, Checkbox, Container, IconButton, List, ListItem, ListItemIcon, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {TaskStatuses, TaskType} from './api/todolist-api'
+import {FilterTaskType} from './store/todolist-reduser'
 
 type propsType = {
     id: string

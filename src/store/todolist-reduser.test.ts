@@ -1,13 +1,11 @@
 import {v1} from 'uuid'
-import {FilterTaskType} from '../App'
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    removeTodolistAC,
+    changeTodolistTitleAC, FilterTaskType,
+    removeTodolistAC, TodolistDomainType,
     todolistsReducer
 } from './todolist-reduser'
-import {TodolistDomainType} from '../AppWithRedux'
 
 let todolistId1: string
 let todolistId2: string
