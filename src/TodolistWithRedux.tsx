@@ -33,7 +33,7 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
         taskForRender = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    const elementsTask = taskForRender.map(el => <Task key={el.id} el={el} todolistId={props.id}/> )
+    const elementsTask = taskForRender?.map(el => <Task key={el.id} el={el} todolistId={props.id}/> )
 
     const setAll = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'all')), [props.id, dispatch])
     const setActive = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'active')), [props.id, dispatch])
