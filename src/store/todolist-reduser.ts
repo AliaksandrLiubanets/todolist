@@ -77,8 +77,8 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
     }
 }
 
-export const removeTodolistAC = (id: string): RemoveTodoListAT => {
-    return {type: 'REMOVE-TODOLIST', todolistId: id}
+export const removeTodolistAC = (todolistId: string): RemoveTodoListAT => {
+    return {type: 'REMOVE-TODOLIST', todolistId}
 }
 
 export const addTodolistAC = (title: string): AddTodolistAT => {
@@ -124,6 +124,15 @@ export const createTodolist = (title: string) => (dispatch: Dispatch) => {
             }
         })
         // .catch(error => console.log(`Todolist creation is unsuccessful. Error text: ${error}`))
+}
+
+export const deleteTodolist = (todolistId: string) => (dispatch: Dispatch) => {
+    return todolistAPI.deleteTodolist(todolistId)
+        .then(resolve => {
+            if (resolve.data.resultCode === 0) {
+                dispatch(removeTodolistAC(todolistId))
+            }
+        })
 }
 
 

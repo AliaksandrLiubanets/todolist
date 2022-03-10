@@ -14,7 +14,6 @@ export type TaskStateType = {
 }
 
 const AppWithRedux = () => {
-    console.log('App is called')
 
     const dispatch = useDispatch()
 
@@ -29,7 +28,6 @@ const AppWithRedux = () => {
     }, [dispatch])
 
     const addTodoList = useCallback((title: string) => {
-        // const action = addTodolistAC(title)
         dispatch(createTodolist(title))
     }, [dispatch])
 

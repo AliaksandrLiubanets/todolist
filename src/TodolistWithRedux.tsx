@@ -7,7 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {addTaskAC} from './store/tasks-reduser'
-import {changeTodolistFilterAC, removeTodolistAC, updateTodolistTitle} from './store/todolist-reduser'
+import {changeTodolistFilterAC, deleteTodolist, updateTodolistTitle} from './store/todolist-reduser'
 import {Task} from './Task'
 import {TaskStatuses, TaskType} from './api/todolist-api'
 
@@ -19,7 +19,6 @@ type propsType = {
 }
 
 export const TodolistWithRedux = React.memo((props: propsType) => {
-    console.log('Todolist is called')
 
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
     const dispatch = useDispatch()
@@ -39,7 +38,7 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
     const setCompleted = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'completed')), [props.id, dispatch])
     const addTaskToTodolist = useCallback((title: string) => dispatch(addTaskAC(title, props.id)), [props.id, dispatch])
     const changeTodolistTitle = useCallback((title: string) => dispatch(updateTodolistTitle(props.id, title)),[props.id, dispatch])
-    const removeTodolist = useCallback(() => dispatch(removeTodolistAC(props.id)), [props.id, dispatch])
+    const removeTodolist = useCallback(() => dispatch(deleteTodolist(props.id)), [props.id, dispatch])
 
     return (
         <div className={s.border}>
