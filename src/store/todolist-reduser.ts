@@ -1,5 +1,3 @@
-import {v1} from 'uuid'
-import {todoListID_1, todoListID_2} from './tasks-reduser'
 import {todolistAPI, TodolistType} from '../api/todolist-api'
 import {Dispatch} from 'redux'
 
@@ -106,12 +104,9 @@ export const setTodolist = () => (dispatch: Dispatch) => {
 }
 
 export const updateTodolistTitle = (todolistId: string, title: string) => (dispatch: Dispatch) => {
-    debugger
     return todolistAPI.updateTodolist(todolistId, title)
-        .then(resolve => {
-            if (resolve.data.resultCode === 0) {
-                dispatch(changeTodolistTitleAC(todolistId, title))
-            }
+        .then(() => {
+            dispatch(changeTodolistTitleAC(todolistId, title))
         })
         .catch(error => console.log(`Error in updateTodolistTitle: ${error}`))
 }
@@ -127,10 +122,8 @@ export const createTodolist = (title: string) => (dispatch: Dispatch) => {
 
 export const deleteTodolist = (todolistId: string) => (dispatch: Dispatch) => {
     return todolistAPI.deleteTodolist(todolistId)
-        .then(resolve => {
-            if (resolve.data.resultCode === 0) {
-                dispatch(removeTodolistAC(todolistId))
-            }
+        .then(() => {
+            dispatch(removeTodolistAC(todolistId))
         })
         .catch(error => console.log(`Error in deleteTodolist: ${error}`))
 }
