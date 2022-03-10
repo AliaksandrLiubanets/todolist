@@ -16,8 +16,7 @@ export type RemoveTodoListAT = {
 
 export type AddTodolistAT = {
     type: 'ADD-TODOLIST'
-    todolistId: string
-    title: string
+    data: any
 }
 
 export type SetTodolistAT = {
@@ -44,8 +43,8 @@ export type ActionsType = RemoveTodoListAT
     | SetTodolistAT
 
 const initialState: Array<TodolistDomainType> = [
-    {id: todoListID_1, title: 'What to learn', filter: 'all', addedDate: '', order: 0},
-    {id: todoListID_2, title: 'What to buy', filter: 'all', addedDate: '', order: 0}
+    // {id: todoListID_1, title: 'What to learn', filter: 'all', addedDate: '', order: 0},
+    // {id: todoListID_2, title: 'What to buy', filter: 'all', addedDate: '', order: 0}
 ]
 
 export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
@@ -55,13 +54,13 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
 
         case 'ADD-TODOLIST':
             const newTodolist: TodolistDomainType = {
-                id: action.todolistId,
-                title: action.title,
+                id: action.data.id,
+                title: action.data.title,
                 filter: 'all',
                 addedDate: '',
                 order: 0
             }
-            return [...state, newTodolist]
+            return [newTodolist, ...state]
 
         case 'CHANGE-TODOLIST-TITLE':
             return state.map(tl => tl.id === action.todolistId ? {...tl, title: action.title} : tl)
@@ -81,8 +80,8 @@ export const removeTodolistAC = (todolistId: string): RemoveTodoListAT => {
     return {type: 'REMOVE-TODOLIST', todolistId}
 }
 
-export const addTodolistAC = (title: string): AddTodolistAT => {
-    return {type: 'ADD-TODOLIST', title, todolistId: v1()}
+export const addTodolistAC = (data: any): AddTodolistAT => {
+    return {type: 'ADD-TODOLIST', data}
 }
 
 export const setTodolistAC = (data: Array<TodolistDomainType>): SetTodolistAT => {
@@ -107,23 +106,24 @@ export const setTodolist = () => (dispatch: Dispatch) => {
 }
 
 export const updateTodolistTitle = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+    debugger
     return todolistAPI.updateTodolist(todolistId, title)
         .then(resolve => {
             if (resolve.data.resultCode === 0) {
                 dispatch(changeTodolistTitleAC(todolistId, title))
             }
         })
-        .catch(error => console.log(`Unsuccessful attempt todolist title's change. Error text: ${error}`))
+        .catch(error => console.log(`Error in updateTodolistTitle: ${error}`))
 }
 
 export const createTodolist = (title: string) => (dispatch: Dispatch) => {
     return todolistAPI.createTodolist(title)
         .then(resolve => {
             if (resolve.data.resultCode === 0) {
-                dispatch(addTodolistAC(title))
+                dispatch(addTodolistAC(resolve.data.data.item))
             }
         })
-        // .catch(error => console.log(`Todolist creation is unsuccessful. Error text: ${error}`))
+        .catch(error => console.log(`Error in createTodolist: ${error}`))
 }
 
 export const deleteTodolist = (todolistId: string) => (dispatch: Dispatch) => {
@@ -133,6 +133,7 @@ export const deleteTodolist = (todolistId: string) => (dispatch: Dispatch) => {
                 dispatch(removeTodolistAC(todolistId))
             }
         })
+        .catch(error => console.log(`Error in deleteTodolist: ${error}`))
 }
 
 
