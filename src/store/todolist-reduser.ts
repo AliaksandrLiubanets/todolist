@@ -115,3 +115,15 @@ export const updateTodolistTitle = (todolistId: string, title: string) => (dispa
         })
         .catch(error => console.log(`Unsuccessful attempt todolist title's change. Error text: ${error}`))
 }
+
+export const createTodolist = (title: string) => (dispatch: Dispatch) => {
+    return todolistAPI.createTodolist(title)
+        .then(resolve => {
+            if (resolve.data.resultCode === 0) {
+                dispatch(addTodolistAC(title))
+            }
+        })
+        // .catch(error => console.log(`Todolist creation is unsuccessful. Error text: ${error}`))
+}
+
+

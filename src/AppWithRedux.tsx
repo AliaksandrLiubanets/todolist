@@ -3,7 +3,7 @@ import './App.css'
 import AddItemForm from './AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {addTodolistAC, removeTodolistAC, setTodolist, TodolistDomainType} from './store/todolist-reduser'
+import {createTodolist, removeTodolistAC, setTodolist, TodolistDomainType} from './store/todolist-reduser'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {TodolistWithRedux} from './TodolistWithRedux'
@@ -29,8 +29,8 @@ const AppWithRedux = () => {
     }, [dispatch])
 
     const addTodoList = useCallback((title: string) => {
-        const action = addTodolistAC(title)
-        dispatch(action)
+        // const action = addTodolistAC(title)
+        dispatch(createTodolist(title))
     }, [dispatch])
 
     const todolListComponents = todoLists.map(tl => {
