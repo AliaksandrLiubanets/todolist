@@ -119,11 +119,8 @@ export const updateTodolistTitle = (todolistId: string, title: string) => (dispa
 export const createTodolist = (title: string) => (dispatch: Dispatch) => {
     return todolistAPI.createTodolist(title)
         .then(resolve => {
-            console.log(resolve)
-            if (resolve.data.resultCode === 0) {
-                const todolist: TodolistType = resolve.data.data.item
-                dispatch(addTodolistAC(todolist))
-            }
+            const todolist: TodolistType = resolve.data.data.item
+            dispatch(addTodolistAC(todolist))
         })
         .catch(error => console.log(`Error in createTodolist: ${error}`))
 }
