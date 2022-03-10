@@ -68,9 +68,9 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
 
         case 'CHANGE-TODOLIST-FILTER':
             return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
+
         case 'SET-TODOLIST':
             return [...action.data]
-        // return action.dataTodo
 
         default:
             return state
