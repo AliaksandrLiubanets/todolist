@@ -27,7 +27,7 @@ export type SetTodolistAT = {
 
 type ChangeTodolistTitleAT = {
     type: 'CHANGE-TODOLIST-TITLE'
-    id: string
+    todolistId: string
     title: string
 }
 
@@ -64,7 +64,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             return [...state, newTodolist]
 
         case 'CHANGE-TODOLIST-TITLE':
-            return state.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
+            return state.map(tl => tl.id === action.todolistId ? {...tl, title: action.title} : tl)
 
         case 'CHANGE-TODOLIST-FILTER':
             return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
@@ -89,12 +89,12 @@ export const setTodolistAC = (data: Array<TodolistDomainType>): SetTodolistAT =>
     return {type: 'SET-TODOLIST', data}
 }
 
-export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleAT => {
-    return { type: 'CHANGE-TODOLIST-TITLE', id, title }
+export const changeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleAT => {
+    return {type: 'CHANGE-TODOLIST-TITLE', todolistId, title}
 }
 
 export const changeTodolistFilterAC = (id: string, filter: FilterTaskType): ChangeTodolistFilterAT => {
-    return {type: 'CHANGE-TODOLIST-FILTER', id, filter }
+    return {type: 'CHANGE-TODOLIST-FILTER', id, filter}
 }
 
 
@@ -104,5 +104,14 @@ export const setTodolist = () => (dispatch: Dispatch) => {
             const todoData: Array<TodolistDomainType> = resolve.data.map(tl => ({...tl, filter: 'all'}))
             dispatch(setTodolistAC(todoData))
         })
+}
 
+export const updateTodolistTitle = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+    return todolistAPI.updateTodolist(todolistId, title)
+        .then(resolve => {
+            if (resolve.data.resultCode === 0) {
+                dispatch(changeTodolistTitleAC(todolistId, title))
+            }
+        })
+        .catch(error => console.log(`Unsuccessful attempt todolist title's change. Error text: ${error}`))
 }

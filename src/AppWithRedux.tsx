@@ -3,13 +3,7 @@ import './App.css'
 import AddItemForm from './AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {
-    addTodolistAC,
-    changeTodolistTitleAC,
-    removeTodolistAC,
-    setTodolist,
-    TodolistDomainType
-} from './store/todolist-reduser'
+import {addTodolistAC, removeTodolistAC, setTodolist, TodolistDomainType} from './store/todolist-reduser'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {TodolistWithRedux} from './TodolistWithRedux'
@@ -30,11 +24,6 @@ const AppWithRedux = () => {
 
     const todoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
 
-
-    const changeTodolistTitle = useCallback((title: string, todoListID: string) => {
-        dispatch(changeTodolistTitleAC(todoListID, title))
-    }, [dispatch])
-
     const removeTodoList = useCallback((todoListID: string) => {
         dispatch(removeTodolistAC(todoListID))
     }, [dispatch])
@@ -52,7 +41,6 @@ const AppWithRedux = () => {
                           title={tl.title}
                           filter={tl.filter}
                           removeTodoList={removeTodoList}
-                          changeTodolistTitle={changeTodolistTitle}
                 />
             </Paper>
         </Grid>

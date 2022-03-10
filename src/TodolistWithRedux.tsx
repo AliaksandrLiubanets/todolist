@@ -7,7 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {addTaskAC} from './store/tasks-reduser'
-import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from './store/todolist-reduser'
+import {changeTodolistFilterAC, removeTodolistAC, updateTodolistTitle} from './store/todolist-reduser'
 import {Task} from './Task'
 import {TaskStatuses, TaskType} from './api/todolist-api'
 
@@ -16,7 +16,6 @@ type propsType = {
     title: string
     filter: string
     removeTodoList: (todoListID: string) => void
-    changeTodolistTitle: (title: string, todoListID: string) => void
 }
 
 export const TodolistWithRedux = React.memo((props: propsType) => {
@@ -39,7 +38,7 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
     const setActive = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'active')), [props.id, dispatch])
     const setCompleted = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'completed')), [props.id, dispatch])
     const addTaskToTodolist = useCallback((title: string) => dispatch(addTaskAC(title, props.id)), [props.id, dispatch])
-    const changeTodolistTitle = useCallback((title: string) => dispatch(changeTodolistTitleAC(props.id, title)),[props.id, dispatch])
+    const changeTodolistTitle = useCallback((title: string) => dispatch(updateTodolistTitle(props.id, title)),[props.id, dispatch])
     const removeTodolist = useCallback(() => dispatch(removeTodolistAC(props.id)), [props.id, dispatch])
 
     return (
