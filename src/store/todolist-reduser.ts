@@ -121,7 +121,8 @@ export const createTodolist = (title: string) => (dispatch: Dispatch) => {
         .then(resolve => {
             console.log(resolve)
             if (resolve.data.resultCode === 0) {
-                dispatch(addTodolistAC(resolve.data.data.item))
+                const todolist: TodolistType = resolve.data.data.item
+                dispatch(addTodolistAC(todolist))
             }
         })
         .catch(error => console.log(`Error in createTodolist: ${error}`))
