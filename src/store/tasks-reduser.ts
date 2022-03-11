@@ -1,7 +1,10 @@
 import {v1} from 'uuid'
 import {AddTodolistAT, RemoveTodoListAT} from './todolist-reduser'
-import {TaskStateType} from '../AppWithReducers'
 import {TaskStatuses, TaskType, TodoTaskPriorities} from '../api/todolist-api'
+
+export type TaskStateType = {
+    [key: string]: Array<TaskType>
+}
 
 type RemoveTaskAT = {
     type: "REMOVE-TASK"
@@ -33,42 +36,42 @@ export const todoListID_1 = v1()
 export const todoListID_2 = v1()
 
 const initialState: TaskStateType = {
-    [todoListID_1]: [
-        {id: v1(), title: 'HTML&CSS', description: '',
-            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
-            startDate: '',  deadline: '', todoListId: todoListID_1,
-            order: 0, addedDate: ''},
-        {id: v1(), title: 'JS', description: '',
-            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
-            startDate: '',  deadline: '', todoListId: todoListID_1,
-            order: 0, addedDate: ''},
-        {id: v1(), title: 'ReactJS', description: '',
-            status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
-            startDate: '',  deadline: '', todoListId: todoListID_1,
-            order: 0, addedDate: ''},
-        {id: v1(), title: 'Redux', description: '',
-            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
-            startDate: '',  deadline: '', todoListId: todoListID_1,
-            order: 0, addedDate: ''}
-    ],
-    [todoListID_2]: [
-        {id: v1(), title: 'Meat', description: '',
-            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
-            startDate: '',  deadline: '', todoListId: todoListID_2,
-            order: 0, addedDate: ''},
-        {id: v1(), title: 'Beer', description: '',
-            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
-            startDate: '',  deadline: '', todoListId: todoListID_2,
-            order: 0, addedDate: ''},
-        {id: v1(), title: 'Milk', description: '',
-            status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
-            startDate: '',  deadline: '', todoListId: todoListID_2,
-            order: 0, addedDate: ''},
-        {id: v1(), title: 'Bread', description: '',
-            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
-            startDate: '',  deadline: '', todoListId: todoListID_2,
-            order: 0, addedDate: ''}
-    ]
+    // [todoListID_1]: [
+    //     {id: v1(), title: 'HTML&CSS', description: '',
+    //         status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+    //         startDate: '',  deadline: '', todoListId: todoListID_1,
+    //         order: 0, addedDate: ''},
+    //     {id: v1(), title: 'JS', description: '',
+    //         status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+    //         startDate: '',  deadline: '', todoListId: todoListID_1,
+    //         order: 0, addedDate: ''},
+    //     {id: v1(), title: 'ReactJS', description: '',
+    //         status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
+    //         startDate: '',  deadline: '', todoListId: todoListID_1,
+    //         order: 0, addedDate: ''},
+    //     {id: v1(), title: 'Redux', description: '',
+    //         status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+    //         startDate: '',  deadline: '', todoListId: todoListID_1,
+    //         order: 0, addedDate: ''}
+    // ],
+    // [todoListID_2]: [
+    //     {id: v1(), title: 'Meat', description: '',
+    //         status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+    //         startDate: '',  deadline: '', todoListId: todoListID_2,
+    //         order: 0, addedDate: ''},
+    //     {id: v1(), title: 'Beer', description: '',
+    //         status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+    //         startDate: '',  deadline: '', todoListId: todoListID_2,
+    //         order: 0, addedDate: ''},
+    //     {id: v1(), title: 'Milk', description: '',
+    //         status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
+    //         startDate: '',  deadline: '', todoListId: todoListID_2,
+    //         order: 0, addedDate: ''},
+    //     {id: v1(), title: 'Bread', description: '',
+    //         status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+    //         startDate: '',  deadline: '', todoListId: todoListID_2,
+    //         order: 0, addedDate: ''}
+    // ]
 }
 
 export type ActionsType = RemoveTaskAT | AddTaskAT | changeTaskStatusAT | ChangeTaskTitleAT | AddTodolistAT | RemoveTodoListAT
@@ -101,7 +104,7 @@ export type ActionsType = RemoveTaskAT | AddTaskAT | changeTaskStatusAT | Change
             return {...state, [action.todoListID]: state[action.todoListID].map(task => task.id === action.idTask ? {...task, title: action.title} : task)}
 
         case "ADD-TODOLIST":
-            return {...state, [action.todolistId]: []}
+            return {...state, [action.todolist.id]: []}
 
         case 'REMOVE-TODOLIST':
             let tasksCopy = {...state}

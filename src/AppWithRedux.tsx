@@ -7,11 +7,7 @@ import {createTodolist, removeTodolistAC, setTodolist, TodolistDomainType} from 
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {TodolistWithRedux} from './TodolistWithRedux'
-import {TaskType} from './api/todolist-api'
 
-export type TaskStateType = {
-    [key: string]: Array<TaskType>
-}
 
 const AppWithRedux = () => {
 
