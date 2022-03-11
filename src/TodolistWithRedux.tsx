@@ -6,7 +6,7 @@ import {Button, Container, IconButton, List, Typography} from '@material-ui/core
 import DeleteIcon from '@material-ui/icons/Delete'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
-import {addTaskAC} from './store/tasks-reduser'
+import {addTaskAC} from './store/tasks-reducer'
 import {changeTodolistFilterAC, deleteTodolist, updateTodolistTitle} from './store/todolist-reduser'
 import {Task} from './Task'
 import {TaskStatuses, TaskType} from './api/todolist-api'

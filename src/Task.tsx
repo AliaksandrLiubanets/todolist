@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback} from 'react'
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './store/tasks-reduser'
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './store/tasks-reducer'
 import {Checkbox, IconButton, ListItem, ListItemIcon} from '@material-ui/core'
 import s from './Style.module.css'
 import EditableSpan from './EditableSpan'

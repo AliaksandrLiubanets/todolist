@@ -5,7 +5,7 @@ import {
     removeTaskAC,
     tasksReducer,
     TaskStateType
-} from './tasks-reduser'
+} from './tasks-reducer'
 import {addTodolistAC, removeTodolistAC, TodolistDomainType, todolistsReducer} from './todolist-reduser'
 import {TaskStatuses, TodoTaskPriorities} from '../api/todolist-api'
 
