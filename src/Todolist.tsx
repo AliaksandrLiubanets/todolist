@@ -5,7 +5,7 @@ import EditableSpan from './EditableSpan'
 import {Button, Checkbox, Container, IconButton, List, ListItem, ListItemIcon, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {TaskStatuses, TaskType} from './api/todolist-api'
-import {FilterTaskType} from './store/todolist-reduser'
+import {FilterTaskType} from './store/todolist-reducer'
 
 type propsType = {
     id: string

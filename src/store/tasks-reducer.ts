@@ -1,5 +1,5 @@
 import {v1} from 'uuid'
-import {AddTodolistAT, RemoveTodoListAT} from './todolist-reduser'
+import {AddTodolistAT, RemoveTodoListAT} from './todolist-reducer'
 import {TaskStatuses, TaskType, TodoTaskPriorities} from '../api/todolist-api'
 
 export type TaskStateType = {

@@ -5,7 +5,7 @@ import {
     changeTodolistTitleAC, FilterTaskType,
     removeTodolistAC, TodolistDomainType,
     todolistsReducer
-} from './todolist-reduser'
+} from './todolist-reducer'
 
 let todolistId1: string
 let todolistId2: string

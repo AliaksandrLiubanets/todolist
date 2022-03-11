@@ -1,4 +1,4 @@
-import {ActionType, calculator, sum, summmm} from './reduser'
+import {ActionType, calculator, sum, summmm} from './reducer'
 
 test("sum", () => {
     const a = 10
