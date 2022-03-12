@@ -1,8 +1,7 @@
 import {v1} from 'uuid'
 import {AddTodolistAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reducer'
-import {TaskStatuses, TaskType, todolistAPI, TodoTaskPriorities} from '../api/todolist-api'
+import {TaskStatuses, TaskType, todolistAPI} from '../api/todolist-api'
 import {Dispatch} from 'redux'
-import {log} from 'util'
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
@@ -140,6 +139,15 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             let tasksCopy = {...state}
             delete tasksCopy[action.todolistId]
             return tasksCopy
+
+        case 'SET-TODOLIST':
+            const copyState = {...state}
+            action.todolists.forEach(tl => {
+                copyState[tl.id] = []
+            })
+
+
+            return copyState
 
         default:
             return state
