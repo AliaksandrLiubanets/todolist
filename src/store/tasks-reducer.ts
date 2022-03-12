@@ -20,8 +20,8 @@ type AddTaskAT = {
 }
 
 type SetTaskAT = {
-    type: 'SET-TASK'
-    task: Array<TaskType>
+    type: 'SET-TASKS'
+    tasks: Array<TaskType>
     todoListID: string
 }
 
@@ -111,9 +111,6 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             // }
             return {[action.todoListID]: [action.task, ...state[action.todoListID]]}
 
-        case 'SET-TASK':
-            return {[action.todoListID]: [...action.task]}
-
         case 'CHANGE-TASK-STATUS':
             return {
                 ...state,
@@ -140,14 +137,19 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             delete tasksCopy[action.todolistId]
             return tasksCopy
 
-        case 'SET-TODOLIST':
+        case 'SET-TODOLIST': {
             const copyState = {...state}
             action.todolists.forEach(tl => {
                 copyState[tl.id] = []
             })
+            return copyState}
 
-
+        case 'SET-TASKS': {
+            const copyState = {...state}
+            copyState[action.todoListID] = action.tasks
             return copyState
+        }
+
 
         default:
             return state
@@ -162,9 +164,9 @@ export const removeTaskAC = (taskId: string, todoListID: string): RemoveTaskAT =
 
 export const addTaskAC = (task: TaskType, todoListID: string): AddTaskAT => ({type: 'ADD-TASK', task, todoListID})
 
-export const setTaskAC = (task: Array<TaskType>, todoListID: string): SetTaskAT => ({
-    type: 'SET-TASK',
-    task,
+export const setTaskAC = (tasks: Array<TaskType>, todoListID: string): SetTaskAT => ({
+    type: 'SET-TASKS',
+    tasks,
     todoListID
 })
 
