@@ -19,7 +19,7 @@ export type AddTodolistAT = {
 
 export type SetTodolistAT = {
     type: 'SET-TODOLIST'
-    data: Array<TodolistDomainType>
+    todolists: Array<TodolistDomainType>
 }
 
 type ChangeTodolistTitleAT = {
@@ -67,7 +67,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
 
         case 'SET-TODOLIST':
-            return [...action.data]
+            return [...action.todolists]
 
         default:
             return state
@@ -83,7 +83,7 @@ export const addTodolistAC = (todolist: TodolistType): AddTodolistAT => {
 }
 
 export const setTodolistAC = (data: Array<TodolistDomainType>): SetTodolistAT => {
-    return {type: 'SET-TODOLIST', data}
+    return {type: 'SET-TODOLIST', todolists: data}
 }
 
 export const changeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleAT => {
