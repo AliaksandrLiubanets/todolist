@@ -154,12 +154,10 @@ export const setTaskAC = (tasks: Array<TaskType>, todoListID: string): SetTaskAT
     todoListID
 })
 
-export const changeTaskStatusAC = (id: string, status: TaskStatuses, todoListID: string): changeTaskStatusAT => ({
-    type: 'CHANGE-TASK-STATUS',
-    todoListID,
-    status,
-    id
-})
+export const changeTaskStatusAC = (todoListID: string, id: string, status: TaskStatuses): changeTaskStatusAT => {
+    debugger
+    return { type: 'CHANGE-TASK-STATUS', todoListID, status, id }
+}
 
 export const changeTaskTitleAC = (idTask: string, title: string, todoListID: string): ChangeTaskTitleAT => ({
     type: 'CHANGE-TASK-TITLE',
@@ -196,5 +194,6 @@ export const updateTask = (todoListID: string, taskId: string, model: UpdateTask
     return todolistAPI.updateTask(todoListID, taskId, model)
         .then((res) => {
             dispatch(changeTaskTitleAC(res.data.data.item.id, res.data.data.item.title, todoListID))
+            dispatch(changeTaskStatusAC(todoListID, res.data.data.item.id, res.data.data.item.status))
         })
 }

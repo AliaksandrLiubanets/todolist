@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback} from 'react'
-import {changeTaskStatusAC, removeTask, updateTask} from './store/tasks-reducer'
+import {removeTask, updateTask} from './store/tasks-reducer'
 import {Checkbox, IconButton, ListItem, ListItemIcon} from '@material-ui/core'
 import s from './Style.module.css'
 import EditableSpan from './EditableSpan'
@@ -16,19 +16,51 @@ export const Task = React.memo(({el, todolistId}: PropsType) => {
 
     const dispatch = useDispatch()
 
-    const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(el.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New, todolistId)), [el.id, todolistId, dispatch])
+    const model: UpdateTaskModelType = {
+        title: el.title,
+        deadline: new Date(),
+        description: '',
+        completed: false,
+        status: TaskStatuses.New,
+        priority: TaskStatuses.New,
+        startDate: new Date()
+    }
+
+    const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        debugger
+        // const model: UpdateTaskModelType = {
+        //     title: el.title,
+        //     deadline: new Date(),
+        //     description: '',
+        //     completed: e.currentTarget.checked,
+        //     status: TaskStatuses.New,
+        //     priority: TaskStatuses.New,
+        //     startDate: new Date()
+        // }
+        let mStatus: number = model.status
+        if (e.currentTarget.checked) {
+            mStatus = TaskStatuses.Completed
+        } else {
+            mStatus = TaskStatuses.New
+        }
+        // const status = e.currentTarget.checked ? model.status = TaskStatuses.Completed :
+        const statusModel: UpdateTaskModelType = {...model, status: mStatus   }
+        dispatch(updateTask(todolistId, el.id, statusModel))
+    }, [el.id, todolistId, dispatch])
 
     const onChangeTitle = useCallback((title: string) => {
-        const model: UpdateTaskModelType = {
-            title: title,
-            deadline: new Date(),
-            description: '',
-            completed: false,
-            status: TaskStatuses.New,
-            priority: TaskStatuses.New,
-            startDate: new Date()
-        }
-        dispatch(updateTask(todolistId, el.id, model ))
+        // const model: UpdateTaskModelType = {
+        //     title: title,
+        //     deadline: new Date(),
+        //     description: '',
+        //     completed: false,
+        //     status: TaskStatuses.New,
+        //     priority: TaskStatuses.New,
+        //     startDate: new Date()
+        // }
+
+        const titleModel: UpdateTaskModelType = {...model, title: title }
+        dispatch(updateTask(todolistId, el.id, titleModel ))
     }, [el.id, todolistId, dispatch])
 
     const deleteTask = useCallback(() => dispatch(removeTask(todolistId, el.id)), [el.id, todolistId, dispatch])
