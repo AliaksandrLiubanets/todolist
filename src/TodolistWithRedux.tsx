@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import s from './Style.module.css'
 import AddItemForm from './AddItemForm'
 import EditableSpan from './EditableSpan'
@@ -6,7 +6,7 @@ import {Button, Container, IconButton, List, Typography} from '@material-ui/core
 import DeleteIcon from '@material-ui/icons/Delete'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
-import {addTaskAC} from './store/tasks-reducer'
+import {addTaskAC, setTask} from './store/tasks-reducer'
 import {changeTodolistFilterAC, deleteTodolist, updateTodolistTitle} from './store/todolist-reducer'
 import {Task} from './Task'
 import {TaskStatuses, TaskType} from './api/todolist-api'
@@ -19,6 +19,10 @@ type propsType = {
 }
 
 export const TodolistWithRedux = React.memo((props: propsType) => {
+
+    useEffect(() => {
+        dispatch(setTask(props.id))
+    }, [])
 
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
     const dispatch = useDispatch()
