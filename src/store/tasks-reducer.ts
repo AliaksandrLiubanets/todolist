@@ -95,21 +95,12 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
         case 'REMOVE-TASK':
             return {...state, [action.todoListID]: state[action.todoListID].filter(task => task.id !== action.taskId)}
 
-        case 'ADD-TASK':
-            // let newTask: TaskType
-            // newTask = {
-            //     id: v1(),
-            //     title: action.task.title,
-            //     status: TaskStatuses.New,
-            //     addedDate: '',
-            //     deadline: '',
-            //     description: '',
-            //     order: 0,
-            //     priority: TodoTaskPriorities.Low,
-            //     startDate: '',
-            //     todoListId: action.todoListID
-            // }
-            return {[action.todoListID]: [action.task, ...state[action.todoListID]]}
+        case 'ADD-TASK': {
+            const copyState = {...state}
+            copyState[action.todoListID] = [action.task, ...state[action.todoListID]]
+            return copyState
+        }
+            // return {...state, [action.todoListID]: [action.task, ...state[action.todoListID]]}
 
         case 'CHANGE-TASK-STATUS':
             return {
