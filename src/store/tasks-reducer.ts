@@ -1,5 +1,5 @@
 import {v1} from 'uuid'
-import {AddTodolistAT, RemoveTodoListAT} from './todolist-reducer'
+import {AddTodolistAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reducer'
 import {TaskStatuses, TaskType, todolistAPI, TodoTaskPriorities} from '../api/todolist-api'
 import {Dispatch} from 'redux'
 import {log} from 'util'
@@ -89,6 +89,7 @@ export type ActionsType = RemoveTaskAT
     | AddTodolistAT
     | RemoveTodoListAT
     | SetTaskAT
+    | SetTodolistsAT
 
 export const tasksReducer = (state: TaskStateType = initialState, action: ActionsType): TaskStateType => {
     switch (action.type) {
@@ -153,7 +154,11 @@ export const removeTaskAC = (taskId: string, todoListID: string): RemoveTaskAT =
 
 export const addTaskAC = (task: TaskType, todoListID: string): AddTaskAT => ({type: 'ADD-TASK', task, todoListID})
 
-export const setTaskAC = (task: Array<TaskType>, todoListID: string): SetTaskAT => ({type: 'SET-TASK', task, todoListID})
+export const setTaskAC = (task: Array<TaskType>, todoListID: string): SetTaskAT => ({
+    type: 'SET-TASK',
+    task,
+    todoListID
+})
 
 export const changeTaskStatusAC = (id: string, status: TaskStatuses, todoListID: string): changeTaskStatusAT => ({
     type: 'CHANGE-TASK-STATUS',
@@ -172,7 +177,7 @@ export const changeTaskTitleAC = (idTask: string, title: string, todoListID: str
 export const setTask = (todoListID: string) => (dispatch: Dispatch) => {
     return todolistAPI.getTasks(todoListID)
         .then(response => {
-            console.log(`getTasks. response: ${response.data.items}`)
+            // console.log(`getTasks. response: ${response.data.items}`)
             const tasks: Array<TaskType> = response.data.items
             dispatch(setTaskAC(tasks, todoListID))
         })

@@ -17,7 +17,7 @@ export type AddTodolistAT = {
     todolist: TodolistType
 }
 
-export type SetTodolistAT = {
+export type SetTodolistsAT = {
     type: 'SET-TODOLIST'
     todolists: Array<TodolistDomainType>
 }
@@ -38,7 +38,7 @@ export type ActionsType = RemoveTodoListAT
     | AddTodolistAT
     | ChangeTodolistTitleAT
     | ChangeTodolistFilterAT
-    | SetTodolistAT
+    | SetTodolistsAT
 
 const initialState: Array<TodolistDomainType> = [
     // {id: todoListID_1, title: 'What to learn', filter: 'all', addedDate: '', order: 0},
@@ -82,7 +82,7 @@ export const addTodolistAC = (todolist: TodolistType): AddTodolistAT => {
     return {type: 'ADD-TODOLIST', todolist}
 }
 
-export const setTodolistAC = (data: Array<TodolistDomainType>): SetTodolistAT => {
+export const setTodolistsAC = (data: Array<TodolistDomainType>): SetTodolistsAT => {
     return {type: 'SET-TODOLIST', todolists: data}
 }
 
@@ -95,11 +95,11 @@ export const changeTodolistFilterAC = (id: string, filter: FilterTaskType): Chan
 }
 
 
-export const setTodolist = () => (dispatch: Dispatch) => {
+export const setTodolists = () => (dispatch: Dispatch) => {
     return todolistAPI.getTodolists()
         .then(resolve => {
             const todoData: Array<TodolistDomainType> = resolve.data.map(tl => ({...tl, filter: 'all'}))
-            dispatch(setTodolistAC(todoData))
+            dispatch(setTodolistsAC(todoData))
         })
 }
 

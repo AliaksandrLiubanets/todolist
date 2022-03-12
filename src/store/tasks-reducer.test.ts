@@ -6,7 +6,7 @@ import {
     tasksReducer,
     TaskStateType
 } from './tasks-reducer'
-import {addTodolistAC, removeTodolistAC, TodolistDomainType, todolistsReducer} from './todolist-reducer'
+import {addTodolistAC, removeTodolistAC, setTodolistsAC, TodolistDomainType, todolistsReducer} from './todolist-reducer'
 import {TaskStatuses, TodoTaskPriorities} from '../api/todolist-api'
 
 let startState: TaskStateType
@@ -167,6 +167,25 @@ test('property with todolistId should be deleted', () => {
 
     expect(keys.length).toBe(1);
     expect(endState["todolistId2"]).not.toBeDefined();
+});
+
+test('empty arrays should be added when we add todolists', () => {
+
+    const todolists: Array<TodolistDomainType> = [
+        {id: "todolistId1", title: 'What to learn', filter: 'all', addedDate: '', order: 0},
+        {id: "todolistId2", title: 'What to buy', filter: 'all', addedDate: '', order: 0}
+    ]
+
+    const action = setTodolistsAC(todolists);
+
+    const endState = tasksReducer({}, action)
+
+
+    const keys = Object.keys(endState);
+
+    expect(keys.length).toBe(2);
+    expect(endState["todolistId1"]).toBe([]);
+    expect(endState["todolistId2"]).toBe([]);
 });
 
 
