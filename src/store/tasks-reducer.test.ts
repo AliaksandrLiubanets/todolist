@@ -2,12 +2,12 @@ import {
     addTaskAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
-    removeTaskAC,
+    removeTaskAC, setTaskAC,
     tasksReducer,
     TaskStateType
 } from './tasks-reducer'
 import {addTodolistAC, removeTodolistAC, setTodolistsAC, TodolistDomainType, todolistsReducer} from './todolist-reducer'
-import {TaskStatuses, TodoTaskPriorities} from '../api/todolist-api'
+import {TaskStatuses, TaskType, TodoTaskPriorities} from '../api/todolist-api'
 
 let startState: TaskStateType
 
@@ -180,7 +180,6 @@ test('empty arrays should be added when we add todolists', () => {
 
     const endState = tasksReducer({}, action)
 
-
     const keys = Object.keys(endState);
 
     expect(keys.length).toBe(2);
@@ -188,6 +187,34 @@ test('empty arrays should be added when we add todolists', () => {
     expect(endState["todolistId2"]).toStrictEqual([]);
 });
 
+test('tasks array should be added for todolist', () => {
+
+    const tasks: Array<TaskType> = [
+        { id: "1", title: "CSS", description: '',
+            status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: "todolistId1",
+            order: 0, addedDate: ''},
+        { id: "2", title: "JS", description: '',
+            status: TaskStatuses.Completed, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: "todolistId1",
+            order: 0, addedDate: ''  },
+        { id: "3", title: "React", description: '',
+            status: TaskStatuses.New, priority: TodoTaskPriorities.Low,
+            startDate: '',  deadline: '', todoListId: "todolistId1",
+            order: 0, addedDate: '' }
+    ]
+
+    const action = setTaskAC(tasks, "todolistId1");
+
+    const endState = tasksReducer({}, action)
+
+    const keys = Object.keys(endState);
+
+    expect(keys.length).toBe(1);
+    expect(endState["todolistId1"][0].id).toBe('1');
+    expect(endState["todolistId1"][2].title).toBe('React');
+    expect(endState["todolistId2"]).toBeUndefined();
+});
 
 
 
