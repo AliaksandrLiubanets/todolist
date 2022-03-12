@@ -204,16 +204,19 @@ test('tasks array should be added for todolist', () => {
             order: 0, addedDate: '' }
     ]
 
-    const action = setTaskAC(tasks, "todolistId1");
+    const action = setTaskAC(tasks, "todolistId4");
 
-    const endState = tasksReducer({}, action)
+    const endState = tasksReducer({
+        'tdl_2' : [],
+        'tdl_3' : [],
+    }, action)
 
     const keys = Object.keys(endState);
 
-    expect(keys.length).toBe(1);
-    expect(endState["todolistId1"][0].id).toBe('1');
-    expect(endState["todolistId1"][2].title).toBe('React');
-    expect(endState["todolistId2"]).toBeUndefined();
+    expect(keys.length).toBe(3);
+    expect(endState["todolistId4"][0].id).toBe('1');
+    expect(endState["todolistId4"][2].title).toBe('React');
+    expect(endState["todolistId1"]).toBeUndefined();
 });
 
 
