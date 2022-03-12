@@ -14,7 +14,7 @@ export type RemoveTodoListAT = {
 
 export type AddTodolistAT = {
     type: 'ADD-TODOLIST'
-    todolist: TodolistType
+    todolist: TodolistDomainType
 }
 
 export type SetTodolistsAT = {
@@ -51,14 +51,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             return state.filter(tl => tl.id !== action.todolistId)
 
         case 'ADD-TODOLIST':
-            const newTodolist: TodolistDomainType = {
-                id: action.todolist.id,
-                title: action.todolist.title,
-                filter: 'all',
-                addedDate: '',
-                order: 0
-            }
-            return [newTodolist, ...state]
+            return [action.todolist, ...state]
 
         case 'CHANGE-TODOLIST-TITLE':
             return state.map(tl => tl.id === action.todolistId ? {...tl, title: action.title} : tl)
@@ -78,7 +71,7 @@ export const removeTodolistAC = (todolistId: string): RemoveTodoListAT => {
     return {type: 'REMOVE-TODOLIST', todolistId}
 }
 
-export const addTodolistAC = (todolist: TodolistType): AddTodolistAT => {
+export const addTodolistAC = (todolist: TodolistDomainType): AddTodolistAT => {
     return {type: 'ADD-TODOLIST', todolist}
 }
 
@@ -114,7 +107,8 @@ export const updateTodolistTitle = (todolistId: string, title: string) => (dispa
 export const createTodolist = (title: string) => (dispatch: Dispatch) => {
     return todolistAPI.createTodolist(title)
         .then(resolve => {
-            const todolist: TodolistType = resolve.data.data.item
+            const todolistFromServer: TodolistType = resolve.data.data.item
+            const todolist: TodolistDomainType = {...todolistFromServer, filter: 'all'}
             dispatch(addTodolistAC(todolist))
         })
         .catch(error => console.log(`Error in createTodolist: ${error}`))

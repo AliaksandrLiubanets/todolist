@@ -64,10 +64,10 @@ type DeleteResponseTaskType = {
     resultCode: number
 }
 
-type UpdateTaskModelType = {
+export type UpdateTaskModelType = {
     title: string
     description: string
-    isDone: boolean
+    completed: boolean
     status: number
     priority: number
     startDate: Date

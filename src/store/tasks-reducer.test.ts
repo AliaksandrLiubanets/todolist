@@ -118,7 +118,7 @@ test('title of specified task should be changed', () => {
 });
 
 test('new array should be added when new todolist is added', () => {
-    const todolist = {
+    const todolist: TodolistDomainType = {
         id: "todoListID_1", title: 'What to learn', filter: 'all', addedDate: '', order: 0
     }
     const action = addTodolistAC(todolist);
@@ -139,7 +139,7 @@ test('new array should be added when new todolist is added', () => {
 test('ids should be equals', () => {
     const startTasksState: TaskStateType = {};
     const startTodolistsState: Array<TodolistDomainType> = [];
-    const todolist = {
+    const todolist: TodolistDomainType = {
         id: "todoListID_1", title: 'What to learn', filter: 'all', addedDate: '', order: 0
         }
 

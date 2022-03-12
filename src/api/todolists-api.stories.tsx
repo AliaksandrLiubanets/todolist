@@ -116,7 +116,7 @@ export const UpdateTask = () => {
     const task = {
                 title: title,
                 description: description,
-                isDone: isDone,
+                completed: isDone,
                 status: status,
                 priority: priority,
                 startDate: startDate,

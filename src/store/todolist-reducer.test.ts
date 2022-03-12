@@ -31,7 +31,7 @@ test('correct todolist should be removed', () => {
 
 test('correct todolist should be added', () => {
 
-    let newTodolistTitle = {
+    let newTodolistTitle: TodolistDomainType = {
         id: "todoListID_1", title: 'What?', filter: 'all', addedDate: '', order: 0
     }
 

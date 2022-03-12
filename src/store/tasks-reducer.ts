@@ -1,6 +1,6 @@
 import {v1} from 'uuid'
 import {AddTodolistAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reducer'
-import {TaskStatuses, TaskType, todolistAPI} from '../api/todolist-api'
+import {TaskStatuses, TaskType, todolistAPI, UpdateTaskModelType} from '../api/todolist-api'
 import {Dispatch} from 'redux'
 
 export type TaskStateType = {
@@ -177,17 +177,24 @@ export const setTask = (todoListID: string) => (dispatch: Dispatch) => {
         .catch(error => console.log(`setTusk error: ${error}`))
 }
 
-export const createTask = (todolistID: string, title: string) => (dispatch: Dispatch) => {
-    return todolistAPI.createTask(todolistID, title)
+export const createTask = (todoListID: string, title: string) => (dispatch: Dispatch) => {
+    return todolistAPI.createTask(todoListID, title)
         .then(response => {
             const task: TaskType = response.data.data.item
-            dispatch(addTaskAC(task, todolistID))
+            dispatch(addTaskAC(task, todoListID))
         })
 }
 
-export const removeTask = (todolistID: string, taskId: string) => (dispatch: Dispatch) => {
-    return todolistAPI.deleteTask(todolistID, taskId)
+export const removeTask = (todoListID: string, taskId: string) => (dispatch: Dispatch) => {
+    return todolistAPI.deleteTask(todoListID, taskId)
         .then(() => {
-            dispatch(removeTaskAC(taskId, todolistID))
+            dispatch(removeTaskAC(taskId, todoListID))
+        })
+}
+
+export const updateTask = (todoListID: string, taskId: string, model: UpdateTaskModelType) => (dispatch: Dispatch) => {
+    return todolistAPI.updateTask(todoListID, taskId, model)
+        .then((res) => {
+            dispatch(changeTaskTitleAC(res.data.data.item.id, res.data.data.item.title, todoListID))
         })
 }
