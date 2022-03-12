@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback} from 'react'
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './store/tasks-reducer'
+import {changeTaskStatusAC, changeTaskTitleAC, removeTask} from './store/tasks-reducer'
 import {Checkbox, IconButton, ListItem, ListItemIcon} from '@material-ui/core'
 import s from './Style.module.css'
 import EditableSpan from './EditableSpan'
@@ -17,8 +17,10 @@ export const Task = React.memo(({el, todolistId}: PropsType) => {
     const dispatch = useDispatch()
 
     const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(el.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New, todolistId)), [el.id, todolistId, dispatch])
+
     const onChangeTitle = useCallback((title: string) => dispatch(changeTaskTitleAC(el.id, title, todolistId)), [el.id, todolistId, dispatch])
-    const removeTask = useCallback(() => dispatch(removeTaskAC(el.id, todolistId)), [el.id, todolistId, dispatch])
+
+    const deleteTask = useCallback(() => dispatch(removeTask(todolistId, el.id)), [el.id, todolistId, dispatch])
 
     return <ListItem key={el.id}
                      divider
@@ -37,7 +39,7 @@ export const Task = React.memo(({el, todolistId}: PropsType) => {
                           onChange={onChangeTitle}/>
         </div>
         <div style={{display: 'flex', alignItems: 'center'}}>
-            <IconButton size={'small'} style={{display: 'block'}} onClick={removeTask}>
+            <IconButton size={'small'} style={{display: 'block'}} onClick={deleteTask}>
                 <DeleteIcon />
             </IconButton>
         </div>

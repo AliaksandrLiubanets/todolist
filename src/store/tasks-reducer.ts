@@ -142,7 +142,8 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             action.todolists.forEach(tl => {
                 copyState[tl.id] = []
             })
-            return copyState}
+            return copyState
+        }
 
         // case 'SET-TASKS': {
         //     const copyState = {...state}
@@ -151,7 +152,7 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
         // }
 
         case 'SET-TASKS':
-            return {...state, [action.todoListID]: action.tasks }
+            return {...state, [action.todoListID]: action.tasks}
 
         default:
             return state
@@ -189,7 +190,6 @@ export const changeTaskTitleAC = (idTask: string, title: string, todoListID: str
 export const setTask = (todoListID: string) => (dispatch: Dispatch) => {
     return todolistAPI.getTasks(todoListID)
         .then(response => {
-            // console.log(`getTasks. response: ${response.data.items}`)
             const tasks: Array<TaskType> = response.data.items
             dispatch(setTaskAC(tasks, todoListID))
         })
@@ -199,8 +199,14 @@ export const setTask = (todoListID: string) => (dispatch: Dispatch) => {
 export const createTask = (todolistID: string, title: string) => (dispatch: Dispatch) => {
     return todolistAPI.createTask(todolistID, title)
         .then(response => {
-            // console.log(response)
             const task: TaskType = response.data.data.item
             dispatch(addTaskAC(task, todolistID))
+        })
+}
+
+export const removeTask = (todolistID: string, taskId: string) => (dispatch: Dispatch) => {
+    return todolistAPI.deleteTask(todolistID, taskId)
+        .then(() => {
+            dispatch(removeTaskAC(taskId, todolistID))
         })
 }
