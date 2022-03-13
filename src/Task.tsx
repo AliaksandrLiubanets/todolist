@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useCallback} from 'react'
-import {removeTask, updateTaskStatus, updateTaskTitle} from './store/tasks-reducer'
+import {removeTask, UpdateDomainTaskModelType, updateTask} from './store/tasks-reducer'
 import {Checkbox, IconButton, ListItem, ListItemIcon} from '@material-ui/core'
 import s from './Style.module.css'
 import EditableSpan from './EditableSpan'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {useDispatch} from 'react-redux'
-import {TaskStatuses, TaskType, UpdateTaskModelType} from './api/todolist-api'
+import {TaskStatuses, TaskType} from './api/todolist-api'
 
 type PropsType = {
     task: TaskType
@@ -16,16 +16,6 @@ export const Task = React.memo(({task, todolistId}: PropsType) => {
 
     const dispatch = useDispatch()
 
-    const model: UpdateTaskModelType = {
-        title: task.title,
-        deadline: task.deadline,
-        description: task.description,
-        completed: true,
-        status: task.status,
-        priority: task.priority,
-        startDate: task.startDate
-    }
-
     const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         let mStatus: number
         if (e.currentTarget.checked) {
@@ -33,13 +23,13 @@ export const Task = React.memo(({task, todolistId}: PropsType) => {
         } else {
             mStatus = TaskStatuses.New
         }
-        const statusModel: UpdateTaskModelType = {...model, status: mStatus}
-        dispatch(updateTaskStatus(todolistId, task.id, statusModel))
+        const statusModel: UpdateDomainTaskModelType = {status: mStatus}
+        dispatch(updateTask(todolistId, task.id, statusModel))
     }, [task.id, todolistId, dispatch])
 
     const onChangeTitle = useCallback((title: string) => {
-        const titleModel: UpdateTaskModelType = {...model, title: title }
-        dispatch(updateTaskTitle(todolistId, task.id, titleModel ))
+        const titleModel: UpdateDomainTaskModelType = {title}
+        dispatch(updateTask(todolistId, task.id, titleModel ))
     }, [task.id, todolistId, dispatch])
 
     const deleteTask = useCallback(() => dispatch(removeTask(todolistId, task.id)), [task.id, todolistId, dispatch])

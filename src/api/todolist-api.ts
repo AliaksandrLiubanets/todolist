@@ -70,8 +70,8 @@ export type UpdateTaskModelType = {
     completed: boolean
     status: TaskStatuses
     priority: TodoTaskPriorities
-    startDate: Date | string
-    deadline: Date | string
+    startDate: string
+    deadline: string
 }
 
 const instance = axios.create({

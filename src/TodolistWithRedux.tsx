@@ -21,7 +21,6 @@ type propsType = {
 export const TodolistWithRedux = React.memo((props: propsType) => {
 
     useEffect(() => {
-        console.log('useEffect - setTask in Todolist')
         dispatch(setTask(props.id))
     }, [])
 
