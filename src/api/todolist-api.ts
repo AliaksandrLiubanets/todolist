@@ -32,7 +32,6 @@ export enum TodoTaskPriorities {
 export type TaskType = {
     description: string
     title: string
-    // isDone: boolean
     status: TaskStatuses
     priority: TodoTaskPriorities
     startDate: string
