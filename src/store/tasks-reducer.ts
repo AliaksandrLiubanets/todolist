@@ -44,7 +44,7 @@ type UpdateTaskAT = {
     type: 'UPDATE-TASK'
     idTask: string
     todoListID: string
-    task: TaskType
+    model: UpdateDomainTaskModelType
 };
 
 export type UpdateDomainTaskModelType = {
@@ -155,7 +155,7 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             return {...state, [action.todoListID]: action.tasks}
 
         case 'UPDATE-TASK':
-            return {...state, [action.todoListID]: state[action.todoListID].map(tl => tl.id === action.idTask ? {...tl, ...action.task} : tl)}
+            return {...state, [action.todoListID]: state[action.todoListID].map(tl => tl.id === action.idTask ? {...tl, ...action.model} : tl)}
 
         default:
             return state
@@ -187,10 +187,10 @@ export const changeTaskTitleAC = (idTask: string, title: string, todoListID: str
     todoListID
 })
 
-export const updateTaskAC = (todoListID: string, idTask: string, task: TaskType): UpdateTaskAT => ({
+export const updateTaskAC = (todoListID: string, idTask: string, model: UpdateDomainTaskModelType): UpdateTaskAT => ({
     type: 'UPDATE-TASK',
     idTask,
-    task,
+    model,
     todoListID
 })
 
@@ -252,6 +252,6 @@ export const updateTask = (todoListID: string, taskId: string, model: UpdateDoma
     }
     return todolistAPI.updateTask(todoListID, taskId, taskModel)
         .then((res) => {
-            dispatch(updateTaskAC(todoListID, res.data.data.item.id, res.data.data.item))
+            dispatch(updateTaskAC(todoListID, taskId, model))
         })
 }

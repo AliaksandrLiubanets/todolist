@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback} from 'react'
-import {removeTask, UpdateDomainTaskModelType, updateTask} from './store/tasks-reducer'
+import {removeTask, updateTask} from './store/tasks-reducer'
 import {Checkbox, IconButton, ListItem, ListItemIcon} from '@material-ui/core'
 import s from './Style.module.css'
 import EditableSpan from './EditableSpan'
@@ -17,19 +17,18 @@ export const Task = React.memo(({task, todolistId}: PropsType) => {
     const dispatch = useDispatch()
 
     const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        let mStatus: number
+        let mStatus: TaskStatuses
         if (e.currentTarget.checked) {
             mStatus = TaskStatuses.Completed
         } else {
             mStatus = TaskStatuses.New
         }
-        const statusModel: UpdateDomainTaskModelType = {status: mStatus}
-        dispatch(updateTask(todolistId, task.id, statusModel))
+        dispatch(updateTask(todolistId, task.id, {status: mStatus}))
+        // dispatch(updateTask(todolistId, task.id, {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}))
     }, [task.id, todolistId, dispatch])
 
     const onChangeTitle = useCallback((title: string) => {
-        const titleModel: UpdateDomainTaskModelType = {title}
-        dispatch(updateTask(todolistId, task.id, titleModel ))
+        dispatch(updateTask(todolistId, task.id, {title} ))
     }, [task.id, todolistId, dispatch])
 
     const deleteTask = useCallback(() => dispatch(removeTask(todolistId, task.id)), [task.id, todolistId, dispatch])
