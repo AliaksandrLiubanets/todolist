@@ -155,7 +155,6 @@ export const setTaskAC = (tasks: Array<TaskType>, todoListID: string): SetTaskAT
 })
 
 export const changeTaskStatusAC = (todoListID: string, id: string, status: TaskStatuses): changeTaskStatusAT => {
-    debugger
     return { type: 'CHANGE-TASK-STATUS', todoListID, status, id }
 }
 
@@ -190,10 +189,16 @@ export const removeTask = (todoListID: string, taskId: string) => (dispatch: Dis
         })
 }
 
-export const updateTask = (todoListID: string, taskId: string, model: UpdateTaskModelType) => (dispatch: Dispatch) => {
+export const updateTaskTitle = (todoListID: string, taskId: string, model: UpdateTaskModelType) => (dispatch: Dispatch) => {
     return todolistAPI.updateTask(todoListID, taskId, model)
         .then((res) => {
             dispatch(changeTaskTitleAC(res.data.data.item.id, res.data.data.item.title, todoListID))
+        })
+}
+
+export const updateTaskStatus = (todoListID: string, taskId: string, model: UpdateTaskModelType) => (dispatch: Dispatch) => {
+    return todolistAPI.updateTask(todoListID, taskId, model)
+        .then((res) => {
             dispatch(changeTaskStatusAC(todoListID, res.data.data.item.id, res.data.data.item.status))
         })
 }

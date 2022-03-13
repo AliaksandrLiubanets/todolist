@@ -21,6 +21,7 @@ type propsType = {
 export const TodolistWithRedux = React.memo((props: propsType) => {
 
     useEffect(() => {
+        console.log('useEffect - setTask in Todolist')
         dispatch(setTask(props.id))
     }, [])
 
@@ -36,7 +37,7 @@ export const TodolistWithRedux = React.memo((props: propsType) => {
         taskForRender = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    const elementsTask = taskForRender.map(el => <Task key={el.id} el={el} todolistId={props.id}/> )
+    const elementsTask = taskForRender.map(task => <Task key={task.id} task={task} todolistId={props.id}/> )
 
     const setAll = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'all')), [props.id, dispatch])
     const setActive = useCallback(() => dispatch(changeTodolistFilterAC(props.id, 'active')), [props.id, dispatch])
