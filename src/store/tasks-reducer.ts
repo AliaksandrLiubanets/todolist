@@ -44,6 +44,7 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
     }
 }
 
+
 //actions:
 
 export const removeTaskAC = (taskId: string, todoListID: string) =>
@@ -57,6 +58,7 @@ export const setTaskAC = (tasks: Array<TaskType>, todoListID: string) =>
 
 export const updateTaskAC = (todoListID: string, idTask: string, model: UpdateDomainTaskModelType) =>
     ({type: 'UPDATE-TASK', idTask, model, todoListID} as const)
+
 
 //thunks:
 
