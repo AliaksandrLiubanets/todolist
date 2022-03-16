@@ -3,71 +3,18 @@ import {TaskStatuses, TaskType, todolistAPI, TodoTaskPriorities, UpdateTaskModel
 import {Dispatch} from 'redux'
 import {AppRootStateType} from './store'
 
-export type TaskStateType = {
-    [key: string]: Array<TaskType>
-}
-
-type RemoveTaskAT = {
-    type: 'REMOVE-TASK'
-    taskId: string
-    todoListID: string
-}
-
-type AddTaskAT = {
-    type: 'ADD-TASK'
-    task: TaskType
-    todoListID: string
-}
-
-type SetTaskAT = {
-    type: 'SET-TASKS'
-    tasks: Array<TaskType>
-    todoListID: string
-}
-
-type changeTaskStatusAT = {
-    type: 'CHANGE-TASK-STATUS'
-    id: string
-    status: TaskStatuses
-    todoListID: string
-}
-
-type ChangeTaskTitleAT = {
-    type: 'CHANGE-TASK-TITLE'
-    idTask: string
-    todoListID: string
-    title: string
-};
-
-type UpdateTaskAT = {
-    type: 'UPDATE-TASK'
-    idTask: string
-    todoListID: string
-    model: UpdateDomainTaskModelType
-};
-
-export type UpdateDomainTaskModelType = {
-    title?: string
-    description?: string
-    completed?: boolean
-    status?: TaskStatuses
-    priority?: TodoTaskPriorities
-    startDate?: string
-    deadline?: string
-}
 
 const initialState: TaskStateType = {}
 
-export type ActionsType =
-    | RemoveTaskAT
-    | AddTaskAT
-    | changeTaskStatusAT
-    | ChangeTaskTitleAT
+type ActionsType =
+    | ReturnType<typeof removeTaskAC>
+    | ReturnType<typeof addTaskAC>
+    | ReturnType<typeof setTaskAC>
+    | ReturnType<typeof updateTaskAC>
     | AddTodolistAT
     | RemoveTodoListAT
-    | SetTaskAT
     | SetTodolistsAT
-    | UpdateTaskAT
+
 
 export const tasksReducer = (state: TaskStateType = initialState, action: ActionsType): TaskStateType => {
     switch (action.type) {
@@ -97,33 +44,31 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             return {...state, [action.todoListID]: action.tasks}
 
         case 'UPDATE-TASK':
-            return {...state, [action.todoListID]: state[action.todoListID].map(tl => tl.id === action.idTask ? {...tl, ...action.model} : tl)}
+            return {
+                ...state,
+                [action.todoListID]: state[action.todoListID].map(tl => tl.id === action.idTask ? {...tl, ...action.model} : tl)
+            }
 
         default:
             return state
     }
 }
 
-export const removeTaskAC = (taskId: string, todoListID: string): RemoveTaskAT => ({
-    type: 'REMOVE-TASK',
-    taskId,
-    todoListID
-})
+const removeTaskAC = (taskId: string, todoListID: string) => {
+    return { type: 'REMOVE-TASK', taskId, todoListID } as const
+}
 
-export const addTaskAC = (task: TaskType, todoListID: string): AddTaskAT => ({type: 'ADD-TASK', task, todoListID})
+const addTaskAC = (task: TaskType, todoListID: string) => {
+    return { type: 'ADD-TASK', task, todoListID } as const
+}
 
-export const setTaskAC = (tasks: Array<TaskType>, todoListID: string): SetTaskAT => ({
-    type: 'SET-TASKS',
-    tasks,
-    todoListID
-})
+const setTaskAC = (tasks: Array<TaskType>, todoListID: string) => {
+    return { type: 'SET-TASKS', tasks, todoListID } as const
+}
 
-export const updateTaskAC = (todoListID: string, idTask: string, model: UpdateDomainTaskModelType): UpdateTaskAT => ({
-    type: 'UPDATE-TASK',
-    idTask,
-    model,
-    todoListID
-})
+const updateTaskAC = (todoListID: string, idTask: string, model: UpdateDomainTaskModelType) => {
+    return { type: 'UPDATE-TASK', idTask, model, todoListID } as const
+}
 
 export const setTask = (todoListID: string) => (dispatch: Dispatch) => {
     return todolistAPI.getTasks(todoListID)
@@ -171,4 +116,19 @@ export const updateTask = (todoListID: string, taskId: string, model: UpdateDoma
         .then(() => {
             dispatch(updateTaskAC(todoListID, taskId, model))
         })
+}
+
+
+export type TaskStateType = {
+    [key: string]: Array<TaskType>
+}
+
+export type UpdateDomainTaskModelType = {
+    title?: string
+    description?: string
+    completed?: boolean
+    status?: TaskStatuses
+    priority?: TodoTaskPriorities
+    startDate?: string
+    deadline?: string
 }

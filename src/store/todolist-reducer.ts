@@ -5,7 +5,7 @@ export type AddTodolistAT = ReturnType<typeof addTodolistAC>
 export type RemoveTodoListAT = ReturnType<typeof removeTodolistAC>
 export type SetTodolistsAT = ReturnType<typeof setTodolistsAC>
 
-export type ActionsType =
+type ActionsType =
     | RemoveTodoListAT
     | AddTodolistAT
     | ReturnType<typeof changeTodolistTitleAC>
@@ -36,23 +36,23 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
     }
 }
 
-export const removeTodolistAC = (todolistId: string) => {
+const removeTodolistAC = (todolistId: string) => {
     return {type: 'REMOVE-TODOLIST', todolistId} as const
 }
 
-export const addTodolistAC = (todolist: TodolistDomainType) => {
+const addTodolistAC = (todolist: TodolistDomainType) => {
     return {type: 'ADD-TODOLIST', todolist} as const
 }
 
-export const setTodolistsAC = (data: Array<TodolistDomainType>) => {
+const setTodolistsAC = (data: Array<TodolistDomainType>) => {
     return {type: 'SET-TODOLIST', todolists: data} as const
 }
 
-export const changeTodolistTitleAC = (todolistId: string, title: string) => {
+const changeTodolistTitleAC = (todolistId: string, title: string) => {
     return {type: 'CHANGE-TODOLIST-TITLE', todolistId, title} as const
 }
 
-export const changeTodolistFilterAC = (todolistId: string, filter: FilterTaskType) => {
+const changeTodolistFilterAC = (todolistId: string, filter: FilterTaskType) => {
     return {type: 'CHANGE-TODOLIST-FILTER', todolistId, filter} as const
 }
 
