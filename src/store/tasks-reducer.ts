@@ -58,7 +58,8 @@ export type UpdateDomainTaskModelType = {
 
 const initialState: TaskStateType = {}
 
-export type ActionsType = RemoveTaskAT
+export type ActionsType =
+    | RemoveTaskAT
     | AddTaskAT
     | changeTaskStatusAT
     | ChangeTaskTitleAT
