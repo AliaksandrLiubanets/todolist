@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback} from 'react'
-import {removeTask, updateTask} from '../../../../store/tasks-reducer'
+import {removeTask, updateTask} from '../../tasks-reducer'
 import {Checkbox, IconButton, ListItem, ListItemIcon} from '@material-ui/core'
 import s from '../../../../Style.module.css'
 import EditableSpan from '../../../../components/EditableSpan/EditableSpan'

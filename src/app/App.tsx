@@ -1,44 +1,11 @@
-import React, {useCallback, useEffect} from 'react'
+import React from 'react'
 import './App.css'
-import AddItemForm from '../components/AddItemForm/AddItemForm'
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
+import {AppBar, Button, Container, IconButton, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {createTodolist, deleteTodolist, setTodolists, TodolistDomainType} from '../store/todolist-reducer'
-import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from '../store/store'
-import {Todolist} from '../features/TodolistsList/Todolist/Todolist'
+import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 
 
 const App = () => {
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(setTodolists())
-    }, [])
-
-    const todoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-
-    const removeTodoList = useCallback((todoListID: string) => {
-        dispatch(deleteTodolist(todoListID))
-    }, [dispatch])
-
-    const addTodoList = useCallback((title: string) => {
-        dispatch(createTodolist(title))
-    }, [dispatch])
-
-    const todolListComponents = todoLists.map(tl => {
-
-        return <Grid key={tl.id} item>
-            <Paper elevation={5} style={{padding: '20px'}}>
-                <Todolist id={tl.id}
-                          title={tl.title}
-                          filter={tl.filter}
-                          removeTodoList={removeTodoList}
-                />
-            </Paper>
-        </Grid>
-    })
 
     return (<div className="App">
             <AppBar position="static">
@@ -55,17 +22,12 @@ const App = () => {
 
 
             <Container fixed>
-                <Grid container style={{padding: '20px'}}>
-                    <AddItemForm addItem={addTodoList}/>
-                </Grid>
-                <Grid container
-                      spacing={3}
-                >
-                    {todolListComponents}
-                </Grid>
+                <TodolistsList />
             </Container>
         </div>
     )
 }
 
 export default App
+
+
