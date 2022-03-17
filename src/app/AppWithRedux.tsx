@@ -1,12 +1,12 @@
 import React, {useCallback, useEffect} from 'react'
 import './App.css'
-import AddItemForm from './AddItemForm'
+import AddItemForm from '../components/AddItemForm/AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {createTodolist, deleteTodolist, setTodolists, TodolistDomainType} from './store/todolist-reducer'
+import {createTodolist, deleteTodolist, setTodolists, TodolistDomainType} from '../store/todolist-reducer'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from './store/store'
-import {TodolistWithRedux} from './TodolistWithRedux'
+import {AppRootStateType} from '../store/store'
+import {TodolistWithRedux} from '../TodolistWithRedux'
 
 
 const AppWithRedux = () => {
