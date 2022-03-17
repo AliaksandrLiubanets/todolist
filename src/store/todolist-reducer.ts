@@ -47,7 +47,7 @@ export const changeTodolistFilterAC = (todolistId: string, filter: FilterTaskTyp
 
 //thunks:
 
-export const setTodolists = () => (dispatch: Dispatch) => {
+export const setTodolists = () => (dispatch: Dispatch<ActionsType>) => {
     todolistAPI.getTodolists()
         .then(resolve => {
             const todoData: Array<TodolistDomainType> = resolve.data.map(tl => ({...tl, filter: 'all'}))
@@ -55,7 +55,7 @@ export const setTodolists = () => (dispatch: Dispatch) => {
         })
 }
 
-export const updateTodolistTitle = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+export const updateTodolistTitle = (todolistId: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistAPI.updateTodolist(todolistId, title)
         .then(() => {
             dispatch(changeTodolistTitleAC(todolistId, title))
@@ -63,7 +63,7 @@ export const updateTodolistTitle = (todolistId: string, title: string) => (dispa
         .catch(error => console.log(`Error in updateTodolistTitle: ${error}`))
 }
 
-export const createTodolist = (title: string) => (dispatch: Dispatch) => {
+export const createTodolist = (title: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistAPI.createTodolist(title)
         .then(resolve => {
             const todolistFromServer: TodolistType = resolve.data.data.item
@@ -73,7 +73,7 @@ export const createTodolist = (title: string) => (dispatch: Dispatch) => {
         .catch(error => console.log(`Error in createTodolist: ${error}`))
 }
 
-export const deleteTodolist = (todolistId: string) => (dispatch: Dispatch) => {
+export const deleteTodolist = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistAPI.deleteTodolist(todolistId)
         .then(() => {
             dispatch(removeTodolistAC(todolistId))

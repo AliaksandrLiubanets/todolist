@@ -60,7 +60,7 @@ export const updateTaskAC = (todolistId: string, idTask: string, model: UpdateDo
 
 //thunks:
 
-export const setTask = (todolistId: string) => (dispatch: Dispatch) => {
+export const setTask = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistAPI.getTasks(todolistId)
         .then(response => {
             const tasks: Array<TaskType> = response.data.items
@@ -69,7 +69,7 @@ export const setTask = (todolistId: string) => (dispatch: Dispatch) => {
         .catch(error => console.log(`setTusk error: ${error}`))
 }
 
-export const createTask = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+export const createTask = (todolistId: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistAPI.createTask(todolistId, title)
         .then(response => {
             const task: TaskType = response.data.data.item
@@ -77,14 +77,14 @@ export const createTask = (todolistId: string, title: string) => (dispatch: Disp
         })
 }
 
-export const removeTask = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+export const removeTask = (todolistId: string, taskId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistAPI.deleteTask(todolistId, taskId)
         .then(() => {
             dispatch(removeTaskAC(taskId, todolistId))
         })
 }
 
-export const updateTask = (todolistId: string, taskId: string, model: UpdateDomainTaskModelType) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+export const updateTask = (todolistId: string, taskId: string, model: UpdateDomainTaskModelType) => (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistId].find(task => task.id === taskId)
 
     if (!task) {
