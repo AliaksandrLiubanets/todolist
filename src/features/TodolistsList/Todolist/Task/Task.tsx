@@ -17,18 +17,12 @@ export const Task = React.memo(({task, todolistId}: PropsType) => {
     const dispatch = useDispatch()
 
     const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        let mStatus: TaskStatuses
-        if (e.currentTarget.checked) {
-            mStatus = TaskStatuses.Completed
-        } else {
-            mStatus = TaskStatuses.New
-        }
-        dispatch(updateTask(todolistId, task.id, {status: mStatus}))
-        // dispatch(updateTask(todolistId, task.id, {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}))
+        dispatch(updateTask(todolistId, task.id,
+            {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}))
     }, [task.id, todolistId, dispatch])
 
     const onChangeTitle = useCallback((title: string) => {
-        dispatch(updateTask(todolistId, task.id, {title} ))
+        dispatch(updateTask(todolistId, task.id, {title}))
     }, [task.id, todolistId, dispatch])
 
     const deleteTask = useCallback(() => dispatch(removeTask(todolistId, task.id)), [task.id, todolistId, dispatch])
@@ -51,7 +45,7 @@ export const Task = React.memo(({task, todolistId}: PropsType) => {
         </div>
         <div style={{display: 'flex', alignItems: 'center'}}>
             <IconButton size={'small'} style={{display: 'block'}} onClick={deleteTask}>
-                <DeleteIcon />
+                <DeleteIcon/>
             </IconButton>
         </div>
     </ListItem>
