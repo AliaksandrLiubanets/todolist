@@ -1,15 +1,15 @@
 import React, {useCallback, useEffect} from 'react'
-import s from './Style.module.css'
-import AddItemForm from './components/AddItemForm/AddItemForm'
-import EditableSpan from './components/EditableSpan/EditableSpan'
+import s from '../../../Style.module.css'
+import AddItemForm from '../../../components/AddItemForm/AddItemForm'
+import EditableSpan from '../../../components/EditableSpan/EditableSpan'
 import {Button, Container, IconButton, List, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from './store/store'
-import {createTask, setTask} from './store/tasks-reducer'
-import {changeTodolistFilterAC, deleteTodolist, updateTodolistTitle} from './store/todolist-reducer'
-import {Task} from './Task'
-import {TaskStatuses, TaskType} from './api/todolist-api'
+import {AppRootStateType} from '../../../store/store'
+import {createTask, setTask} from '../../../store/tasks-reducer'
+import {changeTodolistFilterAC, deleteTodolist, updateTodolistTitle} from '../../../store/todolist-reducer'
+import {Task} from './Task/Task'
+import {TaskStatuses, TaskType} from '../../../api/todolist-api'
 
 type propsType = {
     id: string
@@ -18,7 +18,7 @@ type propsType = {
     removeTodoList: (todoListID: string) => void
 }
 
-export const TodolistWithRedux = React.memo((props: propsType) => {
+export const Todolist = React.memo((props: propsType) => {
 
     useEffect(() => {
         dispatch(setTask(props.id))

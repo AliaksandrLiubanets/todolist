@@ -6,10 +6,10 @@ import {Menu} from '@material-ui/icons'
 import {createTodolist, deleteTodolist, setTodolists, TodolistDomainType} from '../store/todolist-reducer'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../store/store'
-import {TodolistWithRedux} from '../TodolistWithRedux'
+import {Todolist} from '../features/TodolistsList/Todolist/Todolist'
 
 
-const AppWithRedux = () => {
+const App = () => {
 
     const dispatch = useDispatch()
 
@@ -31,7 +31,7 @@ const AppWithRedux = () => {
 
         return <Grid key={tl.id} item>
             <Paper elevation={5} style={{padding: '20px'}}>
-                <TodolistWithRedux id={tl.id}
+                <Todolist id={tl.id}
                           title={tl.title}
                           filter={tl.filter}
                           removeTodoList={removeTodoList}
@@ -68,4 +68,4 @@ const AppWithRedux = () => {
     )
 }
 
-export default AppWithRedux
+export default App
