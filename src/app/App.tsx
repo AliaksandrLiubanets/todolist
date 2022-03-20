@@ -3,6 +3,7 @@ import './App.css'
 import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
+import {ErrorSnackbar} from '../components/ErrorSnackBar/ErrorSnackBar'
 
 
 const App = () => {
@@ -25,6 +26,8 @@ const App = () => {
             <Container fixed>
                 <TodolistsList />
             </Container>
+
+            <ErrorSnackbar />
         </div>
     )
 }
