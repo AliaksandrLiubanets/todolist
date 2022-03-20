@@ -2,7 +2,7 @@ import {AddTodolistAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reduce
 import {TaskStatuses, TaskType, todolistAPI, TodoTaskPriorities, UpdateTaskModelType} from '../../api/todolist-api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
-import {setAppErrorAC, SetAppErrorAT, SetAppStatusAT} from '../../app/app-reducer'
+import {setAppErrorAC, SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from '../../app/app-reducer'
 
 
 const initialState: TaskStateType = {}
@@ -64,10 +64,12 @@ export const updateTaskAC = (todolistId: string, idTask: string, model: UpdateDo
 //thunks:
 
 export const setTask = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.getTasks(todolistId)
         .then(response => {
             const tasks: Array<TaskType> = response.data.items
             dispatch(setTaskAC(tasks, todolistId))
+            dispatch(setAppStatusAC('succeeded'))
         })
         .catch(error => console.log(`setTusk error: ${error}`))
 }
