@@ -1,5 +1,6 @@
 import {todolistAPI, TodolistType} from '../../api/todolist-api'
 import {Dispatch} from 'redux'
+import {SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from '../../app/app-reducer'
 
 
 const initialState: Array<TodolistDomainType> = []
@@ -48,35 +49,43 @@ export const changeTodolistFilterAC = (todolistId: string, filter: FilterTaskTyp
 //thunks:
 
 export const setTodolists = () => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.getTodolists()
         .then(resolve => {
             const todoData: Array<TodolistDomainType> = resolve.data.map(tl => ({...tl, filter: 'all'}))
             dispatch(setTodolistsAC(todoData))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 
 export const updateTodolistTitle = (todolistId: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.updateTodolist(todolistId, title)
         .then(() => {
             dispatch(changeTodolistTitleAC(todolistId, title))
+            dispatch(setAppStatusAC('succeeded'))
         })
         .catch(error => console.log(`Error in updateTodolistTitle: ${error}`))
 }
 
 export const createTodolist = (title: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.createTodolist(title)
         .then(resolve => {
             const todolistFromServer: TodolistType = resolve.data.data.item
             const todolist: TodolistDomainType = {...todolistFromServer, filter: 'all'}
             dispatch(addTodolistAC(todolist))
+            dispatch(setAppStatusAC('succeeded'))
         })
         .catch(error => console.log(`Error in createTodolist: ${error}`))
 }
 
 export const deleteTodolist = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.deleteTodolist(todolistId)
         .then(() => {
             dispatch(removeTodolistAC(todolistId))
+            dispatch(setAppStatusAC('succeeded'))
         })
         .catch(error => console.log(`Error in deleteTodolist: ${error}`))
 }
@@ -100,3 +109,5 @@ type ActionsType =
     | ReturnType<typeof changeTodolistTitleAC>
     | ReturnType<typeof changeTodolistFilterAC>
     | SetTodolistsAT
+    | SetAppErrorAT
+    | SetAppStatusAT
