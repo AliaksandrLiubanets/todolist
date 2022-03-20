@@ -2,6 +2,7 @@ import {AddTodolistAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reduce
 import {TaskStatuses, TaskType, todolistAPI, TodoTaskPriorities, UpdateTaskModelType} from '../../api/todolist-api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
+import {setAppErrorAC, SetAppErrorAT, SetAppStatusAT} from '../../app/app-reducer'
 
 
 const initialState: TaskStateType = {}
@@ -34,8 +35,10 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             return {...state, [action.todolistId]: action.tasks}
 
         case 'UPDATE-TASK':
-            return {...state, [action.todolistId]: state[action.todolistId]
-                    .map(tl => tl.id === action.idTask ? {...tl, ...action.model} : tl) }
+            return {
+                ...state, [action.todolistId]: state[action.todolistId]
+                    .map(tl => tl.id === action.idTask ? {...tl, ...action.model} : tl)
+            }
 
         default:
             return state
@@ -72,8 +75,16 @@ export const setTask = (todolistId: string) => (dispatch: Dispatch<ActionsType>)
 export const createTask = (todolistId: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistAPI.createTask(todolistId, title)
         .then(response => {
-            const task: TaskType = response.data.data.item
-            dispatch(addTaskAC(task, todolistId))
+            if (response.data.resultCode === 0) {
+                const task: TaskType = response.data.data.item
+                dispatch(addTaskAC(task, todolistId))
+            } else {
+                if (response.data.messages.length) {
+                    dispatch(setAppErrorAC(response.data.messages[0]))
+                } else {
+                    dispatch(setAppErrorAC('Some error occurred'))
+                }
+            }
         })
 }
 
@@ -119,6 +130,8 @@ type ActionsType =
     | AddTodolistAT
     | RemoveTodoListAT
     | SetTodolistsAT
+    | SetAppErrorAT
+    | SetAppStatusAT
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
