@@ -32,15 +32,15 @@ export const todolistAPI = {
     },
 
     createTask(todolistId: string, title: string) {
-        return instance.post<PostPutResponseTaskType>(`todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<ResponseType<{item: TaskType}>>(`todo-lists/${todolistId}/tasks`, {title})
     },
 
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
-        return instance.put<PostPutResponseTaskType>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
+        return instance.put<ResponseType<{item: TaskType}>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
     },
 
     deleteTask(todolistId: string, taskId: string) {
-        return instance.delete<DeleteResponseTaskType>(`todo-lists/${todolistId}/tasks/${taskId}` )
+        return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}` )
     },
 }
 
@@ -56,7 +56,7 @@ export type TodolistType = {
 
 type ResponseType<D = {}> = {
     data: D
-    fieldsErrors: Array<string>
+    fieldsErrors?: Array<string>
     messages: Array<string>
     resultCode: number
 }
@@ -67,7 +67,6 @@ export enum TaskStatuses {
     Completed = 2,
     Draft = 3,
 }
-
 export enum TodoTaskPriorities {
     Low = 0,
     Middle = 1,
@@ -94,21 +93,12 @@ type GetResponseTaskType = {
     totalCount: string
     error: string
 }
-
-type PostPutResponseTaskType = {
-    data: {
-        item: TaskType
-    }
-    fieldsErrors: Array<string>
-    messages: Array<string>
-    resultCode: number
-}
-
-type DeleteResponseTaskType = {
-    data: {}
-    messages: Array<string>
-    resultCode: number
-}
+//
+// type DeleteResponseTaskType = {
+//     data: {}
+//     messages: Array<string>
+//     resultCode: number
+// }
 
 export type UpdateTaskModelType = {
     title: string
