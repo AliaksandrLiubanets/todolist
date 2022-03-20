@@ -3,7 +3,6 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const initialState = {
     status: 'idle' as RequestStatusType,
     error: null as string | null
-    // error: 'Error' as string | null
 }
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {

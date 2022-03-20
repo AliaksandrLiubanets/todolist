@@ -1,6 +1,7 @@
 import {todolistAPI, TodolistType} from '../../api/todolist-api'
 import {Dispatch} from 'redux'
 import {SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from '../../app/app-reducer'
+import {handleServerNetworkError} from '../../utils/handle-error-utils'
 
 
 const initialState: Array<TodolistDomainType> = []
@@ -56,6 +57,9 @@ export const setTodolists = () => (dispatch: Dispatch<ActionsType>) => {
             dispatch(setTodolistsAC(todoData))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch(err => {
+            handleServerNetworkError(err, dispatch)
+        })
 }
 
 export const updateTodolistTitle = (todolistId: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -65,7 +69,9 @@ export const updateTodolistTitle = (todolistId: string, title: string) => (dispa
             dispatch(changeTodolistTitleAC(todolistId, title))
             dispatch(setAppStatusAC('succeeded'))
         })
-        .catch(error => console.log(`Error in updateTodolistTitle: ${error}`))
+        .catch(err => {
+            handleServerNetworkError(err, dispatch)
+        })
 }
 
 export const createTodolist = (title: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -77,7 +83,9 @@ export const createTodolist = (title: string) => (dispatch: Dispatch<ActionsType
             dispatch(addTodolistAC(todolist))
             dispatch(setAppStatusAC('succeeded'))
         })
-        .catch(error => console.log(`Error in createTodolist: ${error}`))
+        .catch(err => {
+            handleServerNetworkError(err, dispatch)
+        })
 }
 
 export const deleteTodolist = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -87,7 +95,9 @@ export const deleteTodolist = (todolistId: string) => (dispatch: Dispatch<Action
             dispatch(removeTodolistAC(todolistId))
             dispatch(setAppStatusAC('succeeded'))
         })
-        .catch(error => console.log(`Error in deleteTodolist: ${error}`))
+        .catch(err => {
+            handleServerNetworkError(err, dispatch)
+        })
 }
 
 

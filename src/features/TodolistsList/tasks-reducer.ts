@@ -1,15 +1,8 @@
 import {AddTodolistAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reducer'
-import {
-    ResponseType,
-    TaskStatuses,
-    TaskType,
-    todolistAPI,
-    TodoTaskPriorities,
-    UpdateTaskModelType
-} from '../../api/todolist-api'
+import {TaskStatuses, TaskType, todolistAPI, TodoTaskPriorities, UpdateTaskModelType} from '../../api/todolist-api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
-import {setAppErrorAC, SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from '../../app/app-reducer'
+import {SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from '../../app/app-reducer'
 import {handleServerAppError, handleServerNetworkError} from '../../utils/handle-error-utils'
 
 
@@ -79,7 +72,9 @@ export const setTask = (todolistId: string) => (dispatch: Dispatch<ActionsType>)
             dispatch(setTaskAC(tasks, todolistId))
             dispatch(setAppStatusAC('succeeded'))
         })
-        .catch(error => console.log(`setTusk error: ${error}`))
+        .catch(err => {
+            handleServerNetworkError(err, dispatch)
+        })
 }
 
 export const createTask = (todolistId: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -105,6 +100,9 @@ export const removeTask = (todolistId: string, taskId: string) => (dispatch: Dis
         .then(() => {
             dispatch(removeTaskAC(taskId, todolistId))
             dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch(err => {
+            handleServerNetworkError(err, dispatch)
         })
 }
 
@@ -134,12 +132,6 @@ export const updateTask = (todolistId: string, taskId: string, model: UpdateDoma
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
-                // if (res.data.messages.length) {
-                //     dispatch(setAppErrorAC(res.data.messages[0]))
-                // } else {
-                //     dispatch(setAppErrorAC('Some error occurred'))
-                // }
-                // dispatch(setAppStatusAC('failed'))
             }
         })
         .catch(err => {
