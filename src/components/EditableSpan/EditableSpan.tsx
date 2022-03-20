@@ -1,6 +1,9 @@
 import React, {ChangeEvent, useState} from 'react'
 import {IconButton, TextField} from '@material-ui/core'
 import {Edit} from '@material-ui/icons'
+import {useSelector} from 'react-redux'
+import {AppRootStateType} from '../../app/store'
+import {RequestStatusType} from '../../app/app-reducer'
 
 type EditableSpanPropsType = {
     title: string
@@ -11,7 +14,7 @@ const EditableSpan = React.memo((props: EditableSpanPropsType) => {
 
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
-
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
 
     const onEditMode = () => {
@@ -29,7 +32,7 @@ const EditableSpan = React.memo((props: EditableSpanPropsType) => {
             <span style={{display: 'block', margin: '0 0px'}}
                   onDoubleClick={onEditMode}>{props.title}
             </span>
-            <IconButton size={'small'} onClick={onEditMode}>
+            <IconButton size={'small'} onClick={onEditMode} disabled={status === 'loading'}>
                 <Edit style={{margin: '0 5px 0 0'}}/>
             </IconButton>
         </div>

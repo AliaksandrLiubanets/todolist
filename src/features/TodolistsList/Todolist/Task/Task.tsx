@@ -4,8 +4,10 @@ import {Checkbox, IconButton, ListItem, ListItemIcon} from '@material-ui/core'
 import s from '../../../../Style.module.css'
 import EditableSpan from '../../../../components/EditableSpan/EditableSpan'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {TaskStatuses, TaskType} from '../../../../api/todolist-api'
+import {AppRootStateType} from '../../../../app/store'
+import {RequestStatusType} from '../../../../app/app-reducer'
 
 type PropsType = {
     task: TaskType
@@ -15,6 +17,7 @@ type PropsType = {
 export const Task = React.memo(({task, todolistId}: PropsType) => {
 
     const dispatch = useDispatch()
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 
     const onCheckboxCheckTask = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(updateTask(todolistId, task.id,
@@ -38,13 +41,14 @@ export const Task = React.memo(({task, todolistId}: PropsType) => {
                 <Checkbox onChange={onCheckboxCheckTask}
                           color={'primary'}
                           checked={task.status === TaskStatuses.Completed}
+                          disabled={status === 'loading'}
                 />
             </ListItemIcon>
             <EditableSpan title={task.title}
                           onChange={onChangeTitle}/>
         </div>
         <div style={{display: 'flex', alignItems: 'center'}}>
-            <IconButton size={'small'} style={{display: 'block'}} onClick={deleteTask}>
+            <IconButton size={'small'} style={{display: 'block'}} onClick={deleteTask} disabled={status === 'loading'}>
                 <DeleteIcon/>
             </IconButton>
         </div>

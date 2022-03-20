@@ -10,6 +10,7 @@ import {createTask, setTask} from '../tasks-reducer'
 import {changeTodolistFilterAC, deleteTodolist, updateTodolistTitle} from '../todolist-reducer'
 import {Task} from './Task/Task'
 import {TaskStatuses, TaskType} from '../../../api/todolist-api'
+import {RequestStatusType} from '../../../app/app-reducer'
 
 type propsType = {
     id: string
@@ -24,6 +25,7 @@ export const Todolist = React.memo((props: propsType) => {
     }, [])
 
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 
     const dispatch = useDispatch()
 
@@ -58,7 +60,9 @@ export const Todolist = React.memo((props: propsType) => {
                 </Typography>
                 <div style={{display: 'flex', alignItems: 'center'}}>
                     <IconButton size={'small'}
-                                onClick={removeTodolist}>
+                                onClick={removeTodolist}
+                                disabled={status === 'loading'}
+                    >
                         <DeleteIcon/>
                     </IconButton>
                 </div>
