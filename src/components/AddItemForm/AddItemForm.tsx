@@ -1,6 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 import {Container, IconButton, TextField} from '@material-ui/core'
 import {Add} from '@material-ui/icons'
+import {useSelector} from 'react-redux'
+import {AppRootStateType} from '../../app/store'
+import {RequestStatusType} from '../../app/app-reducer'
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -10,6 +13,7 @@ const AddItemForm = React.memo((props: AddItemFormPropsType) => {
 
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<string>('')
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const setInputValue = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
     const seInputValueOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
         if (error) {
@@ -28,7 +32,7 @@ const AddItemForm = React.memo((props: AddItemFormPropsType) => {
         setTitle('')
     }
 
-    return <Container style={{display: 'flex', alignItems: "flex-start", height: "40px"}} >
+    return <Container style={{display: 'flex', alignItems: 'flex-start', height: '40px'}}>
         <TextField variant={'outlined'}
                    size={'small'}
                    label="Add title"
@@ -37,12 +41,14 @@ const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                    onKeyPress={seInputValueOnKeyPress}
                    error={!!error}
                    helperText={error}
-                   margin={"none"}
+                   margin={'none'}
         />
-        <IconButton size={"small"}
+        <IconButton size={'small'}
                     onClick={addItem}
-        style={{margin: "5px 0 5px 10px"}}>
-            <Add />
+                    style={{margin: '5px 0 5px 10px'}}
+                    disabled={status === 'loading'}
+        >
+            <Add/>
         </IconButton>
     </Container>
 })
