@@ -37,23 +37,6 @@ export const setAuthDataAC = (userData: AuthData) =>
 
 //thunks:
 
-export const auth = () => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC('loading'))
-    authAPI.me()
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setIsAuthAC(true))
-                dispatch(setAuthDataAC(res.data.data))
-                dispatch(setAppStatusAC('succeeded'))
-            } else {
-                handleServerAppError(res.data, dispatch)
-            }
-        })
-        .catch(err => {
-            handleServerNetworkError(err, dispatch)
-        })
-}
-
 export const login = (loginData: LoginDataType) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.login(loginData)

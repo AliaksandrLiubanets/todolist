@@ -29,7 +29,6 @@ const App = () => {
     }
 
 
-
     return <div className="App">
         <ErrorSnackbar/>
         <AppBar position="static">
