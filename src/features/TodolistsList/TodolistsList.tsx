@@ -11,7 +11,6 @@ import {Navigate} from 'react-router-dom'
 export const TodolistsList: FC = () => {
 
     const dispatch = useDispatch()
-
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
 
     useEffect(() => {
@@ -23,8 +22,6 @@ export const TodolistsList: FC = () => {
     }, [dispatch])
 
     const todoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-
-
 
     const todolListComponents = todoLists.map(tl => {
 
