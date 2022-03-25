@@ -1,4 +1,7 @@
 import {Dispatch} from 'redux'
+import {SetAuthAT, setAuthDataAC, SetAuthDataAT, setIsAuthAC} from '../features/Login/auth-reducer'
+import {authAPI} from '../api/todolist-api'
+import {handleServerAppError, handleServerNetworkError} from '../utils/handle-error-utils'
 
 const initialState = {
     status: 'idle' as RequestStatusType,
@@ -28,7 +31,22 @@ export const setAppIsInitializedAC = (isInitialized: boolean) =>
     ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
 
 // thunks:
-export const isInitialised = () => (dispatch: Dispatch<SetAppIsInitializedAT>) => {
+export const isInitial = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    return authAPI.me()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setIsAuthAC(true))
+                dispatch(setAuthDataAC(res.data.data))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        })
+        .catch(err => {
+            handleServerNetworkError(err, dispatch)
+        })
+        .finally(() => dispatch(setAppIsInitializedAC(true)))
 
 }
 
@@ -41,4 +59,9 @@ export type SetAppStatusAT = ReturnType<typeof setAppStatusAC>
 export type SetAppErrorAT = ReturnType<typeof setAppErrorAC>
 export type SetAppIsInitializedAT = ReturnType<typeof setAppIsInitializedAC>
 
-type ActionsType = SetAppStatusAT | SetAppErrorAT | SetAppIsInitializedAT
+type ActionsType =
+    | SetAuthAT
+    | SetAuthDataAT
+    | SetAppErrorAT
+    | SetAppStatusAT
+    | SetAppIsInitializedAT

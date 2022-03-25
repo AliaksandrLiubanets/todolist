@@ -89,8 +89,11 @@ export const logOut = () => (dispatch: Dispatch<ActionsType>) => {
 
 //types:
 
+export type SetAuthAT = ReturnType<typeof setIsAuthAC>
+export type SetAuthDataAT = ReturnType<typeof setAuthDataAC>
+
 type ActionsType =
-    | ReturnType<typeof setIsAuthAC>
-    | ReturnType<typeof setAuthDataAC>
+    | SetAuthAT
+    | SetAuthDataAT
     | SetAppErrorAT
     | SetAppStatusAT

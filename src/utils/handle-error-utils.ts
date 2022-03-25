@@ -16,5 +16,6 @@ export const handleServerNetworkError = (err: {message: string}, dispatch: Dispa
     dispatch(setAppStatusAC('failed'))
 }
 
-type DispatchUtilsType = SetAppErrorAT
+type DispatchUtilsType =
+    | SetAppErrorAT
     | SetAppStatusAT

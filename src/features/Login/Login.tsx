@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Grid from '@mui/material/Grid'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
@@ -8,7 +8,7 @@ import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import {useFormik} from 'formik'
-import {auth, login} from './auth-reducer'
+import {login} from './auth-reducer'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../app/store'
 import {Navigate} from 'react-router-dom'
@@ -19,9 +19,9 @@ export const Login = () => {
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
 
-    useEffect(() => {
-        dispatch(auth())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(auth())
+    // }, [])
 
     const formik = useFormik({
         initialValues: {
