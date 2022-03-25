@@ -31,8 +31,7 @@ export const Login = () => {
         },
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2))
-            alert(JSON.stringify(isLoggedIn))
+            // alert(JSON.stringify(values, null, 2))
             dispatch(login(values))
         }
     })
