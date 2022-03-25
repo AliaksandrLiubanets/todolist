@@ -48,8 +48,8 @@ export const authAPI = {
     me() {
         return instance.get<ResponseType<AuthData>>('auth/me')
     },
-    login(email: string, password: string, rememberMe: boolean, captcha?: string) {
-        return instance.post<ResponseType<{userId: number}>>('auth/login', {email, password, rememberMe, captcha})
+    login(loginData: LoginDataType) {
+        return instance.post<ResponseType<{userId: number}>>('auth/login', loginData)
     },
     logOut() {
         return instance.delete<ResponseType>('auth/login')
@@ -129,7 +129,7 @@ export type AuthData = {
     login: string
 }
 
-export type loginData = {
+export type LoginDataType = {
     email: string
     password: string
     rememberMe: boolean

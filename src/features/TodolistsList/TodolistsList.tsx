@@ -5,11 +5,14 @@ import {AppRootStateType} from '../../app/store'
 import {Grid, Paper} from '@material-ui/core'
 import {Todolist} from './Todolist/Todolist'
 import AddItemForm from '../../components/AddItemForm/AddItemForm'
+import {Navigate} from 'react-router-dom'
 
 
 export const TodolistsList: FC = () => {
 
     const dispatch = useDispatch()
+
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
 
     useEffect(() => {
         dispatch(setTodolists())
@@ -20,6 +23,8 @@ export const TodolistsList: FC = () => {
     }, [dispatch])
 
     const todoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
+
+
 
     const todolListComponents = todoLists.map(tl => {
 
@@ -32,6 +37,10 @@ export const TodolistsList: FC = () => {
             </Paper>
         </Grid>
     })
+
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }
 
     return <>
         <Grid container style={{padding: '20px'}}>
