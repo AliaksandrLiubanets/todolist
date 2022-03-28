@@ -3,6 +3,8 @@ import {Dispatch} from 'redux'
 import {SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from '../../app/app-reducer'
 import {handleServerNetworkError} from '../../utils/handle-error-utils'
 import {setTask, SetTasksAT} from './tasks-reducer'
+import {ThunkAction} from 'redux-thunk'
+import {AppRootStateType} from '../../app/store'
 
 
 const initialState: Array<TodolistDomainType> = []
@@ -55,7 +57,7 @@ export const clearStateAC = () => ({type: 'CLEAR-STATE'} as const)
 
 //thunks:
 
-export const setTodolists = () => (dispatch: any) => {
+export const setTodolists = (): ThunkAction<void, AppRootStateType, unknown, ActionsType> => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     todolistAPI.getTodolists()
         .then(resolve => {
@@ -66,7 +68,6 @@ export const setTodolists = () => (dispatch: any) => {
         })
         .then(todolists => {
             todolists.forEach(tl => {
-                debugger
                 dispatch(setTask(tl.id))
             })
         })
