@@ -2,6 +2,7 @@ import {authAPI, AuthData, LoginDataType} from '../../api/todolist-api'
 import {Dispatch} from 'redux'
 import {SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from '../../app/app-reducer'
 import {handleServerAppError, handleServerNetworkError} from '../../utils/handle-error-utils'
+import {clearStateAC, ClearStateAT} from '../TodolistsList/todolist-reducer'
 
 type TaskStateType = {
     userData: AuthData | null
@@ -10,7 +11,7 @@ type TaskStateType = {
 
 const initialState: TaskStateType = {
     userData: null,
-    isAuth: false,
+    isAuth: false
 
 }
 
@@ -28,11 +29,11 @@ export const authReducer = (state: TaskStateType = initialState, action: Actions
 
 //actions:
 
-export const setIsAuthAC = (isAuth: boolean ) =>
+export const setIsAuthAC = (isAuth: boolean) =>
     ({type: 'auth/SET-IS-AUTH', isAuth} as const)
 
 export const setAuthDataAC = (userData: AuthData) =>
-    ({type: 'auth/SET-AUTH-DATA',  userData} as const)
+    ({type: 'auth/SET-AUTH-DATA', userData} as const)
 
 
 //thunks:
@@ -59,6 +60,7 @@ export const logOut = () => (dispatch: Dispatch<ActionsType>) => {
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setIsAuthAC(false))
+                dispatch(clearStateAC())
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
@@ -80,3 +82,4 @@ type ActionsType =
     | SetAuthDataAT
     | SetAppErrorAT
     | SetAppStatusAT
+    | ClearStateAT

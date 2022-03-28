@@ -24,6 +24,9 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
         case 'SET-TODOLIST':
             return [...action.todolists]
 
+        case 'CLEAR-STATE':
+            return []
+
         default:
             return state
     }
@@ -47,7 +50,7 @@ export const changeTodolistTitleAC = (todolistId: string, title: string) =>
 export const changeTodolistFilterAC = (todolistId: string, filter: FilterTaskType) =>
     ({type: 'CHANGE-TODOLIST-FILTER', todolistId, filter} as const)
 
-
+export const clearStateAC = () => ({type: 'CLEAR-STATE'} as const)
 
 
 //thunks:
@@ -123,6 +126,7 @@ export type AddTodolistAT = ReturnType<typeof addTodolistAC>
 export type RemoveTodoListAT = ReturnType<typeof removeTodolistAC>
 export type SetTodolistsAT = ReturnType<typeof setTodolistsAC>
 export type ChangeTodolistFilterAT = ReturnType<typeof changeTodolistFilterAC>
+export type ClearStateAT = ReturnType<typeof clearStateAC>
 
 type ActionsType =
     | RemoveTodoListAT
@@ -133,3 +137,4 @@ type ActionsType =
     | SetAppErrorAT
     | SetAppStatusAT
     | SetTasksAT
+    | ClearStateAT

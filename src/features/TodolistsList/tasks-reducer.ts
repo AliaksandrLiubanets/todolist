@@ -1,4 +1,4 @@
-import {AddTodolistAT, ChangeTodolistFilterAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reducer'
+import {AddTodolistAT, ChangeTodolistFilterAT, ClearStateAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reducer'
 import {TaskStatuses, TaskType, todolistAPI, TodoTaskPriorities, UpdateTaskModelType} from '../../api/todolist-api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
@@ -42,6 +42,8 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
                 ...state, [action.todolistId]: state[action.todolistId]
                     .map(tl => tl.id === action.idTask ? {...tl, ...action.model} : tl)
             }
+        case 'CLEAR-STATE':
+            return {}
 
         default:
             return state
@@ -157,6 +159,7 @@ type ActionsType =
     | SetAppErrorAT
     | SetAppStatusAT
     | ChangeTodolistFilterAT
+    | ClearStateAT
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
