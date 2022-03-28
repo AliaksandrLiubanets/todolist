@@ -2,6 +2,7 @@ import {todolistAPI, TodolistType} from '../../api/todolist-api'
 import {Dispatch} from 'redux'
 import {SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from '../../app/app-reducer'
 import {handleServerNetworkError} from '../../utils/handle-error-utils'
+import {setTask, SetTasksAT} from './tasks-reducer'
 
 
 const initialState: Array<TodolistDomainType> = []
@@ -47,15 +48,24 @@ export const changeTodolistFilterAC = (todolistId: string, filter: FilterTaskTyp
     ({type: 'CHANGE-TODOLIST-FILTER', todolistId, filter} as const)
 
 
+
+
 //thunks:
 
-export const setTodolists = () => (dispatch: Dispatch<ActionsType>) => {
+export const setTodolists = () => (dispatch: any) => {
     dispatch(setAppStatusAC('loading'))
     todolistAPI.getTodolists()
         .then(resolve => {
             const todoData: Array<TodolistDomainType> = resolve.data.map(tl => ({...tl, filter: 'all'}))
             dispatch(setTodolistsAC(todoData))
             dispatch(setAppStatusAC('succeeded'))
+            return resolve.data
+        })
+        .then(todolists => {
+            todolists.forEach(tl => {
+                debugger
+                dispatch(setTask(tl.id))
+            })
         })
         .catch(err => {
             handleServerNetworkError(err, dispatch)
@@ -112,6 +122,7 @@ export type TodolistDomainType = TodolistType & {
 export type AddTodolistAT = ReturnType<typeof addTodolistAC>
 export type RemoveTodoListAT = ReturnType<typeof removeTodolistAC>
 export type SetTodolistsAT = ReturnType<typeof setTodolistsAC>
+export type ChangeTodolistFilterAT = ReturnType<typeof changeTodolistFilterAC>
 
 type ActionsType =
     | RemoveTodoListAT
@@ -121,3 +132,4 @@ type ActionsType =
     | SetTodolistsAT
     | SetAppErrorAT
     | SetAppStatusAT
+    | SetTasksAT

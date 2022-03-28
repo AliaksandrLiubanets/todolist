@@ -1,4 +1,4 @@
-import {AddTodolistAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reducer'
+import {AddTodolistAT, ChangeTodolistFilterAT, RemoveTodoListAT, SetTodolistsAT} from './todolist-reducer'
 import {TaskStatuses, TaskType, todolistAPI, TodoTaskPriorities, UpdateTaskModelType} from '../../api/todolist-api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
@@ -25,6 +25,7 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             return tasksCopy
 
         case 'SET-TODOLIST': {
+            debugger
             const copyState = {...state}
             action.todolists.forEach(tl => {
                 copyState[tl.id] = []
@@ -33,6 +34,7 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
         }
 
         case 'SET-TASKS':
+            debugger
             return {...state, [action.todolistId]: action.tasks}
 
         case 'UPDATE-TASK':
@@ -86,7 +88,7 @@ export const createTask = (todolistId: string, title: string) => (dispatch: Disp
                 dispatch(addTaskAC(task, todolistId))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
-               handleServerAppError(res.data, dispatch)
+                handleServerAppError(res.data, dispatch)
             }
         })
         .catch(err => {
@@ -142,16 +144,19 @@ export const updateTask = (todolistId: string, taskId: string, model: UpdateDoma
 
 //types:
 
+export type SetTasksAT = ReturnType<typeof setTaskAC>
+
 type ActionsType =
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof addTaskAC>
-    | ReturnType<typeof setTaskAC>
+    | SetTasksAT
     | ReturnType<typeof updateTaskAC>
     | AddTodolistAT
     | RemoveTodoListAT
     | SetTodolistsAT
     | SetAppErrorAT
     | SetAppStatusAT
+    | ChangeTodolistFilterAT
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
