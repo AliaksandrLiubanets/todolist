@@ -25,7 +25,6 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             return tasksCopy
 
         case 'SET-TODOLIST': {
-            debugger
             const copyState = {...state}
             action.todolists.forEach(tl => {
                 copyState[tl.id] = []
@@ -34,7 +33,6 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
         }
 
         case 'SET-TASKS':
-            debugger
             return {...state, [action.todolistId]: action.tasks}
 
         case 'UPDATE-TASK':
